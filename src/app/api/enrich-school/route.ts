@@ -135,7 +135,7 @@ Return ONLY valid JSON:
     const dnaMascots = [
       'Chaparrals', 'Mustangs', 'Tigers', 'Eagles', 'Lions', 'Bulldogs', 'Panthers', 'Wildcats', 'Warriors', 'Cougars', 'Knights', 'Vikings', 'Patriots', 'Spartans', 'Hawks', 'Falcons', 'Bears', 'Rangers', 'Raiders', 'Wolves'
     ];
-    const dnaColorPalette = ['#1E3A8A', '#F59E0B', '#F97316', '#111827', '#FFFFFF'];
+    // const dnaColorPalette = ['#1E3A8A', '#F59E0B', '#F97316', '#111827', '#FFFFFF']; // Reserved for future use
 
     // --- STRICT REAL STATS ENFORCEMENT ---
     // If bots did not return real stats, only allow position/role, no stats

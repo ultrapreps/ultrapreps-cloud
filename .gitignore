@@ -45,3 +45,5 @@ next-env.d.ts
 # CRITICAL: NEVER IGNORE THESE ESSENTIAL FILES
 # ai-training/ - ESSENTIAL DOCUMENTATION - NEVER DELETE
 # docs/ - Core project documentation - ALWAYS PRESERVE
+
+.vercel

@@ -35,7 +35,7 @@ export default function HeroCard({
   schoolColors,
   roles,
   hypeScore,
-  overlays,
+  // overlays, // Reserved for future overlay functionality
   avatarMode,
   chainOfCustody
 }: HeroCardProps) {
