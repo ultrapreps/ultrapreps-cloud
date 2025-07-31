@@ -359,6 +359,18 @@ This AI training guide represents the complete evolution of the UltraPreps homep
 3. **Touch Targets**: Increased button and link sizes
 4. **Performance**: Optimized animations for mobile
 5. **Gold Overwhelming**: Reduced opacity and intensity
+6. **⚠️ CRITICAL: Mobile Scrolling**: Viewport width conflicts with background elements can break touch scrolling
+
+### **Mobile Scrolling Critical Warning**:
+```jsx
+// ❌ NEVER USE - Breaks mobile scrolling
+minWidth: '100vw'  // Causes horizontal overflow
+[style*="background-image"] { min-height: 100dvh; } // Too broad
+
+// ✅ SAFE APPROACH - Preserves scrolling
+className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+style={{ backgroundSize: 'cover', backgroundPosition: 'center center' }}
+```
 
 **Version**: 3.0  
 **Last Updated**: January 2025 - Mobile Optimization Complete  
