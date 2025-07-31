@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchAthleteStats } from '../../../bots/CrawlerBot';
+import { CrawlerBot } from '../../../bots/CrawlerBot';
 import { aggregateStats } from '../../../bots/StatsBot';
 import { blendSelfie } from '../../../bots/SelfieEngine';
 
@@ -13,11 +13,29 @@ export async function POST(req: NextRequest) {
   let aggregatedStats = null;
   let blendedSelfieUrl = undefined;
   try {
-    console.log('🤖 Calling bots...');
-    athleteStats = await fetchAthleteStats(athleteName);
+    console.log('🤖 Calling universal bots...');
+    
+    // Research and fetch student profile using universal CrawlerBot
+    const crawlerBot = new CrawlerBot();
+    const baseStats = await crawlerBot.fetchStudentProfile(athleteName);
+    
+    // Convert StudentProfile to legacy AthleteStats format for compatibility
+    const legacyStats = {
+      height: baseStats.stats?.gpa || '',
+      weight: baseStats.stats?.volunteerHours || '',
+      position: baseStats.activities?.[0] || '',
+      stats: baseStats.achievements || [],
+      achievements: baseStats.roles || [],
+      imageUrl: baseStats.imageUrl
+    };
+    
+    athleteStats = legacyStats;
     console.log('✅ CrawlerBot result:', athleteStats);
+    
+    // Aggregate with additional stats
     aggregatedStats = await aggregateStats(athleteName);
     console.log('✅ StatsBot result:', aggregatedStats);
+    
     blendedSelfieUrl = await blendSelfie(selfie, athleteStats?.imageUrl);
     console.log('✅ SelfieEngine result:', blendedSelfieUrl);
   } catch (e) {

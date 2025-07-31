@@ -219,13 +219,13 @@ export default function PersonalStadiumPage() {
                 <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
                   <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
                     <Trophy className="w-5 h-5 text-[#F59E0B]" />
-                    My Sports
+                    My Activities
                   </h3>
                   <div className="space-y-2">
-                    {stadium.sports.map((sport) => (
-                      <div key={sport} className="flex items-center gap-2">
+                    {stadium.sports.map((activity) => (
+                      <div key={activity} className="flex items-center gap-2">
                         <Star className="w-4 h-4 text-[#F59E0B]" />
-                        <span className="text-white/90">{sport}</span>
+                        <span className="text-white/90">{activity}</span>
                       </div>
                     ))}
                   </div>

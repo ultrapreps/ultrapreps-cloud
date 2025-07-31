@@ -12,7 +12,7 @@ interface StadiumData {
     primary: string;
     secondary: string;
   };
-  sports: string[];
+  sports: string[];  // Keep as sports for API compatibility, but represents all activities!
   goals: string[];
   bio: string;
 }
@@ -65,17 +65,54 @@ export default function StadiumCreatePage() {
     if (step > 1) setStep(step - 1);
   };
 
-  const sportsOptions = [
+  const activityOptions = [
+    // ATHLETICS
     'Football', 'Basketball', 'Baseball', 'Soccer', 'Tennis', 'Golf',
     'Swimming', 'Track & Field', 'Wrestling', 'Volleyball', 'Softball',
-    'Cross Country', 'Lacrosse', 'Hockey', 'Gymnastics', 'Cheerleading'
+    'Cross Country', 'Lacrosse', 'Hockey', 'Gymnastics', 'Cheerleading',
+    
+    // PERFORMING ARTS
+    'Theater/Drama', 'Musical Theater', 'Marching Band', 'Concert Band',
+    'Jazz Band', 'Orchestra', 'Choir', 'Show Choir', 'Tech Crew',
+    
+    // ACADEMICS & COMPETITIONS
+    'Math Team', 'Debate Team', 'Academic Decathlon', 'Science Olympiad',
+    'Robotics', 'Chess Club', 'Quiz Bowl', 'Model UN',
+    
+    // VISUAL ARTS & MEDIA
+    'Visual Arts', 'Photography', 'Digital Media', 'Yearbook',
+    'Journalism', 'Creative Writing', 'Film Production',
+    
+    // SPECIAL INTERESTS
+    'Gaming/Esports', 'Pokemon TCG', 'Anime Club', 'Coding Club',
+    'Environmental Club', 'Volunteer Work', 'Student Government',
+    
+    // MILITARY & LEADERSHIP
+    'JROTC/ROTC', 'Student Council', 'National Honor Society',
+    'Key Club', 'Beta Club', 'Peer Mediation'
   ];
 
   const goalOptions = [
-    'Get recruited to college', 'Improve my skills', 'Build my brand',
-    'Connect with coaches', 'Showcase my highlights', 'Track my progress',
-    'Find scholarships', 'Build my network', 'Document my journey',
-    'Increase my visibility', 'Work with AI trainers', 'Join team chats'
+    // UNIVERSAL GOALS
+    'Build my personal brand', 'Showcase my achievements', 'Track my progress',
+    'Find scholarships & opportunities', 'Build my network', 'Document my journey',
+    'Increase my visibility', 'Work with AI mentors', 'Connect with like-minded peers',
+    
+    // ATHLETICS GOALS
+    'Get recruited to college', 'Improve my athletic skills', 'Connect with coaches',
+    'Showcase sports highlights', 'Join team communications',
+    
+    // ARTS & PERFORMANCE GOALS  
+    'Audition for productions', 'Share performance videos', 'Connect with directors',
+    'Build my portfolio', 'Find summer programs', 'Get into art schools',
+    
+    // ACADEMIC & COMPETITION GOALS
+    'Compete in tournaments', 'Join academic teams', 'Find STEM opportunities',
+    'Connect with mentors', 'Prepare for competitions', 'Get into honor societies',
+    
+    // LEADERSHIP & SERVICE GOALS
+    'Run for student government', 'Lead volunteer projects', 'Organize events',
+    'Mentor younger students', 'Build leadership skills', 'Make a difference'
   ];
 
   return (
@@ -215,27 +252,27 @@ export default function StadiumCreatePage() {
               >
                 <div className="text-center mb-6">
                   <Trophy className="w-16 h-16 text-[#F59E0B] mx-auto mb-4" />
-                  <h2 className="text-2xl font-bold text-white mb-2">Your Sports</h2>
-                  <p className="text-white/70">Select all the sports you participate in</p>
+                  <h2 className="text-2xl font-bold text-white mb-2">Your Activities</h2>
+                  <p className="text-white/70">Select all activities you participate in - sports, arts, academics, clubs, everything!</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  {sportsOptions.map((sport) => (
+                <div className="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto">
+                  {activityOptions.map((activity) => (
                     <button
-                      key={sport}
+                      key={activity}
                       onClick={() => {
-                        const newSports = stadiumData.sports.includes(sport)
-                          ? stadiumData.sports.filter(s => s !== sport)
-                          : [...stadiumData.sports, sport];
-                        setStadiumData({...stadiumData, sports: newSports});
+                        const newActivities = stadiumData.sports.includes(activity)
+                          ? stadiumData.sports.filter(s => s !== activity)
+                          : [...stadiumData.sports, activity];
+                        setStadiumData({...stadiumData, sports: newActivities});
                       }}
                       className={`p-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                        stadiumData.sports.includes(sport)
+                        stadiumData.sports.includes(activity)
                           ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white'
                           : 'bg-white/20 text-white/80 hover:bg-white/30'
                       }`}
                     >
-                      {sport}
+                      {activity}
                     </button>
                   ))}
                 </div>
@@ -310,7 +347,7 @@ export default function StadiumCreatePage() {
                   <div className="space-y-2 text-sm">
                     <p className="text-white"><span className="text-[#F59E0B]">Username:</span> {stadiumData.username || 'Your username'}</p>
                     <p className="text-white"><span className="text-[#F59E0B]">School:</span> {stadiumData.schoolName || 'Your school'} {stadiumData.mascot && `(${stadiumData.mascot})`}</p>
-                    <p className="text-white"><span className="text-[#F59E0B]">Sports:</span> {stadiumData.sports.join(', ') || 'None selected'}</p>
+                    <p className="text-white"><span className="text-[#F59E0B]">Activities:</span> {stadiumData.sports.join(', ') || 'None selected'}</p>
                     <p className="text-white"><span className="text-[#F59E0B]">Goals:</span> {stadiumData.goals.length} selected</p>
                   </div>
                 </div>
