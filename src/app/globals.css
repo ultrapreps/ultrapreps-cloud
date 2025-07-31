@@ -1,0 +1,61 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
+@import "tailwindcss";
+
+/* Custom CSS variables for DNA theme */
+:root {
+  --dna-blue: #1E3A8A;
+  --dna-gold: #F59E0B;
+  --dna-orange: #F97316;
+  --dna-black: #111827;
+  --dna-white: #FFFFFF;
+}
+
+/* Ensure body has proper base styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Collegiate Multi-Color Animation - Represents Every School */
+@keyframes collegiateGlow {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) brightness(1.2) contrast(1.3);
+  }
+  25% {
+    background-position: 100% 50%;
+    filter: hue-rotate(90deg) brightness(1.4) contrast(1.5);
+  }
+  50% {
+    background-position: 100% 100%;
+    filter: hue-rotate(180deg) brightness(1.3) contrast(1.4);
+  }
+  75% {
+    background-position: 0% 100%;
+    filter: hue-rotate(270deg) brightness(1.5) contrast(1.3);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(360deg) brightness(1.2) contrast(1.3);
+  }
+}
+
+/* Custom scrollbar for Pep Rally section */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #F59E0B, #F97316);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #F97316, #F59E0B);
+}
