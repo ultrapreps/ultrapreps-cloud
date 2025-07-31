@@ -22,165 +22,9 @@ import { useInView } from "react-intersection-observer";
 
 // import { Progress } from "@radix-ui/react-progress";
 import clsx from "clsx";
+import MegaNavigation from '../components/MegaNavigation';
 
-function Navbar() {
-  const [isHovered, setIsHovered] = useState<string | null>(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Enhanced scroll detection for mobile
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 10;
-      setIsScrolled(scrolled);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <motion.nav 
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.2, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen 
-          ? 'bg-black/98 border-b border-[#F59E0B]/80' 
-          : 'bg-black/95 border-b border-[#F59E0B]/60'
-      }`}
-      style={{
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)'
-      }}
-    >
-      <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-2">
-        {/* Logo */}
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2"
-        >
-          <Crown className="w-6 h-6 sm:w-7 sm:h-7 text-[#F59E0B]" />
-          <span className="text-xl sm:text-2xl font-black uppercase tracking-wide sm:tracking-widest text-white drop-shadow-xl">
-            UltraPreps
-          </span>
-        </motion.div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-4 text-sm xl:text-base font-bold uppercase text-white/90">
-          {[
-            { name: "Features", icon: Sparkles },
-            { name: "Vision", icon: Target },
-            { name: "About", icon: Users }
-          ].map((item, i) => {
-            const IconComponent = item.icon;
-            return (
-              <motion.a 
-                key={item.name}
-                href={`#${item.name.toLowerCase()}`}
-                onMouseEnter={() => setIsHovered(item.name)}
-                onMouseLeave={() => setIsHovered(null)}
-                whileHover={{ scale: 1.08, color: "#F59E0B" }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + i * 0.1 }}
-                className="flex items-center gap-1 hover:text-[#F59E0B] transition-all duration-300 tracking-wide xl:tracking-widest group"
-              >
-                <IconComponent className={clsx(
-                  "w-4 h-4 xl:w-5 xl:h-5 transition-all duration-300",
-                  isHovered === item.name ? "text-[#F59E0B] scale-110" : "text-white/70"
-                )} />
-                {item.name}
-              </motion.a>
-            );
-          })}
-          <motion.a 
-            href="#join"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px #F59E0B" }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, type: "spring" }}
-            className="flex items-center gap-2 bg-gradient-to-r from-[#222] to-[#1E3A8A] text-[#F59E0B] px-4 xl:px-5 py-2 rounded-full font-black border border-[#F59E0B]/60 hover:from-[#F59E0B]/10 hover:to-[#F97316]/10 hover:text-[#F59E0B] shadow transition-all duration-300 tracking-wide xl:tracking-widest text-sm xl:text-base"
-          >
-            <Rocket className="w-4 h-4 xl:w-5 xl:h-5" />
-            <span className="hidden xl:inline">JOIN THE STADIUM</span>
-            <span className="xl:hidden">JOIN</span>
-          </motion.a>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden flex flex-col items-center justify-center w-8 h-8 gap-1"
-        >
-          <motion.div 
-            animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 6 : 0 }}
-            className="w-6 h-0.5 bg-white"
-          />
-          <motion.div 
-            animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
-            className="w-6 h-0.5 bg-white"
-          />
-          <motion.div 
-            animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? -6 : 0 }}
-            className="w-6 h-0.5 bg-white"
-          />
-        </motion.button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-black/98 border-t border-[#F59E0B]/30 overflow-hidden"
-          >
-            <div className="px-4 py-6 space-y-4">
-              {[
-                { name: "Features", icon: Sparkles },
-                { name: "Vision", icon: Target },
-                { name: "About", icon: Users }
-              ].map((item, i) => {
-                const IconComponent = item.icon;
-                return (
-                  <motion.a 
-                    key={item.name}
-                    href={`#${item.name.toLowerCase()}`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-3 text-white/90 hover:text-[#F59E0B] transition-all duration-300 font-bold uppercase tracking-wide py-2"
-                  >
-                    <IconComponent className="w-5 h-5" />
-                    {item.name}
-                  </motion.a>
-                );
-              })}
-              <motion.a 
-                href="#join"
-                onClick={() => setIsMobileMenuOpen(false)}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black px-6 py-3 rounded-full font-black border-2 border-white/20 shadow-lg transition-all duration-300 tracking-wide uppercase mt-4"
-              >
-                <Rocket className="w-5 h-5" />
-                JOIN THE STADIUM
-              </motion.a>
-    </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
-  );
-}
+// OLD NAVBAR REMOVED - Using GlobalNavigation instead
 
 function Footer() {
   return (
@@ -219,10 +63,12 @@ function Footer() {
           className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8"
         >
           {[
-            { name: "Twitter", href: "#" },
-            { name: "Instagram", href: "#" },
-            { name: "Contact", href: "#" },
-            { name: "Privacy", href: "#" }
+            { name: "Dashboard", href: "/dashboard" },
+            { name: "Community", href: "/community" },
+            { name: "Recruiting", href: "/recruiting" },
+            { name: "Feed", href: "/feed" },
+            { name: "Coach Portal", href: "/coach-dashboard" },
+            { name: "Parent Portal", href: "/parent-dashboard" }
           ].map((link) => (
             <motion.a
               key={link.name}
@@ -453,7 +299,7 @@ function HeroSection() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 1.2 }}
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black uppercase tracking-tight leading-none mb-4 sm:mb-6 text-center text-white"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight leading-none mb-4 sm:mb-6 text-center text-white px-4"
           style={{ 
             textShadow: "0 8px 32px rgba(0,0,0,0.9), 0 0 40px rgba(245,158,11,0.3)"
           }}
@@ -464,7 +310,7 @@ function HeroSection() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 1 }}
-          className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold uppercase tracking-wide text-[#F59E0B] drop-shadow-2xl"
+          className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase tracking-wide text-[#F59E0B] drop-shadow-2xl px-4"
         >
           Your Own Stadium — Powered by UltraAI
         </motion.h2>
@@ -587,13 +433,76 @@ function StudentSpotlightGallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const heroCards = [
-    { id: 1, src: "/herocard-1.png" },
-    { id: 2, src: "/herocard-2.png" },
-    { id: 3, src: "/herocard-3.png" },
-    { id: 4, src: "/herocard-4.png" },
-    { id: 5, src: "/herocard-5.png" },
-    { id: 6, src: "/herocard-6.png" },
-    { id: 7, src: "/herocard-7.png" }
+    { 
+      id: 1, 
+      src: "/herocard-1.png",
+      name: "Maria Rodriguez",
+      school: "Austin Hawks",
+      sport: "Soccer • State Champion",
+      year: "Junior",
+      stats: "23 Goals • 15 Assists",
+      quote: "UltraPreps helped me get recruited!"
+    },
+    { 
+      id: 2, 
+      src: "/herocard-2.png",
+      name: "James Thompson",
+      school: "Dallas Eagles",
+      sport: "Basketball • MVP Season",
+      year: "Senior",
+      stats: "18.5 PPG • 7.2 APG",
+      quote: "My highlight reel changed everything!"
+    },
+    { 
+      id: 3, 
+      src: "/herocard-3.png",
+      name: "Sarah Chen",
+      school: "Houston Lions",
+      sport: "Track & Field • Record Holder",
+      year: "Sophomore", 
+      stats: "100m: 11.2s • 200m: 23.8s",
+      quote: "Every achievement preserved forever!"
+    },
+    { 
+      id: 4, 
+      src: "/herocard-4.png",
+      name: "Marcus Williams",
+      school: "San Antonio Bears",
+      sport: "Football • All-District QB",
+      year: "Senior",
+      stats: "3,200 Yards • 32 TDs",
+      quote: "My stadium is where scouts find me!"
+    },
+    { 
+      id: 5, 
+      src: "/herocard-5.png",
+      name: "Emma Johnson",
+      school: "Fort Worth Rams",
+      sport: "Volleyball • Team Captain",
+      year: "Junior",
+      stats: "452 Kills • 89 Blocks",
+      quote: "Leadership tracked, legacy built!"
+    },
+    { 
+      id: 6, 
+      src: "/herocard-6.png",
+      name: "David Lee",
+      school: "El Paso Tigers",
+      sport: "Baseball • League Leader",
+      year: "Senior",
+      stats: ".385 AVG • 42 RBIs",
+      quote: "From Little League to College Dreams!"
+    },
+    { 
+      id: 7, 
+      src: "/herocard-7.png",
+      name: "Ashley Martinez",
+      school: "Plano Panthers",
+      sport: "Tennis • Regional Champion",
+      year: "Freshman",
+      stats: "32-2 Record • #1 Seed",
+      quote: "My journey just started!"
+    }
   ];
 
   const nextSlide = useCallback(() => {
@@ -862,42 +771,42 @@ function StudentSpotlightGallery() {
   );
 }
 
-function FeaturesSection() {
+function UltraAISystemsSection() {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [hoveredFeature, setHoveredFeature] = useState<string | null>(null);
+  const [hoveredSystem, setHoveredSystem] = useState<string | null>(null);
 
-  const features = [
+  const ultraAISystems = [
     {
-      id: "herocards",
-      title: "HEROCARDS",
-      subtitle: "Pro-Grade Digital Identity",
-              description: "Professional student profiles showcasing achievements, talents, and digital legacy",
+      id: "video_engine",
+      title: "VIDEO DOMINATION",
+      subtitle: "AI Auto-Highlight Engine",
+      description: "Weekly ESPN-grade highlight reels automatically generated from your content with AI voiceover, cinematic effects, and professional school branding",
+      icon: Play,
+      color: "from-[#DC2626] to-[#7C2D12]",
+      stats: ["60-90 Second Reels", "Auto-Scripted Voiceover", "Cinematic Effects", "Auto-Distribution"]
+    },
+    {
+      id: "stats_engine",
+      title: "STATS REVOLUTION",
+      subtitle: "Dynamic Stadium Engine",
+      description: "Interactive leaderboards, animated stats, real-time HYPE tracking, and rivalry-enhanced themes that make static stat sites look prehistoric",
       icon: Trophy,
       color: "from-[#1E3A8A] to-[#3B82F6]",
-      stats: ["10M+ Cards Created", "Pro Sports Quality", "AI-Powered Analytics"]
+      stats: ["Live HYPE Tracking", "Rivalry Themes", "Interactive Stats", "Community Submissions"]
     },
     {
-      id: "stadium",
-      title: "STADIUM SPACES",
-      subtitle: "Digital Arenas",
-      description: "Virtual stadiums for schools, events, and community engagement",
-      icon: Building2,
-      color: "from-[#111827] to-[#1E3A8A]",
-      stats: ["500+ Schools", "Live Streaming", "Fan Engagement Hub"]
-    },
-    {
-      id: "hype",
-      title: "HYPE & NIL",
-      subtitle: "Recognition Engine",
-              description: "Live community engagement, achievement recognition, and opportunity discovery",
-      icon: Zap,
-      color: "from-[#1E3A8A] to-[#111827]",
-      stats: ["Real-time HYPE", "NIL Marketplace", "Brand Partnerships"]
+      id: "recruiting_engine",
+      title: "RECRUITING REIMAGINED",
+      subtitle: "Transparent Growth Engine",
+      description: "AI-driven evaluation over time, underdog spotlight algorithm, transparent metrics, and verified college pipelines that destroy traditional recruiting models",
+      icon: Target,
+      color: "from-[#059669] to-[#065F46]",
+      stats: ["Growth Tracking", "Underdog Priority", "Transparent Metrics", "College Connections"]
     }
   ];
 
   return (
-    <section ref={ref} id="features" className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
+    <section ref={ref} id="ultraaisystems" className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -906,23 +815,31 @@ function FeaturesSection() {
         className="text-center mb-12 sm:mb-16 md:mb-20"
       >
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
-          <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
+          <Zap className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl text-center">
-            GAME-CHANGING FEATURES
+            ULTRAAI SYSTEMS
           </h2>
-          <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
+          <Zap className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
         </div>
-        <div className="w-24 sm:w-28 md:w-32 h-1 bg-gradient-to-r from-[#F59E0B]/60 to-[#F97316]/60 mx-auto rounded-full" />
+        <div className="w-24 sm:w-28 md:w-32 h-1 bg-gradient-to-r from-[#F59E0B]/60 to-[#F97316]/60 mx-auto rounded-full mb-8" />
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-lg md:text-xl text-white/80 font-bold uppercase tracking-wider max-w-4xl mx-auto"
+        >
+          Advanced AI systems that revolutionize how students showcase their talents — <span className="text-[#F59E0B]">BEYOND ANYTHING ELSE</span>
+        </motion.p>
       </motion.div>
 
-      {/* Features Grid */}
+      {/* UltraAI Systems Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-        {features.map((feature, index) => {
-          const IconComponent = feature.icon;
+        {ultraAISystems.map((system, index) => {
+          const IconComponent = system.icon;
           return (
             <motion.div
-              key={feature.id}
+              key={system.id}
               initial={{ opacity: 0, y: 100, rotateY: -15 }}
               animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: -15 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -931,29 +848,29 @@ function FeaturesSection() {
                 rotateY: 5,
                 boxShadow: "0 25px 50px rgba(245, 158, 11, 0.2)"
               }}
-              onMouseEnter={() => setHoveredFeature(feature.id)}
-              onMouseLeave={() => setHoveredFeature(null)}
+              onMouseEnter={() => setHoveredSystem(system.id)}
+              onMouseLeave={() => setHoveredSystem(null)}
               className="relative group"
             >
               <div className={clsx(
                 "bg-gradient-to-br from-black/95 to-[#1E3A8A]/30 border-2 rounded-3xl p-4 sm:p-6 md:p-8 text-center h-full backdrop-blur-xl transform-gpu perspective-1000 transition-all duration-500 hover:shadow-2xl",
-                hoveredFeature === feature.id ? "border-[#F59E0B]/80 scale-105" : "border-white/20"
+                hoveredSystem === system.id ? "border-[#F59E0B]/80 scale-105" : "border-white/20"
               )}>
                 {/* Animated background glow */}
                 <AnimatePresence>
-                  {hoveredFeature === feature.id && (
+                  {hoveredSystem === system.id && (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
-                      className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-5 rounded-3xl blur-xl`}
+                      className={`absolute inset-0 bg-gradient-to-r ${system.color} opacity-5 rounded-3xl blur-xl`}
                     />
                   )}
                 </AnimatePresence>
 
                 {/* Icon with enterprise styling */}
                 <motion.div
-                  animate={hoveredFeature === feature.id ? { 
+                  animate={hoveredSystem === system.id ? { 
                     scale: 1.2,
                     rotateY: 10
                   } : { scale: 1, rotateY: 0 }}
@@ -967,34 +884,34 @@ function FeaturesSection() {
 
                 {/* Title with enterprise typography */}
                 <motion.h3
-                  animate={hoveredFeature === feature.id ? { 
+                  animate={hoveredSystem === system.id ? { 
                     scale: 1.05,
                     color: "#F59E0B"
                   } : { scale: 1 }}
                   className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-white mb-2 tracking-wide sm:tracking-wider drop-shadow-xl relative z-10"
                 >
-                  {feature.title}
+                  {system.title}
                 </motion.h3>
 
                 {/* Subtitle with professional styling */}
                 <div className="text-[#F59E0B]/80 font-bold uppercase tracking-wide sm:tracking-widest mb-3 sm:mb-4 text-sm sm:text-base md:text-lg relative z-10">
-                  {feature.subtitle}
+                  {system.subtitle}
                 </div>
 
                 {/* Animated divider */}
                 <motion.div 
-                  animate={hoveredFeature === feature.id ? { width: "100%" } : { width: "50%" }}
+                  animate={hoveredSystem === system.id ? { width: "100%" } : { width: "50%" }}
                   className="h-1 bg-gradient-to-r from-[#F59E0B]/40 to-[#F97316]/40 mx-auto rounded-full mb-6 transition-all duration-300"
                 />
 
                 {/* Description */}
                 <p className="text-white/80 text-lg font-medium leading-relaxed relative z-10 mb-6">
-                  {feature.description}
+                  {system.description}
                 </p>
 
                 {/* Professional stats display */}
                 <div className="space-y-2 relative z-10">
-                  {feature.stats.map((stat, i) => (
+                  {system.stats.map((stat, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
@@ -1009,12 +926,137 @@ function FeaturesSection() {
                 </div>
 
                 {/* Hover effect overlay */}
-                <div className={`absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500 bg-gradient-to-t ${feature.color} opacity-0 group-hover:opacity-3`} />
+                <div className={`absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500 bg-gradient-to-t ${system.color} opacity-0 group-hover:opacity-3`} />
               </div>
             </motion.div>
           );
         })}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function DigitalImmortalitySection() {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  
+  const preservationFeatures = [
+    {
+      title: "VIDEO DOMINATION ENGINE",
+      description: "Every moment becomes ESPN-grade highlights with AI-generated voiceover and cinematic effects",
+      icon: Play,
+      features: ["Auto-Generated Highlights", "AI Voiceover", "Cinematic Effects", "Weekly Reels"]
+    },
+    {
+      title: "IMMORTAL ARCHIVE",
+      description: "Every achievement, article, photo, video, and moment preserved forever with AI curation",
+      icon: Activity,
+      features: ["Complete Preservation", "AI Curation", "Instant Retrieval", "Blockchain Verified"]
+    },
+    {
+      title: "FAMILY LEGACY",
+      description: "Multi-generational connections from grandparents to grandchildren, all linked together",
+      icon: Users,
+      features: ["Family Tree", "Generational Stories", "Shared Achievements", "Legacy Connections"]
+    }
+  ];
+
+  return (
+    <section ref={ref} className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-5">
+        <motion.div
+          animate={{ 
+            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 25% 25%, #F59E0B 2px, transparent 2px), radial-gradient(circle at 75% 75%, #3B82F6 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 1 }}
+          className="text-center mb-20"
+        >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <Sparkles className="w-12 h-12 text-[#F59E0B]" />
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
+              DIGITAL IMMORTALITY
+            </h2>
+            <Sparkles className="w-12 h-12 text-[#F59E0B]" />
+          </div>
+          <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full mb-8" />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-xl md:text-2xl text-white/90 font-bold max-w-5xl mx-auto leading-relaxed"
+          >
+            <span className="text-[#F59E0B]">Every moment is preserved forever.</span> From your first game to your grandchild&apos;s championship, 
+            UltraPreps creates a lifebook that spans generations with AI-powered curation and storytelling.
+          </motion.p>
+        </motion.div>
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {preservationFeatures.map((feature, index) => {
+            const IconComponent = feature.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 100 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className="bg-gradient-to-br from-black/90 to-[#1E3A8A]/30 border border-[#F59E0B]/30 rounded-3xl p-8 backdrop-blur-xl text-center group hover:border-[#F59E0B]/60 transition-all duration-500"
+              >
+                <div className="flex justify-center mb-6">
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 border border-[#F59E0B]/40">
+                    <IconComponent className="w-12 h-12 text-[#F59E0B]" />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-black uppercase text-white mb-4 tracking-wider">
+                  {feature.title}
+                </h3>
+                <p className="text-white/80 text-lg leading-relaxed mb-6">
+                  {feature.description}
+                </p>
+                <div className="space-y-2">
+                  {feature.features.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 text-white/70">
+                      <Star className="w-4 h-4 text-[#F59E0B]" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Central Message */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="text-center bg-gradient-to-r from-black/80 to-[#1E3A8A]/40 border-2 border-[#F59E0B]/40 rounded-3xl p-12 backdrop-blur-xl"
+        >
+          <h3 className="text-3xl md:text-4xl font-black uppercase text-white mb-6 tracking-wider">
+            <span className="text-[#F59E0B]">YOUR LEGACY</span> LIVES FOREVER
+          </h3>
+          <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+            From a 6-year-old&apos;s first soccer game to an 80-year-old grandparent cheering from the stands, 
+            every achievement, every moment, every connection is preserved forever in an AI-curated digital legacy 
+            that grows richer with each generation.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
@@ -1026,25 +1068,58 @@ function DemoSection() {
 
   const demos = [
     {
-      title: "HeroCard Generator",
-      description: "Watch your profile transform into a cinematic HeroCard",
-      preview: "/gage-coleman-herocard.png",
-      action: "Try Demo",
-      color: "from-[#F59E0B] to-[#F97316]"
+      title: "Student Universe",
+      description: "Experience a student's complete digital stadium with AI tutoring, HYPE economy, content creation, and college prep tools",
+      preview: "/herocard-1.png",
+      action: "Explore Student Dashboard",
+      href: "/dashboard",
+      color: "from-[#F59E0B] to-[#F97316]",
+      features: ["AI Tutoring", "HYPE Economy", "College Prep", "Social Features"]
     },
     {
-      title: "Stadium Builder", 
-      description: "Create your school's digital arena in seconds",
-      preview: "/visual-dna/sample.png",
-      action: "Build Stadium",
-      color: "from-[#3B82F6] to-[#1E3A8A]"
+      title: "Teacher Command Center",
+      description: "Comprehensive classroom management with AI-powered lesson plans, student analytics, and automated grading systems",
+      preview: "/herocard-2.png",
+      action: "See Teacher Dashboard",
+      href: "/teacher-dashboard",
+      color: "from-[#3B82F6] to-[#1E3A8A]",
+      features: ["Lesson Planning", "Student Analytics", "Grade Management", "AI Resources"]
     },
     {
-      title: "Live HYPE Stream",
-      description: "Experience real-time fan engagement",
-      preview: "/gage-coleman-herocard.png", 
-      action: "Join Stream",
-      color: "from-[#F97316] to-[#F59E0B]"
+      title: "Coach Championship Suite",
+      description: "Team management, player development tracking, performance analytics, and recruitment tools for winning programs",
+      preview: "/herocard-3.png",
+      action: "View Coach Dashboard",
+      href: "/coach-dashboard",
+      color: "from-[#059669] to-[#10B981]",
+      features: ["Team Management", "Performance Tracking", "Recruitment", "Analytics"]
+    },
+    {
+      title: "Parent Partnership Portal",
+      description: "Complete oversight of your child's academic and athletic progress with real-time updates and communication tools",
+      preview: "/herocard-4.png",
+      action: "Experience Parent Dashboard",
+      href: "/parent-dashboard",
+      color: "from-[#DC2626] to-[#EF4444]",
+      features: ["Progress Monitoring", "Communication", "Academic Support", "Schedule Management"]
+    },
+    {
+      title: "Recruiting Intelligence Hub",
+      description: "Advanced talent discovery platform with AI-powered scouting, comprehensive player analytics, and recruitment pipelines",
+      preview: "/herocard-5.png",
+      action: "Explore Recruiting Dashboard",
+      href: "/recruiting",
+      color: "from-[#7C3AED] to-[#5B21B6]",
+      features: ["Talent Discovery", "AI Scouting", "Analytics", "Pipeline Management"]
+    },
+    {
+      title: "Community & Social Feed",
+      description: "Dynamic social ecosystem with real-time activity feeds, community events, school rivalries, and viral content creation",
+      preview: "/herocard-6.png",
+      action: "Join Community Feed",
+      href: "/feed",
+      color: "from-[#EC4899] to-[#BE185D]",
+      features: ["Activity Feed", "Community Events", "School Rivalries", "Content Sharing"]
     }
   ];
 
@@ -1059,7 +1134,7 @@ function DemoSection() {
       >
         <div className="flex items-center justify-center gap-4 mb-6">
           <Play className="w-12 h-12 text-[#F59E0B]" />
-          <h2 className="text-5xl md:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
             EXPERIENCE THE PLATFORM
           </h2>
           <Play className="w-12 h-12 text-[#F59E0B]" />
@@ -1068,24 +1143,24 @@ function DemoSection() {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-0">
-        {/* Demo Navigation */}
+        {/* Demo Navigation Grid */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="flex flex-wrap justify-center gap-4 mb-16"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-16"
         >
           {demos.map((demo, index) => (
             <motion.button
               key={index}
               onClick={() => setActiveDemo(index)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               className={clsx(
-                "px-8 py-4 rounded-full font-bold uppercase tracking-widest transition-all duration-300 border-2",
+                "px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 border-2",
                 activeDemo === index 
-                  ? "bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black border-[#F59E0B]" 
-                  : "bg-transparent text-white border-white/30 hover:border-[#F59E0B] hover:text-[#F59E0B]"
+                  ? "bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black border-[#F59E0B] shadow-lg" 
+                  : "bg-black/40 backdrop-blur-sm text-white border-white/20 hover:border-[#F59E0B] hover:text-[#F59E0B]"
               )}
             >
               {demo.title}
@@ -1099,22 +1174,22 @@ function DemoSection() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-black/90 to-[#1E3A8A]/30 border-2 border-[#F59E0B]/30 rounded-3xl p-8 backdrop-blur-xl shadow-2xl"
+          className="bg-gradient-to-br from-black/90 to-[#1E3A8A]/30 border-2 border-[#F59E0B]/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 backdrop-blur-xl shadow-2xl"
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             {/* Demo Content */}
             <div className="text-center lg:text-left">
-              <h3 className="text-4xl md:text-5xl font-black uppercase text-white mb-6 tracking-wider">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase text-white mb-4 sm:mb-6 tracking-wider">
                 {demos[activeDemo].title}
               </h3>
-              <p className="text-xl text-white/80 mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-white/80 mb-6 sm:mb-8 leading-relaxed">
                 {demos[activeDemo].description}
               </p>
               <motion.a
-                href="#demo"
+                href={demos[activeDemo].href}
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(245, 158, 11, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
-                className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${demos[activeDemo].color} text-black font-black rounded-full text-lg uppercase shadow-xl transition-all duration-300 border-2 border-[#F59E0B]`}
+                className={`inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-gradient-to-r ${demos[activeDemo].color} text-black font-black rounded-full text-sm sm:text-base lg:text-lg uppercase shadow-xl transition-all duration-300 border-2 border-[#F59E0B]`}
               >
                 <Rocket className="w-5 h-5" />
                 {demos[activeDemo].action}
@@ -1129,9 +1204,9 @@ function DemoSection() {
               >
                 <div className="aspect-video bg-gradient-to-br from-[#1E3A8A] to-black flex items-center justify-center">
                   <div className="text-center">
-                    <Play className="w-20 h-20 text-[#F59E0B] mx-auto mb-4" />
-                    <div className="text-white font-bold text-xl">Interactive Demo</div>
-                    <div className="text-white/60">Click to Experience</div>
+                    <Play className="w-12 sm:w-16 lg:w-20 h-12 sm:h-16 lg:h-20 text-[#F59E0B] mx-auto mb-2 sm:mb-4" />
+                    <div className="text-white font-bold text-base sm:text-lg lg:text-xl">Interactive Demo</div>
+                    <div className="text-white/60 text-sm sm:text-base">Click to Experience</div>
                   </div>
             </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-[#F59E0B]/10" />
@@ -1283,7 +1358,7 @@ function CallToAction() {
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white mb-6 tracking-tight drop-shadow-2xl">
             <span className="block text-[#F59E0B]">READY TO</span>
-            <span className="block">JOIN THE STADIUM?</span>
+            <span className="block">BUILD YOUR LEGACY?</span>
           </h2>
           <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full mb-6" />
         </motion.div>
@@ -1296,8 +1371,8 @@ function CallToAction() {
           transition={{ duration: 1, delay: 0.3 }}
           className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
         >
-          Be the first to experience the future of high school sports. 
-          <span className="text-[#F59E0B] font-bold"> Join thousands of students, educators, and families</span> who are already building their digital legacy.
+          Experience the future of student achievement showcase. 
+          <span className="text-[#F59E0B] font-bold"> Join thousands of students, educators, and families</span> who are building their digital legacy right now.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -1308,15 +1383,15 @@ function CallToAction() {
           transition={{ duration: 1, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-6 justify-center items-center"
         >
-          {/* Primary CTA */}
+          {/* Primary CTA - Create Stadium */}
           <motion.a
-            href="#join"
+            href="/stadium/create"
             whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(245, 158, 11, 0.5)" }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-full text-xl uppercase shadow-2xl hover:from-[#F97316] hover:to-[#F59E0B] transition-all duration-300 border-2 border-[#F59E0B] group"
           >
             <Rocket className="w-6 h-6 group-hover:animate-pulse" />
-            Get Early Access
+            Create Your Stadium
             <motion.div
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -1326,15 +1401,15 @@ function CallToAction() {
             </motion.div>
           </motion.a>
 
-          {/* Secondary CTA */}
+          {/* Secondary CTA - Explore Platform */}
           <motion.a
-            href="#features"
+            href="/dashboard"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white font-bold rounded-full text-lg uppercase border-2 border-white/30 hover:border-[#F59E0B] hover:text-[#F59E0B] transition-all duration-300 backdrop-blur-sm"
           >
-            <Play className="w-5 h-5" />
-            Watch Demo
+            <Building2 className="w-5 h-5" />
+            Explore Platform
           </motion.a>
         </motion.div>
 
@@ -1351,7 +1426,7 @@ function CallToAction() {
             <span>Trusted by 500+ Schools</span>
             <Star className="w-4 h-4 text-[#F59E0B]" />
           </div>
-          <div>No Credit Card Required • Free Early Access</div>
+          <div>Free to Start • Create Your Stadium in Minutes</div>
         </motion.div>
       </div>
     </section>
@@ -1416,11 +1491,12 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      <Navbar />
+      <MegaNavigation currentPage="home" userRole="guest" userName="Guest User" />
       <div className="pt-16 sm:pt-18 md:pt-20">
         <HeroSection />
         <StudentSpotlightGallery />
-        <FeaturesSection />
+        <UltraAISystemsSection />
+        <DigitalImmortalitySection />
         <DemoSection />
         <PepRallySection />
         <VisionSection />

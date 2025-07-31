@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useParams } from 'next/navigation';
 import { Zap, Users, Trophy, Star, ArrowRight, Heart, MessageCircle, Share2, Crown, Target, Calendar } from 'lucide-react';
 import Link from 'next/link';
+import GageAIChat from '../../../components/GageAIChat';
 
 interface StadiumData {
   username: string;
@@ -22,12 +23,13 @@ interface StadiumData {
   aiTrainerAssigned: boolean;
 }
 
-export default function PersonalStadiumPage() {
+export default function CinematicStadiumPage() {
   const params = useParams();
   const username = params.username as string;
   const [stadium, setStadium] = useState<StadiumData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const fetchStadium = async () => {
@@ -53,52 +55,75 @@ export default function PersonalStadiumPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen relative overflow-hidden bg-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[#F59E0B] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white text-xl">Loading your stadium...</p>
-        </div>
+      <div className="min-h-screen relative overflow-hidden bg-[#111827] flex items-center justify-center">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="w-20 h-20 border-4 border-[#F59E0B] border-t-transparent rounded-full mx-auto mb-6"
+          />
+          <h2 className="text-2xl font-black text-white mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
+            LOADING YOUR STADIUM
+          </h2>
+          <p className="text-white/60">Preparing your digital arena...</p>
+        </motion.div>
       </div>
     );
   }
 
   if (error || !stadium) {
     return (
-      <div className="min-h-screen relative overflow-hidden bg-black flex items-center justify-center">
-        <div className="text-center">
-          <Trophy className="w-24 h-24 text-white/50 mx-auto mb-6" />
-          <h1 className="text-3xl font-bold text-white mb-4">Stadium Not Found</h1>
-          <p className="text-white/70 mb-8">This stadium doesn&apos;t exist or hasn&apos;t been created yet.</p>
+      <div className="min-h-screen relative overflow-hidden bg-[#111827] flex items-center justify-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center max-w-md"
+        >
+          <Trophy className="w-32 h-32 text-[#F59E0B]/50 mx-auto mb-8" />
+          <h1 className="text-4xl font-black text-white mb-4" style={{ fontFamily: 'Oswald, sans-serif' }}>
+            STADIUM NOT FOUND
+          </h1>
+          <p className="text-white/70 mb-8 text-lg">This stadium hasn&apos;t been built yet. Ready to create something legendary?</p>
           <Link 
             href="/stadium/create"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white font-bold rounded-xl hover:scale-105 transition-transform duration-200"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-200"
+            style={{ boxShadow: '0px 8px 32px rgba(245, 158, 11, 0.35)' }}
           >
-            Create Your Stadium
+            <Crown className="w-6 h-6" />
+            Build Your Stadium
             <ArrowRight className="w-5 h-5" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black">
-      {/* Stadium Background */}
+    <div className="min-h-screen relative overflow-hidden bg-[#111827]">
+      {/* Cinematic Stadium Background */}
       <div
         className="absolute inset-0 bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('/stadium-crowd-energy.jpg')`,
-          backgroundAttachment: 'scroll',
-          backgroundPosition: 'center top',
-          backgroundSize: '120% auto',
-          filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
-          WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
+          backgroundAttachment: 'fixed',
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover',
+          filter: 'grayscale(20%) contrast(1.3) brightness(0.4) saturate(1.2)',
+          WebkitFilter: 'grayscale(20%) contrast(1.3) brightness(0.4) saturate(1.2)'
         }}
       />
       
-      {/* Enhanced dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Professional Cinematic Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/90 via-[#111827]/85 to-black/95" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-[#1E3A8A]/30" />
+      
+      {/* Dynamic Light Effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F59E0B]/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#F97316]/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
       {/* Content */}
       <div className="relative z-10 min-h-screen px-4 py-12">
@@ -258,19 +283,31 @@ export default function PersonalStadiumPage() {
                   Quick Actions
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <button className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors">
+                  <Link
+                    href="/poster/create"
+                    className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors block"
+                  >
                     <Trophy className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
                     <p className="text-white text-sm font-medium">Create Poster</p>
-                  </button>
-                  <button className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors">
+                  </Link>
+                  <Link
+                    href="/community"
+                    className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors block"
+                  >
                     <Users className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
                     <p className="text-white text-sm font-medium">Join Team Chat</p>
-                  </button>
-                  <button className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors">
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors block"
+                  >
                     <Star className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
                     <p className="text-white text-sm font-medium">Earn HYPE</p>
-                  </button>
-                  <button className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors">
+                  </Link>
+                  <button 
+                    onClick={() => setIsChatOpen(true)}
+                    className="p-4 bg-white/10 rounded-xl text-center hover:bg-white/20 transition-colors"
+                  >
                     <Zap className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
                     <p className="text-white text-sm font-medium">AI Chat</p>
                   </button>
@@ -305,6 +342,13 @@ export default function PersonalStadiumPage() {
           </div>
         </div>
       </div>
+
+      {/* Gage AI Chat */}
+      <GageAIChat
+        userId={stadium?.username || 'guest'}
+        isOpen={isChatOpen}
+        onToggle={() => setIsChatOpen(!isChatOpen)}
+      />
     </div>
   );
 }
