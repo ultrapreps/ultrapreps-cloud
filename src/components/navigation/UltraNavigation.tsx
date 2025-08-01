@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import {
   Home, Search, Trophy, Users, User, Bell, Menu, X, Plus,
   Zap, Crown, Settings, LogOut,
@@ -11,6 +12,7 @@ import {
   Grid3X3, Compass, Camera
 } from 'lucide-react';
 import HypeWidget from '../HypeWidget';
+import { useAuth } from '@/lib/hooks/useAuth';
 
 interface NotificationItem {
   id: string;
@@ -22,19 +24,11 @@ interface NotificationItem {
   icon?: React.ReactNode;
 }
 
-interface UserProfile {
-  id: string;
-  name: string;
-  username: string;
-  avatar?: string;
-  hypeScore: number;
-  school: string;
-  sport: string;
-  role: 'student' | 'parent' | 'coach' | 'admin' | 'scout';
-}
+
 
 export default function UltraNavigation() {
   const pathname = usePathname();
+  const { user, isAuthenticated } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -61,15 +55,23 @@ export default function UltraNavigation() {
     }
   ]);
 
-  // Mock user data - in production, this would come from auth context
-  const currentUser: UserProfile = {
-    id: '1',
-    name: 'Caleb Coleman',
-    username: 'caleb_coleman',
-    hypeScore: 91,
-    school: 'Westbrook High',
-    sport: 'Chess',
-    role: 'student'
+  // Use actual user data from session, with fallback
+  const currentUser = user ? {
+    id: user.id,
+    name: user.name || 'User',
+    username: user.username,
+    hypeScore: 1250, // TODO: Fetch from database
+    school: user.schoolId || 'UltraPreps',
+    sport: 'Athlete',
+    role: user.role as 'student' | 'parent' | 'coach' | 'admin' | 'scout'
+  } : {
+    id: 'guest',
+    name: 'Guest User',
+    username: 'guest',
+    hypeScore: 0,
+    school: 'UltraPreps',
+    sport: 'Athlete',
+    role: 'student' as const
   };
 
   // Keyboard shortcuts
@@ -445,13 +447,26 @@ export default function UltraNavigation() {
                 <Settings className="w-5 h-5" />
                 <span>Settings</span>
               </Link>
-              <button
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 
-                  transition-colors w-full text-left text-red-400"
-              >
-                <LogOut className="w-5 h-5" />
-                <span>Sign Out</span>
-              </button>
+              {isAuthenticated ? (
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 
+                    transition-colors w-full text-left text-red-400"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Sign Out</span>
+                </button>
+              ) : (
+                <Link
+                  href="/auth/signin"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 
+                    transition-colors w-full text-left text-[#F59E0B]"
+                  onClick={() => setIsProfileOpen(false)}
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Sign In</span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

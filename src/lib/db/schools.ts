@@ -102,10 +102,10 @@ export async function updateSchoolAIData(
   id: string,
   aiData: {
     nickname?: string;
-    traditions?: any;
+    traditions?: object;
     rivals?: string[];
-    famousAlumni?: any;
-    campusLayout?: any;
+    famousAlumni?: Array<{ name: string; year: string; achievement: string }>;
+    campusLayout?: object;
   }
 ) {
   return prisma.school.update({

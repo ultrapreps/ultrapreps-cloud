@@ -5,6 +5,7 @@ import React from 'react';
 import { ThemeProvider } from '../components/ThemeProvider';
 import UltraLayout from '../components/layout/UltraLayout';
 import MobileOptimizations from '../components/MobileOptimizations';
+import SessionProvider from '../components/providers/SessionProvider';
 
 export default function RootLayout({
   children,
@@ -44,12 +45,14 @@ export default function RootLayout({
         <title>UltraPreps - Every Student Deserves a Stage</title>
       </head>
       <body style={{ margin: 0, padding: 0, backgroundColor: '#000000' }}>
-        <ThemeProvider>
-          <UltraLayout>
-            {children}
-          </UltraLayout>
-          <MobileOptimizations />
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider>
+            <UltraLayout>
+              {children}
+            </UltraLayout>
+            <MobileOptimizations />
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -107,10 +107,11 @@ export async function POST(request: NextRequest) {
       message: `Successfully ${action}ed HYPE`,
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('HYPE system error:', error);
+    const err = error as Error;
     return NextResponse.json(
-      { error: error.message || 'Failed to process HYPE transaction' },
+      { error: err.message || 'Failed to process HYPE transaction' },
       { status: 500 }
     );
   }

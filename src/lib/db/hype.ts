@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma';
-import { HypeEventType } from '@prisma/client';
 
 // HYPE earning rules
 export const HYPE_RULES = {
@@ -56,7 +55,7 @@ export async function earnHype(
   amount: number,
   category: string,
   description: string,
-  metadata?: any
+  metadata?: Record<string, unknown>
 ) {
   // Get current balance and streak
   const balance = await prisma.hypeBalance.findUnique({
@@ -97,7 +96,7 @@ export async function earnHype(
       amount: finalAmount,
       category,
       description,
-      metadata: metadata || { multiplier },
+      metadata: (metadata || { multiplier }) as any,
     }
   });
 
@@ -125,7 +124,7 @@ export async function spendHype(
   amount: number,
   category: string,
   description: string,
-  metadata?: any
+  metadata?: Record<string, unknown>
 ) {
   const balance = await prisma.hypeBalance.findUnique({
     where: { userId },
@@ -141,8 +140,8 @@ export async function spendHype(
   }
 
   // Deduct from free HYPE first, then paid
-  let freeDeduction = Math.min(amount, balance.freeHype);
-  let paidDeduction = amount - freeDeduction;
+  const freeDeduction = Math.min(amount, balance.freeHype);
+  const paidDeduction = amount - freeDeduction;
 
   const updatedBalance = await prisma.hypeBalance.update({
     where: { userId },
@@ -161,7 +160,7 @@ export async function spendHype(
       amount,
       category,
       description,
-      metadata,
+      metadata: metadata as any,
     }
   });
 
