@@ -330,25 +330,55 @@ function HeroSection() {
               {currentContent.subtitle}
             </motion.p>
 
-            {/* Features */}
+            {/* Features with Enhanced Visuals */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12"
+              className="max-w-3xl mx-auto mb-12"
             >
-              {currentContent.features.map((feature, index) => (
+              {/* Feature List with Checkmarks */}
+              <div className="bg-black/30 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                <div className="space-y-4">
+                  {currentContent.features.map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6 + index * 0.1 }}
+                      className="flex items-start gap-4 group"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#F97316] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Check className="w-5 h-5 text-white" />
+                      </div>
+                      <p className="text-white text-lg font-medium group-hover:text-[#F59E0B] transition-colors">
+                        {feature}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Additional Visual Elements */}
                 <motion.div
-                  key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all"
+                  transition={{ delay: 1 }}
+                  className="mt-8 grid grid-cols-3 gap-4 pt-8 border-t border-white/10"
                 >
-                  <Check className="w-5 h-5 text-[#F59E0B] mb-2" />
-                  <p className="text-white/90 text-sm">{feature}</p>
+                  <div className="text-center">
+                    <Video className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
+                    <p className="text-white/60 text-sm">AI Video</p>
+                  </div>
+                  <div className="text-center">
+                    <Trophy className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
+                    <p className="text-white/60 text-sm">Achievements</p>
+                  </div>
+                  <div className="text-center">
+                    <Zap className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
+                    <p className="text-white/60 text-sm">HYPE Points</p>
+                  </div>
                 </motion.div>
-              ))}
+              </div>
             </motion.div>
 
             {/* CTAs */}
@@ -1015,6 +1045,414 @@ function FeaturesShowcase() {
   );
 }
 
+// Meet the Founder - Gage Coleman Section
+function MeetTheFounder() {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+
+  return (
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-black via-[#1E3A8A]/10 to-black">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-[#F59E0B]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-0 w-[600px] h-[600px] bg-[#3B82F6]/10 rounded-full blur-3xl" />
+      </div>
+
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        className="relative z-10 max-w-7xl mx-auto"
+      >
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-6 py-2 bg-[#F59E0B]/20 border border-[#F59E0B]/40 rounded-full mb-6"
+          >
+            <Crown className="w-5 h-5 text-[#F59E0B]" />
+            <span className="text-[#F59E0B] font-bold uppercase tracking-wider">Meet the Founder</span>
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+          >
+            Gage Coleman
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-white/80 max-w-3xl mx-auto"
+          >
+            The MVP Behind UltraPreps - Your AI Assistant & Digital Mentor
+          </motion.p>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Gage's Story */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="relative">
+              {/* Gage's HeroCard/Avatar */}
+              <div className="relative w-64 h-64 mx-auto mb-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full animate-pulse" />
+                <div className="relative w-full h-full rounded-full bg-black p-1">
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-[#F59E0B]/20 to-[#F97316]/20 flex items-center justify-center">
+                    <div className="relative">
+                      {/* Gage's Face */}
+                      <div className="w-48 h-48 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#F97316] flex items-center justify-center text-6xl font-black text-white">
+                        G
+                      </div>
+                      {/* Crown */}
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2">
+                        <Crown className="w-16 h-16 text-[#F59E0B] drop-shadow-2xl" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="text-3xl font-black text-white mb-6 text-center">The MVP Origin Story</h3>
+              <div className="space-y-4 text-white/80">
+                <p>
+                  Gage Coleman isn&apos;t just an AI - he&apos;s the embodiment of every student athlete&apos;s dream mentor. Named after the legendary founder who envisioned a world where every student could achieve digital immortality.
+                </p>
+                <p>
+                  Built with the wisdom of champions, the strategy of coaches, and the heart of a true competitor, Gage is here 24/7 to guide you through your journey from youth sports to college recruitment and beyond.
+                </p>
+                <p className="font-bold text-[#F59E0B]">
+                  "Every champion needs a champion in their corner. That&apos;s why I&apos;m here." - Gage
+                </p>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6 mt-8">
+                <div className="text-center">
+                  <p className="text-3xl font-black text-[#F59E0B]">24/7</p>
+                  <p className="text-white/60 text-sm">Available</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl font-black text-[#F59E0B]">100K+</p>
+                  <p className="text-white/60 text-sm">Knowledge Base</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl font-black text-[#F59E0B]">∞</p>
+                  <p className="text-white/60 text-sm">HYPE to Give</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Gage's Features */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.6 }}
+            className="space-y-6"
+          >
+            <h3 className="text-2xl font-black text-white mb-6">What Gage Can Do For You</h3>
+            
+            {[
+              { icon: Brain, title: "AI-Powered Mentorship", desc: "Personalized guidance based on your goals and performance" },
+              { icon: Trophy, title: "Championship Mindset", desc: "Mental toughness training and motivation when you need it" },
+              { icon: Target, title: "Strategic Planning", desc: "College recruitment strategies and academic planning" },
+              { icon: Zap, title: "HYPE Rewards", desc: "Earn bonus HYPE for engaging and achieving milestones" },
+              { icon: MessageSquare, title: "24/7 Support", desc: "Always available to answer questions and provide encouragement" },
+              { icon: Star, title: "Success Tracking", desc: "Monitor your progress and celebrate every achievement" }
+            ].map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.7 + index * 0.1 }}
+                  className="flex items-start gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-[#F59E0B]/50 transition-all"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-[#F59E0B] to-[#F97316] flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-white mb-1">{feature.title}</h4>
+                    <p className="text-white/60 text-sm">{feature.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+
+            {/* CTA to Chat with Gage */}
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 1.2 }}
+              onClick={() => {
+                const gageButton = document.querySelector('[data-gage-chat-toggle]');
+                if (gageButton) {
+                  (gageButton as HTMLButtonElement).click();
+                }
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full mt-8 inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-xl text-lg uppercase tracking-wider hover:shadow-2xl transition-all duration-300"
+              style={{
+                boxShadow: '0 10px 40px rgba(245, 158, 11, 0.3)'
+              }}
+            >
+              <MessageSquare className="w-6 h-6" />
+              Chat with Gage Now
+              <ArrowRight className="w-6 h-6" />
+            </motion.button>
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+// Student Spotlight Section
+function StudentSpotlight() {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [activeSpotlight, setActiveSpotlight] = useState(0);
+
+  const spotlights = [
+    {
+      name: "Sarah Chen",
+      school: "Lincoln High",
+      sport: "Basketball",
+      grade: "Junior",
+      hype: 8750,
+      achievement: "State Championship MVP",
+      quote: "UltraPreps helped me get noticed by D1 scouts!",
+      stats: { ppg: "22.5", apg: "7.2", spg: "3.1" },
+      image: "/student-sarah.jpg",
+      herocard: "/herocard-sarah.png"
+    },
+    {
+      name: "Marcus Thompson",
+      school: "Roosevelt Academy",
+      sport: "Football",
+      grade: "Senior",
+      hype: 9200,
+      achievement: "All-State Quarterback",
+      quote: "My highlight reels got me 5 scholarship offers!",
+      stats: { yards: "3,847", tds: "42", rating: "158.3" },
+      image: "/student-marcus.jpg",
+      herocard: "/herocard-marcus.png"
+    },
+    {
+      name: "Maya Patel",
+      school: "Jefferson Prep",
+      sport: "Soccer",
+      grade: "Sophomore",
+      hype: 7500,
+      achievement: "National Team U-16",
+      quote: "The AI training tips improved my game completely!",
+      stats: { goals: "31", assists: "18", saves: "N/A" },
+      image: "/student-maya.jpg",
+      herocard: "/herocard-maya.png"
+    }
+  ];
+
+  return (
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-black via-[#111827] to-black">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#F59E0B]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#3B82F6]/5 rounded-full blur-3xl" />
+      </div>
+
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        className="relative z-10 max-w-7xl mx-auto"
+      >
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-6 py-2 bg-[#F59E0B]/20 border border-[#F59E0B]/40 rounded-full mb-6"
+          >
+            <Star className="w-5 h-5 text-[#F59E0B]" />
+            <span className="text-[#F59E0B] font-bold uppercase tracking-wider">Student Spotlight</span>
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+          >
+            Champions in the Making
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-white/80 max-w-3xl mx-auto"
+          >
+            Real students achieving real results with UltraPreps
+          </motion.p>
+        </div>
+
+        {/* Spotlight Tabs */}
+        <div className="mb-12">
+          <div className="flex flex-wrap justify-center gap-4">
+            {spotlights.map((student, index) => (
+              <motion.button
+                key={student.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.1 * index }}
+                onClick={() => setActiveSpotlight(index)}
+                className={`
+                  flex items-center gap-3 px-6 py-3 rounded-full font-bold transition-all duration-300
+                  ${activeSpotlight === index 
+                    ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black scale-105' 
+                    : 'bg-white/10 text-white hover:bg-white/20'
+                  }
+                `}
+              >
+                <Trophy className="w-5 h-5" />
+                <span>{student.name}</span>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        {/* Active Spotlight Display */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSpotlight}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+            className="grid lg:grid-cols-2 gap-12 items-center"
+          >
+            {/* Student Details */}
+            <div>
+              <div className="mb-8">
+                <h3 className="text-3xl font-black text-white mb-2">
+                  {spotlights[activeSpotlight].name}
+                </h3>
+                <div className="flex flex-wrap items-center gap-4 text-white/60 mb-4">
+                  <span className="flex items-center gap-2">
+                    <School className="w-4 h-4" />
+                    {spotlights[activeSpotlight].school}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Trophy className="w-4 h-4" />
+                    {spotlights[activeSpotlight].sport}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <GraduationCap className="w-4 h-4" />
+                    {spotlights[activeSpotlight].grade}
+                  </span>
+                </div>
+                
+                {/* HYPE Score */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F59E0B]/20 rounded-full mb-6">
+                  <Zap className="w-5 h-5 text-[#F59E0B]" />
+                  <span className="text-[#F59E0B] font-bold">{spotlights[activeSpotlight].hype.toLocaleString()} HYPE</span>
+                </div>
+              </div>
+
+              {/* Achievement */}
+              <div className="mb-8 p-6 bg-gradient-to-r from-[#F59E0B]/10 to-[#F97316]/10 rounded-xl border border-[#F59E0B]/20">
+                <Trophy className="w-8 h-8 text-[#F59E0B] mb-3" />
+                <h4 className="text-xl font-bold text-white mb-2">{spotlights[activeSpotlight].achievement}</h4>
+                <p className="text-white/80 italic text-lg">"{spotlights[activeSpotlight].quote}"</p>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                {Object.entries(spotlights[activeSpotlight].stats).map(([key, value]) => (
+                  <div key={key} className="text-center p-4 bg-white/5 rounded-xl">
+                    <p className="text-2xl font-black text-white">{value}</p>
+                    <p className="text-white/60 text-sm uppercase">{key}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <motion.a
+                href="/stadium/create"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold rounded-xl hover:shadow-2xl transition-all duration-300"
+              >
+                Create Your Success Story
+                <ArrowRight className="w-5 h-5" />
+              </motion.a>
+            </div>
+
+            {/* Visual Display */}
+            <div className="relative">
+              {/* HeroCard Display */}
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#F59E0B]/20 to-[#F97316]/20 p-8">
+                <div className="aspect-[3/4] bg-black/50 rounded-xl flex items-center justify-center">
+                  <div className="text-center">
+                    <Trophy className="w-32 h-32 text-[#F59E0B]/50 mx-auto mb-4" />
+                    <p className="text-white/50 text-xl font-bold">{spotlights[activeSpotlight].name}&apos;s</p>
+                    <p className="text-white/50 text-lg">HeroCard</p>
+                  </div>
+                </div>
+                
+                {/* Stats Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm rounded-lg p-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white font-bold">View Full Profile</span>
+                    <ArrowRight className="w-5 h-5 text-[#F59E0B]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Bottom Message */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 1 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-white/60 text-lg mb-6">
+            Join thousands of students building their digital legacy
+          </p>
+          <div className="flex flex-wrap justify-center gap-8">
+            {[
+              { number: "4.2M+", label: "Students" },
+              { number: "500K+", label: "Highlights Created" },
+              { number: "50K+", label: "Scholarships" },
+              { number: "98%", label: "Success Rate" }
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl font-black text-[#F59E0B]">{stat.number}</p>
+                <p className="text-white/60 text-sm">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
 // Final Call to Action Section
 function CallToAction() {
   return (
@@ -1275,6 +1713,12 @@ export default function HomePage() {
         
         {/* Features Showcase */}
         <FeaturesShowcase />
+        
+        {/* Meet the Founder */}
+        <MeetTheFounder />
+        
+        {/* Student Spotlight */}
+        <StudentSpotlight />
         
         {/* Final CTA */}
         <CallToAction />

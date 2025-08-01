@@ -331,6 +331,7 @@ export default function GageAIChat({ userId, isOpen, onToggle }: GageAIChatProps
           console.log('Gage button clicked!');
           onToggle();
         }}
+        data-gage-chat-toggle
         className="fixed bottom-6 right-6 z-[9999] group cursor-pointer"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
