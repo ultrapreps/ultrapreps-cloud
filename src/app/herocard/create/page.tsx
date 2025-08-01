@@ -16,6 +16,8 @@ interface HeroCardData {
   athleteName: string;
   school: string;
   classYear: string;
+  sport?: string;
+  jerseyNumber?: string;
   
   // Selfie
   selfie?: File | null;
@@ -28,10 +30,22 @@ interface HeroCardData {
     position: string;
     stats?: Record<string, string | number>;
   }>;
+  stats?: {
+    receptions?: number;
+    yards?: number;
+    touchdowns?: number;
+  };
   hypeScore?: number;
   overlays?: string[];
   avatarMode?: boolean;
   chainOfCustody?: string;
+  
+  // Visual HeroCard URLs
+  heroCardUrl?: string;
+  studentPortraitUrl?: string;
+  mascotUrl?: string;
+  validation?: any;
+  status?: string;
 }
 
 export default function HeroCardCreatePage() {
@@ -40,6 +54,8 @@ export default function HeroCardCreatePage() {
     athleteName: '',
     school: '',
     classYear: '2025',
+    sport: 'Football',
+    jerseyNumber: '',
     selfie: null
   });
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -72,13 +88,15 @@ export default function HeroCardCreatePage() {
         formData.append('selfie', heroCardData.selfie);
       }
 
-      // Call the existing HeroCard API
+      // Call the HeroCard API following ULTRAPREPS_PROMPT_BIBLE_V3.0
       const response = await fetch('/api/enrich-school', {
         method: 'POST',
         body: JSON.stringify({
           athleteName: heroCardData.athleteName,
           school: heroCardData.school,
           classYear: heroCardData.classYear,
+          sport: heroCardData.sport || 'Football',
+          jerseyNumber: heroCardData.jerseyNumber || '6',
           selfie: previewUrl // In production, handle file upload properly
         }),
         headers: {
@@ -112,8 +130,15 @@ export default function HeroCardCreatePage() {
   };
 
   const handleDownload = () => {
-    // In production, generate and download actual HeroCard image
-    console.log('Downloading HeroCard...');
+    if (generatedCard?.heroCardUrl) {
+      // Create a link element to download the image
+      const link = document.createElement('a');
+      link.href = generatedCard.heroCardUrl;
+      link.download = `${heroCardData.athleteName.replace(/\s+/g, '_')}_HeroCard.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   const handleShare = (platform: string) => {
@@ -216,6 +241,41 @@ export default function HeroCardCreatePage() {
                       <option value="2027">2027</option>
                       <option value="2028">2028</option>
                     </select>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-white font-medium mb-3">Primary Sport</label>
+                      <select
+                        value={heroCardData.sport}
+                        onChange={(e) => setHeroCardData(prev => ({ ...prev, sport: e.target.value }))}
+                        className="w-full bg-white/10 text-white border border-white/20 rounded-xl px-4 py-4 text-lg focus:outline-none focus:border-[#F59E0B] transition-colors"
+                      >
+                        <option value="Football">Football</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Baseball">Baseball</option>
+                        <option value="Soccer">Soccer</option>
+                        <option value="Track">Track & Field</option>
+                        <option value="Wrestling">Wrestling</option>
+                        <option value="Volleyball">Volleyball</option>
+                        <option value="Softball">Softball</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Golf">Golf</option>
+                        <option value="Swimming">Swimming</option>
+                        <option value="Cross Country">Cross Country</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-white font-medium mb-3">Jersey Number</label>
+                      <input
+                        type="text"
+                        value={heroCardData.jerseyNumber}
+                        onChange={(e) => setHeroCardData(prev => ({ ...prev, jerseyNumber: e.target.value }))}
+                        placeholder="e.g., 6"
+                        className="w-full bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-4 py-4 text-lg focus:outline-none focus:border-[#F59E0B] transition-colors"
+                      />
+                    </div>
                   </div>
 
                   <button
@@ -374,57 +434,76 @@ export default function HeroCardCreatePage() {
                 {/* HeroCard Preview */}
                 <div className="space-y-6">
                   <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                    <div className="aspect-[3/4] bg-gradient-to-br from-[#1E3A8A] to-[#F59E0B] rounded-xl overflow-hidden relative">
-                      <div className="absolute inset-0 bg-black/20"></div>
-                      
-                      {/* HeroCard Content */}
-                      <div className="absolute inset-0 p-6 flex flex-col justify-between text-white">
-                        <div>
-                          <h3 className="text-2xl font-black mb-1">{generatedCard.athleteName}</h3>
-                          <p className="text-lg opacity-90">{generatedCard.school}</p>
-                          <p className="text-sm opacity-80">Class of {generatedCard.classYear}</p>
-                        </div>
+                    {generatedCard.heroCardUrl ? (
+                      // Display the actual generated HeroCard
+                      <div className="aspect-[3/4] rounded-xl overflow-hidden relative">
+                        <img 
+                          src={generatedCard.heroCardUrl} 
+                          alt={`${generatedCard.athleteName} HeroCard`}
+                          className="w-full h-full object-cover"
+                        />
+                        {generatedCard.status === 'needs_review' && (
+                          <div className="absolute top-4 right-4 bg-yellow-500/90 text-black px-3 py-1 rounded-full text-sm font-bold">
+                            Needs Review
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      // Fallback to mock design if no URL
+                      <div className="aspect-[3/4] bg-gradient-to-br from-[#1E3A8A] to-[#F59E0B] rounded-xl overflow-hidden relative">
+                        <div className="absolute inset-0 bg-black/20"></div>
                         
-                        <div className="space-y-3">
-                          {generatedCard.mascot && (
-                            <div className="bg-white/20 rounded-lg p-3">
-                              <div className="flex items-center gap-2">
-                                <Crown className="w-5 h-5" />
-                                <span className="font-bold">{generatedCard.mascot}</span>
-                              </div>
-                            </div>
-                          )}
+                        {/* HeroCard Content */}
+                        <div className="absolute inset-0 p-6 flex flex-col justify-between text-white">
+                          <div>
+                            <h3 className="text-2xl font-black mb-1">{generatedCard.athleteName}</h3>
+                            <p className="text-lg opacity-90">{generatedCard.school}</p>
+                            <p className="text-sm opacity-80">Class of {generatedCard.classYear}</p>
+                          </div>
                           
-                          {generatedCard.roles && generatedCard.roles.length > 0 && (
-                            <div className="bg-white/20 rounded-lg p-3">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Star className="w-5 h-5" />
-                                <span className="font-bold">Activities</span>
-                              </div>
-                              {generatedCard.roles.map((role: {type: string, position: string}, index: number) => (
-                                <p key={index} className="text-sm">{role.type} - {role.position}</p>
-                              ))}
-                            </div>
-                          )}
-                          
-                          {generatedCard.hypeScore && (
-                            <div className="bg-white/20 rounded-lg p-3">
-                              <div className="flex items-center justify-between">
+                          <div className="space-y-3">
+                            {generatedCard.mascot && (
+                              <div className="bg-white/20 rounded-lg p-3">
                                 <div className="flex items-center gap-2">
-                                  <Zap className="w-5 h-5" />
-                                  <span className="font-bold">HYPE Score</span>
+                                  <Crown className="w-5 h-5" />
+                                  <span className="font-bold">{generatedCard.mascot}</span>
                                 </div>
-                                <span className="text-2xl font-black">{generatedCard.hypeScore}</span>
                               </div>
-                            </div>
-                          )}
-                        </div>
-                        
-                        <div className="text-center text-xs opacity-60">
-                          <p>ULTRAPREPS • {new Date().getFullYear()}</p>
+                            )}
+                            
+                            {generatedCard.stats && (
+                              <div className="bg-white/20 rounded-lg p-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Star className="w-5 h-5" />
+                                  <span className="font-bold">Stats</span>
+                                </div>
+                                <div className="text-sm space-y-1">
+                                  {generatedCard.stats.receptions && <p>Receptions: {generatedCard.stats.receptions}</p>}
+                                  {generatedCard.stats.yards && <p>Yards: {generatedCard.stats.yards}</p>}
+                                  {generatedCard.stats.touchdowns && <p>TDs: {generatedCard.stats.touchdowns}</p>}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {generatedCard.hypeScore && (
+                              <div className="bg-white/20 rounded-lg p-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <Zap className="w-5 h-5" />
+                                    <span className="font-bold">HYPE Score</span>
+                                  </div>
+                                  <span className="text-2xl font-black">{generatedCard.hypeScore}</span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="text-center text-xs opacity-60">
+                            <p>ULTRAPREPS • {new Date().getFullYear()}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
 
