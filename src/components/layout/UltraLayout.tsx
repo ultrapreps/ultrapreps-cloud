@@ -1,73 +1,28 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import UltraNavigation from '../navigation/UltraNavigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Loader2 } from 'lucide-react';
-
-interface UltraBrainStatus {
-  isActive: boolean;
-  tasksCompleted: number;
-  currentTask?: string;
-  lastUpdate?: Date;
-}
+import { Brain, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import { useAutonomousUltraBrain } from '@/lib/bots/AutonomousUltraBrain';
 
 interface UltraLayoutProps {
   children: React.ReactNode;
 }
 
 export default function UltraLayout({ children }: UltraLayoutProps) {
-  const [brainStatus, setBrainStatus] = useState<UltraBrainStatus>({
-    isActive: false,
-    tasksCompleted: 0
-  });
+  const { status: brainStatus, activate, deactivate } = useAutonomousUltraBrain();
 
   // Initialize AutonomousUltraBrain
   useEffect(() => {
-    // In production, this would connect to the actual brain system
-    const initializeBrain = async () => {
-      try {
-        // Simulate brain activation
-        setTimeout(() => {
-          setBrainStatus({
-            isActive: true,
-            tasksCompleted: 0,
-            currentTask: 'Scanning for quality improvements...',
-            lastUpdate: new Date()
-          });
-        }, 1000);
-
-        // Simulate periodic updates
-        const interval = setInterval(() => {
-          setBrainStatus(prev => ({
-            ...prev,
-            tasksCompleted: prev.tasksCompleted + 1,
-            currentTask: getRandomTask(),
-            lastUpdate: new Date()
-          }));
-        }, 30000); // Every 30 seconds
-
-        return () => clearInterval(interval);
-      } catch (error) {
-        console.error('Failed to initialize UltraBrain:', error);
-      }
+    // Activate the brain when component mounts
+    activate();
+    
+    // Cleanup on unmount
+    return () => {
+      deactivate();
     };
-
-    initializeBrain();
-  }, []);
-
-  const getRandomTask = () => {
-    const tasks = [
-      'Optimizing athlete profiles...',
-      'Enhancing image quality...',
-      'Generating real content...',
-      'Fixing broken links...',
-      'Updating HYPE scores...',
-      'Analyzing user engagement...',
-      'Improving load times...'
-    ];
-    return tasks[Math.floor(Math.random() * tasks.length)];
-  };
+  }, [activate, deactivate]);
 
   return (
     <>
@@ -99,7 +54,7 @@ export default function UltraLayout({ children }: UltraLayoutProps) {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold">UltraBrain Active</span>
                     <span className="text-xs text-white/60">
-                      ({brainStatus.tasksCompleted} completed)
+                      {brainStatus.issuesFixed} fixed | {brainStatus.learningScore}% accuracy
                     </span>
                   </div>
                   {brainStatus.currentTask && (
@@ -107,6 +62,14 @@ export default function UltraLayout({ children }: UltraLayoutProps) {
                       <Loader2 className="w-3 h-3 animate-spin text-[#F97316]" />
                       <span className="text-xs text-white/70">
                         {brainStatus.currentTask}
+                      </span>
+                    </div>
+                  )}
+                  {brainStatus.issuesFound > 0 && (
+                    <div className="flex items-center gap-2 mt-1">
+                      <AlertCircle className="w-3 h-3 text-yellow-500" />
+                      <span className="text-xs text-yellow-400">
+                        {brainStatus.issuesFound} issues detected
                       </span>
                     </div>
                   )}
