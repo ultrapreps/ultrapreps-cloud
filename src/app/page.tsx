@@ -197,7 +197,7 @@ function HeroSection() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute top-16 md:top-20 left-0 right-0 bg-black/80 backdrop-blur-md border-y border-[#F59E0B]/30 py-2 md:py-4 overflow-hidden z-20 shadow-lg"
+        className="absolute top-20 md:top-24 left-0 right-0 bg-black/90 border-y border-[#F59E0B]/30 py-2 md:py-4 overflow-hidden z-10 shadow-lg"
       >
         <motion.div
           animate={{ x: [0, -2000] }}
@@ -460,7 +460,7 @@ function HeroSection() {
             initial={{ x: 400, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 400, opacity: 0 }}
-            className="fixed top-24 right-4 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-50 max-w-sm"
+            className="fixed top-28 right-4 bg-black rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-40 max-w-sm"
           >
             <div className="flex items-start gap-3">
               <Bell className="w-5 h-5 text-[#F59E0B] mt-1" />
@@ -1938,7 +1938,7 @@ export default function HomePage() {
             initial={{ x: 400, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 400, opacity: 0 }}
-            className="fixed top-24 right-4 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-50 max-w-sm"
+            className="fixed top-28 right-4 bg-black rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-40 max-w-sm"
           >
             <div className="flex items-start gap-3">
               <Bell className="w-5 h-5 text-[#F59E0B] mt-1" />

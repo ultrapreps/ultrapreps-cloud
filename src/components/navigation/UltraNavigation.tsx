@@ -106,7 +106,7 @@ export default function UltraNavigation() {
     <>
       {/* Desktop Navigation */}
       <nav className="hidden lg:block fixed top-0 left-0 right-0 z-50">
-        <div className="bg-black/95 backdrop-blur-md border-b border-white/20">
+        <div className="bg-black border-b border-[#F59E0B]/30">
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex items-center justify-between h-16">
               {/* Logo with HYPE indicator */}
@@ -115,7 +115,7 @@ export default function UltraNavigation() {
                   <Crown className="w-8 h-8 text-[#F59E0B]" />
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F97316] rounded-full animate-pulse" />
                 </div>
-                <span className="text-xl font-black tracking-tight">ULTRAPREPS</span>
+                <span className="text-xl font-black tracking-tight text-white">ULTRAPREPS</span>
               </Link>
 
               {/* Main Navigation */}
@@ -133,7 +133,7 @@ export default function UltraNavigation() {
                         transition-all duration-200 relative
                         ${isActive 
                           ? 'text-white bg-white/10' 
-                          : 'text-white hover:text-white hover:bg-white/10'
+                          : 'text-white/90 hover:text-white hover:bg-[#F59E0B]/20'
                         }
                       `}
                     >
@@ -163,7 +163,7 @@ export default function UltraNavigation() {
                     bg-white/5 hover:bg-white/10 transition-colors"
                 >
                   <Search className="w-4 h-4" />
-                  <span className="text-sm text-white/90">Search</span>
+                  <span className="text-sm text-white">Search</span>
                   <kbd className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 
                     text-xs bg-white/10 rounded">
                     <Command className="w-3 h-3" />K
@@ -220,7 +220,7 @@ export default function UltraNavigation() {
       {/* Mobile Navigation */}
       <nav className="lg:hidden">
         {/* Mobile Top Bar */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/20">
+        <div className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-[#F59E0B]/30">
           <div className="flex items-center justify-between h-14 px-4">
             <Link href="/" className="flex items-center gap-2">
               <Crown className="w-6 h-6 text-[#F59E0B]" />
@@ -249,7 +249,7 @@ export default function UltraNavigation() {
         </div>
 
         {/* Mobile Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-t border-white/20">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-black border-t border-[#F59E0B]/30">
           <div className="grid grid-cols-5 h-16">
             {mainNavItems.map((item) => {
               const Icon = item.icon;
@@ -262,7 +262,7 @@ export default function UltraNavigation() {
                   className={`
                     flex flex-col items-center justify-center gap-1
                     transition-colors relative
-                    ${isActive ? 'text-[#F59E0B]' : 'text-white'}
+                    ${isActive ? 'text-[#F59E0B]' : 'text-white/90'}
                   `}
                 >
                   <Icon className="w-5 h-5" />
