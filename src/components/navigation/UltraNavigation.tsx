@@ -10,6 +10,7 @@ import {
   ChevronDown, Command,
   Grid3X3, Compass, Camera
 } from 'lucide-react';
+import HypeWidget from '../HypeWidget';
 
 interface NotificationItem {
   id: string;
@@ -113,10 +114,6 @@ export default function UltraNavigation() {
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F97316] rounded-full animate-pulse" />
                 </div>
                 <span className="text-xl font-black tracking-tight">ULTRAPREPS</span>
-                <div className="flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full">
-                  <Zap className="w-3 h-3" />
-                  <span className="text-xs font-bold">{currentUser.hypeScore}</span>
-                </div>
               </Link>
 
               {/* Main Navigation */}
@@ -154,6 +151,9 @@ export default function UltraNavigation() {
 
               {/* Right Actions */}
               <div className="flex items-center gap-3">
+                {/* HYPE Widget */}
+                <HypeWidget userId={currentUser.id} compact />
+
                 {/* Search */}
                 <button
                   onClick={() => setIsSearchOpen(true)}
@@ -499,11 +499,13 @@ export default function UltraNavigation() {
                   </div>
                   <div>
                     <h3 className="font-bold">{currentUser.name}</h3>
-                    <div className="flex items-center gap-1 text-sm">
-                      <Zap className="w-3 h-3 text-[#F59E0B]" />
-                      <span>{currentUser.hypeScore} HYPE</span>
-                    </div>
+                    <p className="text-sm text-white/60">@{currentUser.username}</p>
                   </div>
+                </div>
+                
+                {/* HYPE Widget */}
+                <div className="mt-3">
+                  <HypeWidget userId={currentUser.id} compact className="w-full" />
                 </div>
               </div>
 

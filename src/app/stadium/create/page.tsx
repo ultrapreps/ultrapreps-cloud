@@ -1,9 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Star, ArrowRight, Sparkles, Target, Crown } from 'lucide-react';
-import MegaNavigation from '../../../components/MegaNavigation';
+import { 
+  Trophy, Star, ArrowRight, Sparkles, Target, Crown, 
+  Palette, Image, Zap, Eye, ChevronLeft, Camera,
+  Music, Gamepad2, Brush, Book, Users, Shield
+} from 'lucide-react';
+import { useSchoolUniverse } from '@/lib/bots/SchoolUniverse';
+import { useDesignMaster } from '@/lib/bots/DesignMaster';
+import { useProfileBot } from '@/lib/bots/ProfileBot';
 
 interface StadiumData {
   username: string;
@@ -13,9 +19,13 @@ interface StadiumData {
     primary: string;
     secondary: string;
   };
+  theme: 'modern' | 'cinematic' | 'vintage' | 'minimal';
   sports: string[];  // Keep as sports for API compatibility, but represents all activities!
   goals: string[];
   bio: string;
+  profileImage?: string;
+  bannerStyle: 'stadium' | 'arena' | 'field' | 'stage';
+  highlights: string[];
 }
 
 export default function StadiumCreatePage() {
@@ -28,22 +38,90 @@ export default function StadiumCreatePage() {
       primary: '#F59E0B',
       secondary: '#F97316'
     },
+    theme: 'modern',
     sports: [],
     goals: [],
-    bio: ''
+    bio: '',
+    bannerStyle: 'stadium',
+    highlights: []
   });
   const [isCreating, setIsCreating] = useState(false);
+  const [isGeneratingDesign, setIsGeneratingDesign] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const { createSchoolProfile } = useSchoolUniverse();
+  const { generateDesign, getSchoolTheme } = useDesignMaster();
+  const { buildIdentity } = useProfileBot();
+
+  // Auto-generate school colors when school name changes
+  useEffect(() => {
+    const fetchSchoolColors = async () => {
+      if (stadiumData.schoolName) {
+        try {
+          const theme = await getSchoolTheme(stadiumData.schoolName);
+          setStadiumData(prev => ({
+            ...prev,
+            colors: {
+              primary: theme.primaryColor,
+              secondary: theme.secondaryColor
+            }
+          }));
+        } catch (error) {
+          console.error('Failed to fetch school colors:', error);
+        }
+      }
+    };
+
+    fetchSchoolColors();
+  }, [stadiumData.schoolName, getSchoolTheme]);
 
   const handleSubmit = async () => {
     setIsCreating(true);
     
     try {
+      // Create school profile with AI
+      const schoolProfile = await createSchoolProfile(stadiumData.schoolName, {
+        city: 'Your City', // This could be collected in the form
+        state: 'Your State'
+      });
+
+      // Build athlete identity with AI
+      const identity = await buildIdentity({
+        name: stadiumData.username,
+        school: stadiumData.schoolName,
+        sport: stadiumData.sports[0], // Primary sport
+        position: stadiumData.sports.length > 0 ? 'Multi-Sport Athlete' : undefined,
+        graduationYear: new Date().getFullYear() + 2
+      });
+
+      // Generate stadium design if not already generated
+      let finalDesign = previewImage;
+      if (!finalDesign) {
+        const design = await generateDesign({
+          type: 'stadium_background',
+          context: {
+            school: stadiumData.schoolName,
+            colors: [stadiumData.colors.primary, stadiumData.colors.secondary],
+            style: stadiumData.theme
+          }
+        });
+        finalDesign = design.imageUrl;
+      }
+
+      // Create the stadium with enhanced data
+      const enhancedData = {
+        ...stadiumData,
+        schoolProfile,
+        identity,
+        stadiumBackground: finalDesign
+      };
+
       const response = await fetch('/api/stadium-create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(stadiumData),
+        body: JSON.stringify(enhancedData),
       });
 
       if (response.ok) {
@@ -59,7 +137,7 @@ export default function StadiumCreatePage() {
   };
 
   const nextStep = () => {
-    if (step < 4) setStep(step + 1);
+    if (step < 5) setStep(step + 1);
   };
 
   const prevStep = () => {
@@ -135,8 +213,7 @@ export default function StadiumCreatePage() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* Navigation */}
-      <MegaNavigation currentPage="stadium-create" userRole="student" userName="Create Stadium" />
+      {/* Navigation is handled by UltraLayout */}
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
@@ -169,7 +246,7 @@ export default function StadiumCreatePage() {
             className="flex justify-center mb-8"
           >
             <div className="flex items-center gap-4">
-              {[1, 2, 3, 4].map((num) => (
+              {[1, 2, 3, 4, 5].map((num) => (
                 <div key={num} className="flex items-center">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
                     step >= num 
@@ -178,7 +255,7 @@ export default function StadiumCreatePage() {
                   }`}>
                     {num}
                   </div>
-                  {num < 4 && (
+                  {num < 5 && (
                     <div className={`w-12 h-1 mx-2 ${
                       step > num ? 'bg-[#F59E0B]' : 'bg-white/20'
                     }`} />
@@ -243,11 +320,108 @@ export default function StadiumCreatePage() {
                     className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
                   />
                 </div>
+
+                <div>
+                  <label className="block text-white font-semibold mb-2">School Colors</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm text-white/70 mb-1 block">Primary Color</label>
+                      <div className="relative">
+                        <input
+                          type="color"
+                          value={stadiumData.colors.primary}
+                          onChange={(e) => setStadiumData({...stadiumData, colors: {...stadiumData.colors, primary: e.target.value}})}
+                          className="w-full h-12 rounded-lg cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm text-white/70 mb-1 block">Secondary Color</label>
+                      <div className="relative">
+                        <input
+                          type="color"
+                          value={stadiumData.colors.secondary}
+                          onChange={(e) => setStadiumData({...stadiumData, colors: {...stadiumData.colors, secondary: e.target.value}})}
+                          className="w-full h-12 rounded-lg cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             )}
 
-            {/* Step 2: Sports */}
+            {/* Step 2: Theme & Style */}
             {step === 2 && (
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-6"
+              >
+                <div className="text-center mb-6">
+                  <Palette className="w-16 h-16 text-[#F59E0B] mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-white mb-2">Choose Your Style</h2>
+                  <p className="text-white/70">Select the theme and atmosphere for your digital stadium</p>
+                </div>
+
+                {/* Theme Selection */}
+                <div>
+                  <label className="block text-white font-semibold mb-3">Stadium Theme</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { value: 'modern', label: 'Modern', icon: Zap, description: 'Clean, sleek, professional' },
+                      { value: 'cinematic', label: 'Cinematic', icon: Crown, description: 'Epic, dramatic, powerful' },
+                      { value: 'minimal', label: 'Minimal', icon: Sparkles, description: 'Simple, focused, elegant' },
+                      { value: 'vintage', label: 'Vintage', icon: Camera, description: 'Retro, nostalgic, unique' }
+                    ].map(({ value, label, icon: Icon, description }) => (
+                      <button
+                        key={value}
+                        onClick={() => setStadiumData({...stadiumData, theme: value as StadiumData['theme']})}
+                        className={`p-4 rounded-xl transition-all duration-200 text-left ${
+                          stadiumData.theme === value
+                            ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white'
+                            : 'bg-white/20 text-white/80 hover:bg-white/30'
+                        }`}
+                      >
+                        <Icon className="w-8 h-8 mb-2" />
+                        <h3 className="font-bold">{label}</h3>
+                        <p className="text-sm opacity-80">{description}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Banner Style */}
+                <div>
+                  <label className="block text-white font-semibold mb-3">Banner Style</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { value: 'stadium', label: 'Stadium', description: 'Football field atmosphere' },
+                      { value: 'arena', label: 'Arena', description: 'Basketball court energy' },
+                      { value: 'field', label: 'Field', description: 'Multi-sport outdoor vibe' },
+                      { value: 'stage', label: 'Stage', description: 'Performance spotlight' }
+                    ].map(({ value, label, description }) => (
+                      <button
+                        key={value}
+                        onClick={() => setStadiumData({...stadiumData, bannerStyle: value as StadiumData['bannerStyle']})}
+                        className={`p-3 rounded-xl transition-all duration-200 text-left ${
+                          stadiumData.bannerStyle === value
+                            ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white'
+                            : 'bg-white/20 text-white/80 hover:bg-white/30'
+                        }`}
+                      >
+                        <h3 className="font-bold">{label}</h3>
+                        <p className="text-sm opacity-80">{description}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Step 3: Activities */}
+            {step === 3 && (
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -283,8 +457,8 @@ export default function StadiumCreatePage() {
               </motion.div>
             )}
 
-            {/* Step 3: Goals */}
-            {step === 3 && (
+            {/* Step 4: Goals */}
+            {step === 4 && (
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -320,8 +494,8 @@ export default function StadiumCreatePage() {
               </motion.div>
             )}
 
-            {/* Step 4: Bio */}
-            {step === 4 && (
+            {/* Step 5: Review & Launch */}
+            {step === 5 && (
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -330,31 +504,89 @@ export default function StadiumCreatePage() {
               >
                 <div className="text-center mb-6">
                   <Crown className="w-16 h-16 text-[#F59E0B] mx-auto mb-4" />
-                  <h2 className="text-2xl font-bold text-white mb-2">Tell Your Story</h2>
-                  <p className="text-white/70">Share what makes you unique as an athlete</p>
+                  <h2 className="text-2xl font-bold text-white mb-2">Review & Launch</h2>
+                  <p className="text-white/70">Preview your stadium and tell your story</p>
                 </div>
 
-                <div>
-                  <label className="block text-white font-semibold mb-2">Your Bio</label>
-                  <textarea
-                    value={stadiumData.bio}
-                    onChange={(e) => setStadiumData({...stadiumData, bio: e.target.value})}
-                    placeholder="Tell your story... What drives you? What are your achievements? What makes you unique?"
-                    rows={6}
-                    className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] resize-none"
-                  />
-                </div>
+                {/* Stadium Preview */}
+                <div className="relative rounded-xl overflow-hidden bg-gradient-to-b from-black/50 to-black/80 border border-white/20">
+                  {/* Banner Preview */}
+                  <div className="h-48 relative overflow-hidden">
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-br"
+                      style={{
+                        backgroundImage: `linear-gradient(135deg, ${stadiumData.colors.primary}, ${stadiumData.colors.secondary})`,
+                        filter: 'brightness(0.8)'
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <motion.div
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                        className="text-center"
+                      >
+                        <h3 className="text-4xl font-black text-white mb-2">{stadiumData.username || 'YourUsername'}</h3>
+                        <p className="text-xl text-white/90">{stadiumData.schoolName} {stadiumData.mascot}</p>
+                      </motion.div>
+                    </div>
+                  </div>
 
-                {/* Preview Card */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h3 className="text-white font-bold mb-4">Stadium Preview</h3>
-                  <div className="space-y-2 text-sm">
-                    <p className="text-white"><span className="text-[#F59E0B]">Username:</span> {stadiumData.username || 'Your username'}</p>
-                    <p className="text-white"><span className="text-[#F59E0B]">School:</span> {stadiumData.schoolName || 'Your school'} {stadiumData.mascot && `(${stadiumData.mascot})`}</p>
-                    <p className="text-white"><span className="text-[#F59E0B]">Activities:</span> {stadiumData.sports.join(', ') || 'None selected'}</p>
-                    <p className="text-white"><span className="text-[#F59E0B]">Goals:</span> {stadiumData.goals.length} selected</p>
+                  {/* Profile Preview */}
+                  <div className="p-6">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="bg-white/10 rounded-lg p-3">
+                        <p className="text-white/60 text-sm">Theme</p>
+                        <p className="text-white font-semibold capitalize">{stadiumData.theme}</p>
+                      </div>
+                      <div className="bg-white/10 rounded-lg p-3">
+                        <p className="text-white/60 text-sm">Activities</p>
+                        <p className="text-white font-semibold">{stadiumData.sports.length} Selected</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white/10 rounded-lg p-4">
+                      <h4 className="text-white font-bold mb-2">Your Story</h4>
+                      <textarea
+                        value={stadiumData.bio}
+                        onChange={(e) => setStadiumData({...stadiumData, bio: e.target.value})}
+                        placeholder="Tell your story... What drives you? What are your achievements? What makes you unique?"
+                        rows={4}
+                        className="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] resize-none text-sm"
+                      />
+                    </div>
                   </div>
                 </div>
+
+                {/* AI Enhancement Option */}
+                {!isGeneratingDesign && (
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={async () => {
+                      setIsGeneratingDesign(true);
+                      try {
+                        const design = await generateDesign({
+                          type: 'stadium_background',
+                          context: {
+                            school: stadiumData.schoolName,
+                            colors: [stadiumData.colors.primary, stadiumData.colors.secondary],
+                            style: stadiumData.theme
+                          }
+                        });
+                        setPreviewImage(design.imageUrl);
+                      } catch (error) {
+                        console.error('Design generation failed:', error);
+                      } finally {
+                        setIsGeneratingDesign(false);
+                      }
+                    }}
+                    className="w-full p-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    Generate AI Stadium Design
+                  </motion.button>
+                )}
               </motion.div>
             )}
 
@@ -372,18 +604,18 @@ export default function StadiumCreatePage() {
                 Previous
               </button>
 
-              {step < 4 ? (
+              {step < 5 ? (
                 <button
                   onClick={nextStep}
                   disabled={
                     (step === 1 && (!stadiumData.username || !stadiumData.schoolName || !stadiumData.mascot)) ||
-                    (step === 2 && stadiumData.sports.length === 0) ||
-                    (step === 3 && stadiumData.goals.length === 0)
+                    (step === 3 && stadiumData.sports.length === 0) ||
+                    (step === 4 && stadiumData.goals.length === 0)
                   }
                   className={`px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-2 ${
                     (step === 1 && (!stadiumData.username || !stadiumData.schoolName || !stadiumData.mascot)) ||
-                    (step === 2 && stadiumData.sports.length === 0) ||
-                    (step === 3 && stadiumData.goals.length === 0)
+                    (step === 3 && stadiumData.sports.length === 0) ||
+                    (step === 4 && stadiumData.goals.length === 0)
                       ? 'opacity-50 cursor-not-allowed bg-white/10 text-white/50'
                       : 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white hover:scale-105'
                   }`}
