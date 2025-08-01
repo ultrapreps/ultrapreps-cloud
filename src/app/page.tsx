@@ -203,7 +203,7 @@ function HeroSection() {
         >
           <span className="text-white/60 text-sm">🏆 Marcus Thompson just earned 500 HYPE</span>
           <span className="text-[#F59E0B]">•</span>
-          <span className="text-white/60 text-sm">📹 Sarah Chen's highlight reel is trending</span>
+          <span className="text-white/60 text-sm">📹 Sarah Chen&apos;s highlight reel is trending</span>
           <span className="text-[#F59E0B]">•</span>
           <span className="text-white/60 text-sm">🎯 Coach Martinez posted new training videos</span>
           <span className="text-[#F59E0B]">•</span>
@@ -615,7 +615,7 @@ function QuickAccessPortal() {
           className="mt-12 text-center"
         >
           <p className="text-white/80 mb-6 text-lg">
-            Not sure where to start? Create your free account and we'll guide you!
+            Not sure where to start? Create your free account and we&apos;ll guide you!
           </p>
           <motion.a
             href="/stadium/create"
@@ -1017,7 +1017,7 @@ function CallToAction() {
             className="inline-flex items-center gap-2 px-8 py-5 bg-white/10 text-white font-bold rounded-full text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
           >
             <MessageSquare className="w-5 h-5" />
-            Questions? Let's Talk
+            Questions? Let&apos;s Talk
           </Link>
         </motion.div>
 
