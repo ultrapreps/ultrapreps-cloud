@@ -352,16 +352,16 @@ export default function OnboardingPage() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-2">Grade</label>
+                    <label className="block text-sm font-medium mb-2">Graduating Class</label>
                     <select
                       value={studentInfo.grade}
                       onChange={(e) => setStudentInfo({...studentInfo, grade: e.target.value})}
                       className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-[#F59E0B] focus:outline-none"
                     >
-                      <option value="9">9th Grade (Freshman)</option>
-                      <option value="10">10th Grade (Sophomore)</option>
-                      <option value="11">11th Grade (Junior)</option>
-                      <option value="12">12th Grade (Senior)</option>
+                      <option value="9">Class of 2028 (Freshman)</option>
+                      <option value="10">Class of 2027 (Sophomore)</option>
+                      <option value="11">Class of 2026 (Junior)</option>
+                      <option value="12">Class of 2025 (Senior)</option>
                     </select>
                   </div>
                 </div>
