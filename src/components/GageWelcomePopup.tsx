@@ -68,14 +68,19 @@ export default function GageWelcomePopup({ onClose }: GageWelcomePopupProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
         onClick={(e) => e.target === e.currentTarget && handleClose()}
       >
         <motion.div
           initial={{ scale: 0.8, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.8, opacity: 0, y: 50 }}
-          className="bg-gradient-to-br from-black via-[#1E3A8A]/30 to-black border-2 border-[#F59E0B] rounded-3xl p-8 max-w-2xl w-full relative overflow-hidden shadow-2xl"
+          className="bg-gradient-to-br from-black via-[#1E3A8A]/30 to-black border-2 border-[#F59E0B] rounded-3xl p-6 md:p-8 max-w-2xl w-full relative overflow-visible shadow-2xl"
+          style={{
+            minHeight: '600px',
+            maxHeight: '90vh',
+            overflowY: 'auto'
+          }}
         >
           {/* Stadium Background Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#F59E0B]/10 via-black/50 to-black rounded-3xl" />
@@ -184,7 +189,13 @@ export default function GageWelcomePopup({ onClose }: GageWelcomePopupProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-white/90 text-lg leading-relaxed mb-8 text-center max-w-md mx-auto"
+              className="text-white/90 text-base md:text-lg leading-relaxed mb-8 text-center max-w-lg mx-auto px-4"
+              style={{
+                minHeight: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
               {currentStepData.content}
             </motion.p>

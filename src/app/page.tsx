@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,1424 +16,1187 @@ import {
   Crown,
   Flame,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  MessageSquare,
+  Bell,
+  GraduationCap,
+  BookOpen,
+  BarChart3,
+  Shield,
+  Heart,
+  Brain,
+  Video,
+  Camera,
+  Gamepad2,
+  MapPin,
+  Calendar,
+  DollarSign,
+  Check,
+  ArrowRight,
+  School,
+  UserCheck,
+  FileText,
+  Globe,
+  Megaphone,
+  Award,
+  TrendingUp,
+  Clock,
+  Send,
+  X,
+  Home,
+  Eye,
+  Bot,
+  Building,
+  Briefcase,
+  Gift,
+  ChevronDown,
+  Music,
+  Palette,
+  Calculator,
+  TestTube,
+  Database,
+  Wifi,
+  Phone,
+  Mail,
+  MessageCircle
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
-
-// import { Progress } from "@radix-ui/react-progress";
 import clsx from "clsx";
 import MegaNavigation from '../components/MegaNavigation';
+import GageAIChat from '../components/GageAIChat';
+import Link from 'next/link';
 
-// OLD NAVBAR REMOVED - Using GlobalNavigation instead
-
-function Footer() {
-  return (
-    <footer className="w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t-2 border-[#F59E0B]/40 text-center relative z-20">
-      {/* Footer background glow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F59E0B]/3 to-transparent" />
-      
-      <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Main Footer Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="mb-8"
-        >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Crown className="w-8 h-8 text-[#F59E0B]" />
-            <h3 className="text-3xl font-black uppercase tracking-widest text-white">
-              UltraPreps
-            </h3>
-            <Crown className="w-8 h-8 text-[#F59E0B]" />
-          </div>
-          <p className="text-xl text-white font-bold mb-4">
-            Built for Every Student, Every Achievement, Every Family
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full" />
-        </motion.div>
-
-        {/* Social Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8"
-        >
-          {[
-            { name: "Dashboard", href: "/dashboard" },
-            { name: "Community", href: "/community" },
-            { name: "Recruiting", href: "/recruiting" },
-            { name: "Feed", href: "/feed" },
-            { name: "Coach Portal", href: "/coach-dashboard" },
-            { name: "Parent Portal", href: "/parent-dashboard" }
-          ].map((link) => (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              whileHover={{ scale: 1.05, color: "#F59E0B" }}
-              className="text-white/70 text-sm sm:text-base font-bold uppercase tracking-wide sm:tracking-widest hover:text-[#F59E0B] transition-all duration-300 border-b border-transparent hover:border-[#F59E0B] px-2 py-1"
-            >
-              {link.name}
-            </motion.a>
-          ))}
-        </motion.div>
-
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-white/60 text-sm uppercase tracking-wider"
-        >
-          <div className="mb-2">
-            UltraPreps &copy; {new Date().getFullYear()} &mdash; Every Student Deserves Greatness
-          </div>
-          <div className="flex items-center justify-center gap-2">
-            <Star className="w-4 h-4 text-[#F59E0B]" />
-            <span>Your Own Stadium — Powered by UltraAI</span>
-            <Star className="w-4 h-4 text-[#F59E0B]" />
-          </div>
-        </motion.div>
-      </div>
-    </footer>
-  );
-}
-
-function PepRallySection() {
-  const [hypeLevel] = useState(91);
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  
-  const liveMessages = [
-    { user: "fanmom", message: "LET'S GO MUSTANGS!", time: "2s", avatar: "👩", verified: true },
-    { user: "coachcoleman", message: "BELIEVE IN YOURSELF!", time: "5s", avatar: "🏈", verified: true },
-    { user: "gage11", message: "Friday night, every night!", time: "8s", avatar: "⭐", verified: true },
-    { user: "stadiumfan", message: "ULTRAPREPS IS THE FUTURE!", time: "12s", avatar: "🚀", verified: false }
-  ];
-
-  return (
-    <section ref={ref} className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden" id="pep-rally">
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-        transition={{ duration: 1 }}
-        className="text-center mb-16"
-      >
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <Activity className="w-12 h-12 text-[#F59E0B]" />
-          <h2 className="text-5xl md:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
-            PEP RALLY LIVE HYPE
-          </h2>
-          <Flame className="w-12 h-12 text-[#F97316]" />
-        </div>
-        <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full" />
-      </motion.div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-0 flex flex-col lg:flex-row items-center justify-center gap-16">
-        {/* Enterprise HYPE Meter */}
-        <motion.div 
-          initial={{ scale: 0, rotate: -180 }}
-          animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-          transition={{ duration: 1.5, type: "spring", bounce: 0.4 }}
-          className="flex flex-col items-center relative"
-        >
-          <div className="relative w-64 h-64 mb-8">
-            {/* Professional progress ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#F97316] p-2">
-              <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
-                <div className="relative w-48 h-48">
-                  {/* Custom circular progress */}
-                  <svg width="192" height="192" viewBox="0 0 192 192" className="absolute inset-0">
-                    <defs>
-                      <linearGradient id="hype-gradient-new" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style={{ stopColor: "#F59E0B" }} />
-                        <stop offset="50%" style={{ stopColor: "#F97316" }} />
-                        <stop offset="100%" style={{ stopColor: "#F59E0B" }} />
-                      </linearGradient>
-                    </defs>
-                    {/* Background circle */}
-                    <circle cx="96" cy="96" r="80" stroke="#1E3A8A" strokeWidth="12" fill="none" opacity="0.3" />
-                    {/* Progress circle */}
-                    <motion.circle 
-                      cx="96" 
-                      cy="96" 
-                      r="80" 
-                      stroke="url(#hype-gradient-new)" 
-                      strokeWidth="12" 
-                      fill="none" 
-                      strokeDasharray="502"
-                      strokeDashoffset={502 - (hypeLevel / 100 * 502)}
-                      strokeLinecap="round"
-                      initial={{ strokeDashoffset: 502 }}
-                      animate={{ strokeDashoffset: 502 - (hypeLevel / 100 * 502) }}
-                      transition={{ duration: 2, ease: "easeOut" }}
-                    />
-        </svg>
-                  
-                  {/* Center display */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={inView ? { scale: 1 } : { scale: 0 }}
-                      transition={{ delay: 1, duration: 0.5 }}
-                      className="text-center"
-                    >
-                      <div className="text-6xl font-black text-[#F59E0B] drop-shadow-xl mb-2">
-                        {hypeLevel}
-                      </div>
-                      <div className="flex items-center gap-2 bg-[#F59E0B] px-4 py-2 rounded-full">
-                        <Zap className="w-5 h-5 text-black" />
-                        <span className="text-black font-black text-lg tracking-widest uppercase">
-                          HYPE
-                        </span>
-                      </div>
-                    </motion.div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Floating stats */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -top-4 -right-4 bg-[#F59E0B] text-black px-3 py-1 rounded-full text-sm font-bold"
-            >
-              +847 Live
-            </motion.div>
-          </div>
-          
-          <motion.div 
-            initial={{ y: 20, opacity: 0 }}
-            animate={inView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-            transition={{ delay: 2 }}
-            className="text-center"
-          >
-            <h3 className="text-white/90 font-black uppercase text-2xl tracking-wider mb-2">
-              LIVE STADIUM ENERGY
-            </h3>
-            <div className="flex items-center gap-2 text-[#F59E0B] font-bold">
-              <Users className="w-5 h-5" />
-              Real-time fan engagement
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Professional Live Stream Feed */}
-        <motion.div 
-          initial={{ x: 100, opacity: 0 }}
-          animate={inView ? { x: 0, opacity: 1 } : { x: 100, opacity: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="flex-1 max-w-2xl"
-        >
-          <div className="bg-gradient-to-br from-black/95 to-[#1E3A8A]/30 border-2 border-[#F59E0B] rounded-3xl p-8 backdrop-blur-xl shadow-2xl">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                <Play className="w-6 h-6 text-[#F59E0B]" />
-                <h3 className="text-2xl font-black uppercase text-white tracking-widest">
-                  LIVE PEP RALLY STREAM
-                </h3>
-      </div>
-    </div>
-            
-            <div className="space-y-4 max-h-80 overflow-y-auto custom-scrollbar">
-              {liveMessages.map((msg, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={inView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
-                  transition={{ delay: 2 + i * 0.3 }}
-                  className="flex items-start gap-3 p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300"
-                >
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full flex items-center justify-center text-black font-bold shadow-lg">
-                    {msg.user[0].toUpperCase()}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[#F59E0B] font-bold">@{msg.user}</span>
-                      {msg.verified && <Star className="w-4 h-4 text-[#F59E0B]" />}
-                      <span className="text-white/50 text-xs">{msg.time} ago</span>
-                    </div>
-                    <p className="text-white/90 font-medium leading-relaxed">{msg.message}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ delay: 4 }}
-              className="mt-6 p-4 bg-gradient-to-r from-[#F59E0B]/10 to-[#F97316]/10 rounded-xl border border-[#F59E0B]/20"
-            >
-              <div className="flex items-center justify-center gap-2 text-[#F59E0B] font-bold uppercase tracking-wider">
-                <Flame className="w-5 h-5" />
-                847 fans cheering live • Join the HYPE!
-                <Flame className="w-5 h-5" />
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
+// Enhanced Hero Section with User Type Selection
 function HeroSection() {
-  return (
-    <div className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-8 sm:py-12 overflow-hidden">
-      {/* Explosive Campaign Headlines */}
-      <motion.div 
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="text-center mb-8 sm:mb-12 z-20 relative"
-      >
+  const [activeUserType, setActiveUserType] = useState('student');
+  const [showNotification, setShowNotification] = useState(false);
 
-        <motion.h1 
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 1.2 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight leading-none mb-4 sm:mb-6 text-center text-white px-4"
-          style={{ 
-            textShadow: "0 8px 32px rgba(0,0,0,0.9), 0 0 40px rgba(245,158,11,0.3)"
-          }}
-        >
-          EVERY STUDENT<br/>DESERVES GREATNESS
-        </motion.h1>
-        <motion.h2 
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold uppercase tracking-wide text-[#F59E0B] drop-shadow-2xl px-4"
-        >
-          Your Own Stadium — Powered by UltraAI
-        </motion.h2>
-
-
-      </motion.div>
-
-      {/* Founder HeroCard - Massive Impact */}
-      <motion.div 
-        initial={{ y: 200, opacity: 0, rotateY: -15 }}
-        animate={{ y: 0, opacity: 1, rotateY: 0 }}
-        transition={{ delay: 1.2, duration: 1.5, ease: "easeOut" }}
-        whileHover={{ scale: 1.05, rotateY: 5, z: 100 }}
-        className="relative group z-20 flex flex-col items-center justify-center w-full"
-      >
-        {/* Meet the Founder label with subtle glow */}
-        <motion.div 
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 1.8, type: "spring", bounce: 0.4 }}
-          className="mb-6 sm:mb-8 text-center"
-        >
-          <span className="inline-block bg-gradient-to-r from-[#F59E0B]/80 to-[#F97316]/80 text-black font-black text-base sm:text-lg md:text-xl uppercase tracking-wide sm:tracking-widest px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-full shadow-2xl border-2 border-white/80 transform hover:scale-110 transition-all duration-300"
-                style={{ boxShadow: "0 0 20px rgba(245,158,11,0.4), 0 20px 40px rgba(0,0,0,0.5)" }}>
-            MEET THE FOUNDER
-          </span>
-        </motion.div>
-
-        {/* HeroCard with extreme effects - Matching Student Spotlight Size */}
-        <div className="relative w-80 md:w-96 lg:w-[28rem] h-auto max-h-[32rem] md:max-h-[38rem] lg:max-h-[44rem] mx-auto flex items-center justify-center transform-gpu perspective-1000">
-          <motion.div
-            whileHover={{ rotateX: 2, rotateY: 2 }}
-            className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-[#F59E0B]/60 shadow-2xl"
-            style={{ 
-              boxShadow: "0 0 30px rgba(245,158,11,0.3), 0 30px 60px rgba(0,0,0,0.7), inset 0 0 20px rgba(245,158,11,0.1)" 
-            }}
-          >
-            <Image
-              src="/gage-coleman-herocard.png"
-              alt="Gage Coleman Hero Card"
-              width={400}
-              height={600}
-              className="w-full h-auto rounded-3xl shadow-2xl block"
-              priority
-            />
-            {/* Dynamic lighting overlays */}
-            <div className="absolute inset-0 pointer-events-none rounded-3xl" 
-                 style={{
-                   background: 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, transparent 30%, rgba(255,255,255,0.05) 70%, rgba(245,158,11,0.1) 100%)', 
-                   mixBlendMode: 'screen'
-                 }} 
-            />
-            <motion.div 
-              animate={{ opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-3xl" 
-            />
-            {/* Stadium light reflection - full sweep */}
-            <motion.div
-              animate={{ x: ['-120%', '120%'] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              className="absolute inset-0 pointer-events-none rounded-3xl"
-              style={{ 
-                width: '60%',
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 25%, rgba(245,158,11,0.15) 50%, rgba(255,255,255,0.08) 75%, transparent 100%)',
-                filter: 'blur(1px)'
-              }}
-            />
-            {/* Secondary dramatic flare */}
-            <motion.div
-              animate={{ x: ['-150%', '150%'] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-              className="absolute inset-0 pointer-events-none rounded-3xl"
-              style={{ 
-                width: '40%',
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.05) 70%, transparent 100%)',
-                filter: 'blur(2px)'
-              }}
-            />
-          </motion.div>
-        </div>
-
-        {/* Founder info with energy */}
-        <motion.div 
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 2.2, duration: 1 }}
-          className="mt-6 sm:mt-8 text-center max-w-4xl mx-auto px-4"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase text-white mb-3 sm:mb-4 tracking-wide sm:tracking-wider drop-shadow-xl">GAGE COLEMAN</h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
-            <span className="text-sm sm:text-base md:text-lg lg:text-xl text-[#F59E0B] font-black uppercase tracking-wide sm:tracking-widest border-2 border-[#F59E0B] px-3 sm:px-4 py-1 sm:py-2 rounded-full">FOUNDER & WR #11</span>
-            <span className="text-sm sm:text-base md:text-lg lg:text-xl text-white font-bold uppercase tracking-wide sm:tracking-widest">MARBLE FALLS MUSTANGS</span>
-          </div>
-          
-          {/* Gage's inspiring quote */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 2.8, duration: 0.8 }}
-            className="p-4 sm:p-6 bg-black/60 border border-[#F59E0B]/30 rounded-2xl backdrop-blur-sm"
-          >
-            <blockquote className="text-lg sm:text-xl md:text-2xl text-white font-bold italic leading-relaxed mb-3">
-              &ldquo;Every student deserves their stadium. Not just the starters—every student who represents their school deserves to be seen and celebrated.&rdquo;
-            </blockquote>
-            <div className="flex items-center justify-center gap-2">
-              <Crown className="w-5 h-5 text-[#F59E0B]" />
-              <cite className="text-[#F59E0B] font-black uppercase tracking-wider">— Gage Coleman</cite>
-              <Crown className="w-5 h-5 text-[#F59E0B]" />
-      </div>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
-function StudentSpotlightGallery() {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const heroCards = [
-    { 
-      id: 1, 
-      src: "/herocard-1.png",
-      name: "Maria Rodriguez",
-      school: "Austin Hawks",
-      sport: "Soccer • State Champion",
-      year: "Junior",
-      stats: "23 Goals • 15 Assists",
-      quote: "UltraPreps helped me get recruited!"
-    },
-    { 
-      id: 2, 
-      src: "/herocard-2.png",
-      name: "James Thompson",
-      school: "Dallas Eagles",
-      sport: "Basketball • MVP Season",
-      year: "Senior",
-      stats: "18.5 PPG • 7.2 APG",
-      quote: "My highlight reel changed everything!"
-    },
-    { 
-      id: 3, 
-      src: "/herocard-3.png",
-      name: "Sarah Chen",
-      school: "Houston Lions",
-      sport: "Track & Field • Record Holder",
-      year: "Sophomore", 
-      stats: "100m: 11.2s • 200m: 23.8s",
-      quote: "Every achievement preserved forever!"
-    },
-    { 
-      id: 4, 
-      src: "/herocard-4.png",
-      name: "Marcus Williams",
-      school: "San Antonio Bears",
-      sport: "Football • All-District QB",
-      year: "Senior",
-      stats: "3,200 Yards • 32 TDs",
-      quote: "My stadium is where scouts find me!"
-    },
-    { 
-      id: 5, 
-      src: "/herocard-5.png",
-      name: "Emma Johnson",
-      school: "Fort Worth Rams",
-      sport: "Volleyball • Team Captain",
-      year: "Junior",
-      stats: "452 Kills • 89 Blocks",
-      quote: "Leadership tracked, legacy built!"
-    },
-    { 
-      id: 6, 
-      src: "/herocard-6.png",
-      name: "David Lee",
-      school: "El Paso Tigers",
-      sport: "Baseball • League Leader",
-      year: "Senior",
-      stats: ".385 AVG • 42 RBIs",
-      quote: "From Little League to College Dreams!"
-    },
-    { 
-      id: 7, 
-      src: "/herocard-7.png",
-      name: "Ashley Martinez",
-      school: "Plano Panthers",
-      sport: "Tennis • Regional Champion",
-      year: "Freshman",
-      stats: "32-2 Record • #1 Seed",
-      quote: "My journey just started!"
-    }
+  const userTypes = [
+    { id: 'student', label: 'Students', icon: GraduationCap, color: 'from-[#F59E0B] to-[#F97316]' },
+    { id: 'parent', label: 'Parents', icon: Home, color: 'from-[#3B82F6] to-[#1E3A8A]' },
+    { id: 'teacher', label: 'Teachers', icon: BookOpen, color: 'from-[#059669] to-[#10B981]' },
+    { id: 'coach', label: 'Coaches', icon: Trophy, color: 'from-[#DC2626] to-[#EF4444]' },
+    { id: 'admin', label: 'Administrators', icon: Building, color: 'from-[#7C3AED] to-[#5B21B6]' },
+    { id: 'scout', label: 'Scouts', icon: Eye, color: 'from-[#EC4899] to-[#BE185D]' }
   ];
 
-  const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % heroCards.length);
-  }, [heroCards.length]);
-
-  const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + heroCards.length) % heroCards.length);
-  }, [heroCards.length]);
-
-  // Manual navigation only - no auto-rotate
-
-  return (
-    <section ref={ref} className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
-      {/* Background energy patterns removed */}
-
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 1 }}
-        className="text-center mb-16 relative z-10"
-      >
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <Users className="w-12 h-12 text-white" />
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
-            STUDENT SPOTLIGHT
-          </h2>
-          <Star className="w-12 h-12 text-white" />
-        </div>
-        <div className="w-32 h-1 bg-white/30 mx-auto rounded-full mb-8" />
-        
-        {/* Inspiring message */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="max-w-5xl mx-auto"
-        >
-          <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-white font-bold leading-relaxed mb-8"
-             style={{ 
-               textShadow: "0 4px 16px rgba(0,0,0,0.8)" 
-             }}
-          >
-            Every student will have their own{' '}
-            <span className="text-[#F59E0B] font-black uppercase tracking-wide bg-gradient-to-r from-[#F59E0B] to-[#F97316] bg-clip-text text-transparent drop-shadow-lg">
-              SPACE
-            </span>
-            , their own{' '}
-            <span className="text-[#F59E0B] font-black uppercase tracking-wide bg-gradient-to-r from-[#F59E0B] to-[#F97316] bg-clip-text text-transparent drop-shadow-lg">
-              PORTAL
-            </span>
-            , and{' '}
-            <span className="text-[#F59E0B] font-black uppercase tracking-wide bg-gradient-to-r from-[#F59E0B] to-[#F97316] bg-clip-text text-transparent drop-shadow-lg">
-              TOOLS
-            </span>
-            {' '}that will link their entire journey from{' '}
-            <span className="text-white font-black border-b-2 border-[#F59E0B]/50">youth to college recruitment</span>
-            —all in their own{' '}
-            <span className="text-[#F59E0B] font-black uppercase tracking-widest">STADIUM</span>
-            {' '}on UltraPreps.
-          </p>
-          
-          {/* Enhanced UltraAI branding */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="relative"
-          >
-            <div className="flex items-center justify-center gap-4 text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-widest mb-4">
-              <motion.div
-                animate={{ 
-                  rotate: [0, 15, -15, 0],
-                  scale: [1, 1.1, 1.1, 1]
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <Zap className="w-8 h-8 md:w-10 md:h-10 text-[#F59E0B]" />
-              </motion.div>
-              
-              <span className="text-white drop-shadow-xl">ALL POWERED BY</span>
-              
-              <motion.div
-                animate={{ 
-                  rotate: [0, -15, 15, 0],
-                  scale: [1, 1.1, 1.1, 1]
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1
-                }}
-              >
-                <Zap className="w-8 h-8 md:w-10 md:h-10 text-[#F59E0B]" />
-              </motion.div>
-            </div>
-            
-            {/* Ultra AI with extreme styling */}
-            <motion.div
-              animate={{ 
-                textShadow: [
-                  "0 0 20px rgba(245,158,11,0.5)",
-                  "0 0 40px rgba(245,158,11,0.8)",
-                  "0 0 20px rgba(245,158,11,0.5)"
-                ]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-widest bg-gradient-to-r from-[#F59E0B] via-[#F97316] to-[#F59E0B] bg-clip-text text-transparent"
-              style={{
-                textShadow: "0 0 20px rgba(245,158,11,0.5), 0 4px 8px rgba(0,0,0,0.8)"
-              }}
-            >
-              ULTRA<span className="text-white">AI</span>
-            </motion.div>
-            
-            {/* Glowing underline */}
-            <motion.div
-              animate={{ 
-                width: ["0%", "100%", "100%", "0%"],
-                opacity: [0, 1, 1, 0]
-              }}
-              transition={{ 
-                duration: 3, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="h-1 bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent mx-auto mt-4"
-              style={{ maxWidth: "400px" }}
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-      {/* Rotating HeroCard Gallery */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-0 relative overflow-hidden">
-        <div className="relative h-[36rem] md:h-[42rem] lg:h-[48rem] rounded-3xl overflow-hidden">
-          {/* Main carousel container */}
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            {/* Center HeroCard */}
-            <motion.div
-              whileHover={{ scale: 1.05, rotateY: 5 }}
-              className="relative w-80 md:w-96 lg:w-[28rem] h-auto max-h-[32rem] md:max-h-[38rem] lg:max-h-[44rem] mx-auto"
-              style={{ overflow: 'hidden' }}
-            >
-              {/* HeroCard with natural aspect ratio */}
-              <div className="relative w-full h-full flex items-center justify-center">
-                <div className="relative max-w-full max-h-full rounded-2xl overflow-hidden border-2 border-[#F59E0B]/60" style={{ overflow: 'hidden' }}>
-                  <Image
-                    src={heroCards[currentIndex].src}
-                    alt="UltraPreps Student HeroCard"
-                    width={400}
-                    height={600}
-                    className="w-full h-auto rounded-2xl shadow-2xl block"
-                    style={{ 
-                      boxShadow: "0 40px 80px rgba(0,0,0,0.8)"
-                    }}
-                  />
-                  {/* Dynamic overlay effects - STRICTLY CONTAINED TO IMAGE */}
-                  <motion.div
-                    animate={{ opacity: [0.1, 0.3, 0.1] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-2xl"
-                  />
-                  {/* Stadium light sweep - STRICTLY CONTAINED TO IMAGE ONLY */}
-                  <motion.div
-                    animate={{ x: ['0%', '60%', '0%'] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-0 left-0 pointer-events-none"
-                    style={{ 
-                      background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)',
-                      filter: 'blur(1px)',
-                      width: '40%',
-                      height: '100%',
-                      borderRadius: '1rem'
-                    }}
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Side cards preview */}
-          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 opacity-30">
-            <motion.div
-              animate={{ scale: [0.6, 0.65, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-24 md:w-32 lg:w-36 h-32 md:h-40 lg:h-48 flex items-center justify-center"
-            >
-              <Image
-                src={heroCards[(currentIndex - 1 + heroCards.length) % heroCards.length].src}
-                alt="Previous card"
-                width={120}
-                height={180}
-                className="w-full h-auto rounded-xl border-2 border-[#F59E0B]/60 shadow-lg"
-              />
-            </motion.div>
-          </div>
-
-          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-30">
-            <motion.div
-              animate={{ scale: [0.6, 0.65, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              className="w-24 md:w-32 lg:w-36 h-32 md:h-40 lg:h-48 flex items-center justify-center"
-            >
-              <Image
-                src={heroCards[(currentIndex + 1) % heroCards.length].src}
-                alt="Next card"
-                width={120}
-                height={180}
-                className="w-full h-auto rounded-xl border-2 border-[#F59E0B]/60 shadow-lg"
-              />
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Navigation arrows */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full bg-black/80 border-2 border-white/60 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full bg-black/80 border-2 border-white/60 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-
-        
-
-        {/* Carousel indicators */}
-        <div className="flex justify-center mt-6 space-x-2">
-          {heroCards.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={clsx(
-                "w-3 h-3 rounded-full transition-all duration-300",
-                index === currentIndex
-                  ? "bg-white scale-125 shadow-lg"
-                  : "bg-white/30 hover:bg-white/50"
-              )}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function UltraAISystemsSection() {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [hoveredSystem, setHoveredSystem] = useState<string | null>(null);
-
-  const ultraAISystems = [
-    {
-      id: "video_engine",
-      title: "VIDEO DOMINATION",
-      subtitle: "AI Auto-Highlight Engine",
-      description: "Weekly ESPN-grade highlight reels automatically generated from your content with AI voiceover, cinematic effects, and professional school branding",
-      icon: Play,
-      color: "from-[#DC2626] to-[#7C2D12]",
-      stats: ["60-90 Second Reels", "Auto-Scripted Voiceover", "Cinematic Effects", "Auto-Distribution"]
+  const userContent = {
+    student: {
+      title: "Your Digital Stadium Awaits",
+      subtitle: "Build your legacy from youth sports to college recruitment",
+      features: [
+        "AI-powered highlight reels every week",
+        "College recruiting dashboard",
+        "Academic & athletic tracking",
+        "HYPE rewards system"
+      ],
+      cta: "Create Your Stadium",
+      href: "/stadium/create",
+      demo: "/dashboard"
     },
-    {
-      id: "stats_engine",
-      title: "STATS REVOLUTION",
-      subtitle: "Dynamic Stadium Engine",
-      description: "Interactive leaderboards, animated stats, real-time HYPE tracking, and rivalry-enhanced themes that make static stat sites look prehistoric",
-      icon: Trophy,
-      color: "from-[#1E3A8A] to-[#3B82F6]",
-      stats: ["Live HYPE Tracking", "Rivalry Themes", "Interactive Stats", "Community Submissions"]
+    parent: {
+      title: "Track Every Achievement",
+      subtitle: "Monitor your children's academic and athletic journey in one place",
+      features: [
+        "Multi-child dashboard",
+        "Real-time notifications",
+        "Direct teacher/coach messaging",
+        "Schedule management"
+      ],
+      cta: "Get Parent Access",
+      href: "/parent-signup",
+      demo: "/parent-dashboard"
     },
-    {
-      id: "recruiting_engine",
-      title: "RECRUITING REIMAGINED",
-      subtitle: "Transparent Growth Engine",
-      description: "AI-driven evaluation over time, underdog spotlight algorithm, transparent metrics, and verified college pipelines that destroy traditional recruiting models",
-      icon: Target,
-      color: "from-[#059669] to-[#065F46]",
-      stats: ["Growth Tracking", "Underdog Priority", "Transparent Metrics", "College Connections"]
+    teacher: {
+      title: "Revolutionize Your Classroom",
+      subtitle: "AI-powered tools to enhance learning and communication",
+      features: [
+        "AI lesson planning assistant",
+        "Smart gradebook integration",
+        "Parent communication hub",
+        "Student analytics dashboard"
+      ],
+      cta: "Join as Teacher",
+      href: "/teacher-signup",
+      demo: "/teacher-dashboard"
+    },
+    coach: {
+      title: "Build Championship Programs",
+      subtitle: "Professional tools for team management and player development",
+      features: [
+        "AI film room & analysis",
+        "Team communication platform",
+        "Player development tracking",
+        "Recruiting pipeline manager"
+      ],
+      cta: "Start Coaching",
+      href: "/coach-signup",
+      demo: "/coach-dashboard"
+    },
+    admin: {
+      title: "District-Wide Excellence",
+      subtitle: "Comprehensive oversight and analytics for school leadership",
+      features: [
+        "District performance metrics",
+        "Resource allocation tools",
+        "Community engagement platform",
+        "Strategic planning dashboard"
+      ],
+      cta: "Request Admin Demo",
+      href: "/admin-demo",
+      demo: "/superintendent-dashboard"
+    },
+    scout: {
+      title: "Discover Tomorrow's Stars",
+      subtitle: "AI-powered talent discovery and recruitment platform",
+      features: [
+        "Advanced search filters",
+        "AI talent matching",
+        "Video analysis tools",
+        "Direct communication system"
+      ],
+      cta: "Scout Platform",
+      href: "/scout-signup",
+      demo: "/college-scout-dashboard"
     }
-  ];
+  };
+
+  const currentContent = userContent[activeUserType as keyof typeof userContent];
+  const IconComponent = userTypes.find(u => u.id === activeUserType)?.icon || GraduationCap;
+  const gradient = userTypes.find(u => u.id === activeUserType)?.color || 'from-[#F59E0B] to-[#F97316]';
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNotification(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <section ref={ref} id="ultraaisystems" className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 1 }}
-        className="text-center mb-12 sm:mb-16 md:mb-20"
-      >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
-          <Zap className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl text-center">
-            ULTRAAI SYSTEMS
-          </h2>
-          <Zap className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
-        </div>
-        <div className="w-24 sm:w-28 md:w-32 h-1 bg-gradient-to-r from-[#F59E0B]/60 to-[#F97316]/60 mx-auto rounded-full mb-8" />
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-lg md:text-xl text-white/80 font-bold uppercase tracking-wider max-w-4xl mx-auto"
-        >
-          Advanced AI systems that revolutionize how students showcase their talents — <span className="text-[#F59E0B]">BEYOND ANYTHING ELSE</span>
-        </motion.p>
-      </motion.div>
-
-      {/* UltraAI Systems Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-        {ultraAISystems.map((system, index) => {
-          const IconComponent = system.icon;
-          return (
-            <motion.div
-              key={system.id}
-              initial={{ opacity: 0, y: 100, rotateY: -15 }}
-              animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: -15 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              whileHover={{ 
-                scale: 1.05, 
-                rotateY: 5,
-                boxShadow: "0 25px 50px rgba(245, 158, 11, 0.2)"
-              }}
-              onMouseEnter={() => setHoveredSystem(system.id)}
-              onMouseLeave={() => setHoveredSystem(null)}
-              className="relative group"
-            >
-              <div className={clsx(
-                "bg-gradient-to-br from-black/95 to-[#1E3A8A]/30 border-2 rounded-3xl p-4 sm:p-6 md:p-8 text-center h-full backdrop-blur-xl transform-gpu perspective-1000 transition-all duration-500 hover:shadow-2xl",
-                hoveredSystem === system.id ? "border-[#F59E0B]/80 scale-105" : "border-white/20"
-              )}>
-                {/* Animated background glow */}
-                <AnimatePresence>
-                  {hoveredSystem === system.id && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className={`absolute inset-0 bg-gradient-to-r ${system.color} opacity-5 rounded-3xl blur-xl`}
-                    />
-                  )}
-                </AnimatePresence>
-
-                {/* Icon with enterprise styling */}
-                <motion.div
-                  animate={hoveredSystem === system.id ? { 
-                    scale: 1.2,
-                    rotateY: 10
-                  } : { scale: 1, rotateY: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative z-10 flex justify-center mb-4 sm:mb-6"
-                >
-                  <div className="p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-black/80 to-[#1E3A8A]/60 border border-[#F59E0B]/30 shadow-2xl">
-                    <IconComponent className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#F59E0B]" />
-                  </div>
-                </motion.div>
-
-                {/* Title with enterprise typography */}
-                <motion.h3
-                  animate={hoveredSystem === system.id ? { 
-                    scale: 1.05,
-                    color: "#F59E0B"
-                  } : { scale: 1 }}
-                  className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-white mb-2 tracking-wide sm:tracking-wider drop-shadow-xl relative z-10"
-                >
-                  {system.title}
-                </motion.h3>
-
-                {/* Subtitle with professional styling */}
-                <div className="text-[#F59E0B]/80 font-bold uppercase tracking-wide sm:tracking-widest mb-3 sm:mb-4 text-sm sm:text-base md:text-lg relative z-10">
-                  {system.subtitle}
-                </div>
-
-                {/* Animated divider */}
-                <motion.div 
-                  animate={hoveredSystem === system.id ? { width: "100%" } : { width: "50%" }}
-                  className="h-1 bg-gradient-to-r from-[#F59E0B]/40 to-[#F97316]/40 mx-auto rounded-full mb-6 transition-all duration-300"
-                />
-
-                {/* Description */}
-                <p className="text-white/80 text-lg font-medium leading-relaxed relative z-10 mb-6">
-                  {system.description}
-                </p>
-
-                {/* Professional stats display */}
-                <div className="space-y-2 relative z-10">
-                  {system.stats.map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                      transition={{ delay: 1 + index * 0.2 + i * 0.1 }}
-                      className="flex items-center gap-2 text-white/70 text-sm font-medium"
-                    >
-                      <Star className="w-4 h-4 text-[#F59E0B]" />
-                      {stat}
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Hover effect overlay */}
-                <div className={`absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500 bg-gradient-to-t ${system.color} opacity-0 group-hover:opacity-3`} />
-              </div>
-            </motion.div>
-          );
-        })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function DigitalImmortalitySection() {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  
-  const preservationFeatures = [
-    {
-      title: "VIDEO DOMINATION ENGINE",
-      description: "Every moment becomes ESPN-grade highlights with AI-generated voiceover and cinematic effects",
-      icon: Play,
-      features: ["Auto-Generated Highlights", "AI Voiceover", "Cinematic Effects", "Weekly Reels"]
-    },
-    {
-      title: "IMMORTAL ARCHIVE",
-      description: "Every achievement, article, photo, video, and moment preserved forever with AI curation",
-      icon: Activity,
-      features: ["Complete Preservation", "AI Curation", "Instant Retrieval", "Blockchain Verified"]
-    },
-    {
-      title: "FAMILY LEGACY",
-      description: "Multi-generational connections from grandparents to grandchildren, all linked together",
-      icon: Users,
-      features: ["Family Tree", "Generational Stories", "Shared Achievements", "Legacy Connections"]
-    }
-  ];
-
-  return (
-    <section ref={ref} className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-5">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Dynamic Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#111827] to-black" />
         <motion.div
           animate={{ 
-            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+            background: [
+              'radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%)'
+            ]
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 10, repeat: Infinity }}
           className="absolute inset-0"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 25% 25%, #F59E0B 2px, transparent 2px), radial-gradient(circle at 75% 75%, #3B82F6 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
-          }}
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
+      {/* Live Activity Ticker */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute top-20 left-0 right-0 bg-black/50 backdrop-blur-sm border-y border-[#F59E0B]/20 py-2 overflow-hidden"
+      >
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 1 }}
-          className="text-center mb-20"
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="flex items-center gap-8 whitespace-nowrap"
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <Sparkles className="w-12 h-12 text-[#F59E0B]" />
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
-              DIGITAL IMMORTALITY
-            </h2>
-            <Sparkles className="w-12 h-12 text-[#F59E0B]" />
+          <span className="text-white/60 text-sm">🏆 Marcus Thompson just earned 500 HYPE</span>
+          <span className="text-[#F59E0B]">•</span>
+          <span className="text-white/60 text-sm">📹 Sarah Chen's highlight reel is trending</span>
+          <span className="text-[#F59E0B]">•</span>
+          <span className="text-white/60 text-sm">🎯 Coach Martinez posted new training videos</span>
+          <span className="text-[#F59E0B]">•</span>
+          <span className="text-white/60 text-sm">📚 Ms. Johnson shared AI lesson plans</span>
+          <span className="text-[#F59E0B]">•</span>
+          <span className="text-white/60 text-sm">🏟️ 12,847 students online now</span>
+        </motion.div>
+      </motion.div>
+
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        {/* User Type Selector */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-xl md:text-2xl font-bold text-white/80 mb-6">I am a...</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {userTypes.map((type) => {
+              const TypeIcon = type.icon;
+              return (
+                <motion.button
+                  key={type.id}
+                  onClick={() => setActiveUserType(type.id)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={clsx(
+                    "px-6 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2",
+                    activeUserType === type.id
+                      ? `bg-gradient-to-r ${type.color} text-white shadow-lg`
+                      : "bg-white/10 text-white/70 hover:bg-white/20 border border-white/20"
+                  )}
+                >
+                  <TypeIcon className="w-5 h-5" />
+                  {type.label}
+                </motion.button>
+              );
+            })}
           </div>
-          <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full mb-8" />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-xl md:text-2xl text-white/90 font-bold max-w-5xl mx-auto leading-relaxed"
-          >
-            <span className="text-[#F59E0B]">Every moment is preserved forever.</span> From your first game to your grandchild&apos;s championship, 
-            UltraPreps creates a lifebook that spans generations with AI-powered curation and storytelling.
-          </motion.p>
         </motion.div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          {preservationFeatures.map((feature, index) => {
-            const IconComponent = feature.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 100 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-gradient-to-br from-black/90 to-[#1E3A8A]/30 border border-[#F59E0B]/30 rounded-3xl p-8 backdrop-blur-xl text-center group hover:border-[#F59E0B]/60 transition-all duration-500"
-              >
-                <div className="flex justify-center mb-6">
-                  <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 border border-[#F59E0B]/40">
-                    <IconComponent className="w-12 h-12 text-[#F59E0B]" />
-                  </div>
+        {/* Dynamic Content Based on User Type */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeUserType}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5 }}
+            className="text-center"
+          >
+            {/* Icon */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+              className="mb-8 inline-block"
+            >
+              <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-1 shadow-2xl`}>
+                <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                  <IconComponent className="w-12 h-12 text-white" />
                 </div>
-                <h3 className="text-2xl font-black uppercase text-white mb-4 tracking-wider">
-                  {feature.title}
+              </div>
+            </motion.div>
+
+            {/* Title */}
+            <motion.h1
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6"
+            >
+              {currentContent.title}
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto"
+            >
+              {currentContent.subtitle}
+            </motion.p>
+
+            {/* Features */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12"
+            >
+              {currentContent.features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all"
+                >
+                  <Check className="w-5 h-5 text-[#F59E0B] mb-2" />
+                  <p className="text-white/90 text-sm">{feature}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link
+                href={currentContent.href}
+                className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${gradient} text-white font-bold rounded-full shadow-lg hover:scale-105 transition-all duration-300`}
+              >
+                <Rocket className="w-5 h-5" />
+                {currentContent.cta}
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href={currentContent.demo}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-bold rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
+              >
+                <Play className="w-5 h-5" />
+                View Demo
+              </Link>
+            </motion.div>
+
+            {/* UltraAI Badge */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="mt-12"
+            >
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full border border-[#F59E0B]/30">
+                <Bot className="w-5 h-5 text-[#F59E0B]" />
+                <span className="text-white font-bold">Powered by</span>
+                <span className="text-[#F59E0B] font-black text-xl">UltraAI</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Floating Elements */}
+      <motion.div
+        animate={{ y: [0, -20, 0] }}
+        transition={{ duration: 4, repeat: Infinity }}
+        className="absolute bottom-10 left-10 hidden lg:block"
+      >
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+          <div className="flex items-center gap-3">
+            <Trophy className="w-8 h-8 text-[#F59E0B]" />
+            <div>
+              <p className="text-white font-bold">500+ Schools</p>
+              <p className="text-white/60 text-sm">Already on UltraPreps</p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Sample Notification */}
+      <AnimatePresence>
+        {showNotification && (
+          <motion.div
+            initial={{ x: 400, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 400, opacity: 0 }}
+            className="fixed top-24 right-4 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-50 max-w-sm"
+          >
+            <div className="flex items-start gap-3">
+              <Bell className="w-5 h-5 text-[#F59E0B] mt-1" />
+              <div className="flex-1">
+                <p className="text-white font-bold">New Message from Coach</p>
+                <p className="text-white/70 text-sm mt-1">Great practice today! Your highlight reel is ready.</p>
+                <div className="flex gap-2 mt-3">
+                  <Link href="/messages" className="text-[#F59E0B] text-sm font-bold hover:underline">View</Link>
+                  <button 
+                    onClick={() => setShowNotification(false)}
+                    className="text-white/50 text-sm hover:text-white"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+              <button onClick={() => setShowNotification(false)}>
+                <X className="w-4 h-4 text-white/50 hover:text-white" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+// Quick Access Portal Section
+function QuickAccessPortal() {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  
+  const stakeholders = [
+    {
+      title: "Student Athletes",
+      icon: Trophy,
+      color: "from-[#F59E0B] to-[#F97316]",
+      description: "Build your digital stadium, earn HYPE, get recruited",
+      link: "/dashboard",
+      features: ["Digital Stadium", "HYPE Economy", "AI Highlights", "Recruiting Tools"]
+    },
+    {
+      title: "Coaches",
+      icon: Megaphone,
+      color: "from-[#3B82F6] to-[#1E3A8A]",
+      description: "AI film room, team management, recruiting pipeline",
+      link: "/coach-dashboard",
+      features: ["AI Film Analysis", "Team Communication", "Player Development", "Game Planning"]
+    },
+    {
+      title: "Parents",
+      icon: Heart,
+      color: "from-[#EC4899] to-[#BE185D]",
+      description: "Monitor all your children, communicate with coaches & teachers",
+      link: "/parent-dashboard",
+      features: ["Multi-Child Tracking", "Direct Messaging", "Event Calendar", "Progress Reports"]
+    },
+    {
+      title: "Teachers",
+      icon: GraduationCap,
+      color: "from-[#8B5CF6] to-[#6D28D9]",
+      description: "AI lesson planning, smart gradebook, parent communication",
+      link: "/teacher-dashboard",
+      features: ["AI Lesson Planner", "Smart Gradebook", "Parent Hub", "Student Analytics"]
+    },
+    {
+      title: "Athletic Directors",
+      icon: Shield,
+      color: "from-[#10B981] to-[#059669]",
+      description: "Manage all sports programs, facilities, and championships",
+      link: "/athletic-director-dashboard",
+      features: ["Program Analytics", "Facility Management", "Budget Tracking", "Championship Legacy"]
+    },
+    {
+      title: "College Scouts",
+      icon: Eye,
+      color: "from-[#F59E0B] to-[#D97706]",
+      description: "AI talent matching, virtual scouting, predictive analytics",
+      link: "/college-scout-dashboard",
+      features: ["AI Talent Search", "Video Analysis", "Recruiting Pipeline", "Performance Metrics"]
+    },
+    {
+      title: "School Boards",
+      icon: Building2,
+      color: "from-[#6366F1] to-[#4F46E5]",
+      description: "District oversight, policy management, community engagement",
+      link: "/school-board-dashboard",
+      features: ["Policy Management", "Budget Oversight", "Community Metrics", "Strategic Planning"]
+    },
+    {
+      title: "Booster Clubs",
+      icon: DollarSign,
+      color: "from-[#14B8A6] to-[#0D9488]",
+      description: "Fundraising tools, member management, event coordination",
+      link: "/booster-club-dashboard",
+      features: ["Fundraising Campaigns", "Member Portal", "Event Planning", "Financial Reports"]
+    },
+    {
+      title: "Youth Coaches",
+      icon: Users,
+      color: "from-[#FB923C] to-[#F97316]",
+      description: "Develop young athletes, communicate with parents, track progress",
+      link: "/youth-coach-dashboard",
+      features: ["Skill Development", "Parent Updates", "Practice Planning", "Player Safety"]
+    }
+  ];
+
+  return (
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#1E3A8A]/10 to-black" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F59E0B]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl" />
+
+      <motion.div 
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 max-w-7xl mx-auto"
+      >
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-6 py-2 bg-[#F59E0B]/20 border border-[#F59E0B]/40 rounded-full mb-6"
+          >
+            <Sparkles className="w-5 h-5 text-[#F59E0B]" />
+            <span className="text-[#F59E0B] font-bold uppercase tracking-wider">Choose Your Path</span>
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+          >
+            Who Are You?
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-white/80 max-w-3xl mx-auto"
+          >
+            Select your role to access your personalized dashboard and revolutionary AI tools
+          </motion.p>
+        </div>
+
+        {/* Stakeholder Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stakeholders.map((stakeholder, index) => {
+            const Icon = stakeholder.icon;
+            return (
+              <motion.a
+                key={stakeholder.title}
+                href={stakeholder.link}
+                initial={{ opacity: 0, y: 50 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.1 * index }}
+                whileHover={{ scale: 1.05, y: -10 }}
+                className="group relative bg-black/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden hover:border-[#F59E0B]/50 transition-all duration-300"
+              >
+                {/* Gradient Background on Hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${stakeholder.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                
+                {/* Icon */}
+                <div className={`w-16 h-16 mb-4 rounded-xl bg-gradient-to-r ${stakeholder.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className="w-8 h-8 text-white" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-2xl font-black text-white mb-2 group-hover:text-[#F59E0B] transition-colors">
+                  {stakeholder.title}
                 </h3>
-                <p className="text-white/80 text-lg leading-relaxed mb-6">
-                  {feature.description}
+
+                {/* Description */}
+                <p className="text-white/70 mb-4 text-sm">
+                  {stakeholder.description}
                 </p>
-                <div className="space-y-2">
-                  {feature.features.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-white/70">
-                      <Star className="w-4 h-4 text-[#F59E0B]" />
-                      <span>{item}</span>
+
+                {/* Features */}
+                <div className="space-y-2 mb-4">
+                  {stakeholder.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#F59E0B]" />
+                      <span className="text-white/60 text-sm">{feature}</span>
                     </div>
                   ))}
                 </div>
+
+                {/* CTA Button */}
+                <div className="flex items-center gap-2 text-[#F59E0B] font-bold group-hover:gap-4 transition-all duration-300">
+                  <span>Access Dashboard</span>
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+
+                {/* Hover Effect Border */}
+                <div className="absolute inset-0 border-2 border-[#F59E0B] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </motion.a>
+            );
+          })}
+        </div>
+
+        {/* Quick Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8 }}
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
+          {[
+            { label: "Active Students", value: "4.2M+", icon: Users },
+            { label: "Schools Connected", value: "12,847", icon: School },
+            { label: "HYPE Distributed", value: "50M+", icon: Zap },
+            { label: "Success Rate", value: "98%", icon: Trophy }
+          ].map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className="text-center">
+                <Icon className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
+                <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
+                <div className="text-white/60 text-sm uppercase tracking-wider">{stat.label}</div>
+              </div>
+            );
+          })}
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 1 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-white/80 mb-6 text-lg">
+            Not sure where to start? Create your free account and we'll guide you!
+          </p>
+          <motion.a
+            href="/stadium/create"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-full text-lg uppercase tracking-wider hover:shadow-2xl transition-all duration-300"
+            style={{
+              boxShadow: '0 10px 40px rgba(245, 158, 11, 0.3)'
+            }}
+          >
+            <Rocket className="w-6 h-6" />
+            Get Started Now
+            <ArrowRight className="w-6 h-6" />
+          </motion.a>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+// Platform Overview Section
+function PlatformOverview() {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+
+  const stats = [
+    { number: "4.2M+", label: "Active Students", icon: Users },
+    { number: "500+", label: "Partner Schools", icon: School },
+    { number: "98%", label: "Satisfaction Rate", icon: Star },
+    { number: "50M+", label: "HYPE Distributed", icon: Zap }
+  ];
+
+  return (
+    <section ref={ref} className="py-24 px-4 bg-gradient-to-b from-black via-[#111827] to-black">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+            The Future of Student Achievement
+          </h2>
+          <p className="text-xl text-white/70 max-w-3xl mx-auto">
+            One platform connecting students, parents, teachers, coaches, and schools with UltraAI technology
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-4 gap-8 mb-16">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <Icon className="w-12 h-12 text-[#F59E0B] mx-auto mb-4" />
+                <p className="text-4xl font-black text-white mb-2">{stat.number}</p>
+                <p className="text-white/60">{stat.label}</p>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Central Message */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="text-center bg-gradient-to-r from-black/80 to-[#1E3A8A]/40 border-2 border-[#F59E0B]/40 rounded-3xl p-12 backdrop-blur-xl"
-        >
-          <h3 className="text-3xl md:text-4xl font-black uppercase text-white mb-6 tracking-wider">
-            <span className="text-[#F59E0B]">YOUR LEGACY</span> LIVES FOREVER
-          </h3>
-          <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-            From a 6-year-old&apos;s first soccer game to an 80-year-old grandparent cheering from the stands, 
-            every achievement, every moment, every connection is preserved forever in an AI-curated digital legacy 
-            that grows richer with each generation.
-          </p>
-        </motion.div>
+        {/* Platform Features Grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#F59E0B]/50 transition-all"
+          >
+            <Video className="w-10 h-10 text-[#F59E0B] mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">UltraAI Video Engine</h3>
+            <p className="text-white/70">Weekly highlight reels with AI voiceover and professional editing</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#F59E0B]/50 transition-all"
+          >
+            <MessageSquare className="w-10 h-10 text-[#F59E0B] mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Universal Communication</h3>
+            <p className="text-white/70">Real-time messaging between all stakeholders with AI translation</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.2 }}
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#F59E0B]/50 transition-all"
+          >
+            <Shield className="w-10 h-10 text-[#F59E0B] mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Digital Legacy Vault</h3>
+            <p className="text-white/70">Preserve every achievement and memory forever in the cloud</p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-function DemoSection() {
+// Features Showcase Section
+function FeaturesShowcase() {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [activeDemo, setActiveDemo] = useState(0);
+  const [activeFeature, setActiveFeature] = useState(0);
 
-  const demos = [
+  const features = [
     {
-      title: "Student Universe",
-      description: "Experience a student's complete digital stadium with AI tutoring, HYPE economy, content creation, and college prep tools",
-      preview: "/herocard-1.png",
-      action: "Explore Student Dashboard",
-      href: "/dashboard",
-      color: "from-[#F59E0B] to-[#F97316]",
-      features: ["AI Tutoring", "HYPE Economy", "College Prep", "Social Features"]
+      title: "Digital Stadium",
+      icon: Trophy,
+      description: "Your personalized arena showcasing all achievements",
+      link: "/stadium/create",
+      image: "/feature-stadium.jpg",
+      highlights: [
+        "Custom branding with school colors",
+        "Interactive 3D trophy room",
+        "Real-time stats dashboard",
+        "Social sharing tools"
+      ]
     },
     {
-      title: "Teacher Command Center",
-      description: "Comprehensive classroom management with AI-powered lesson plans, student analytics, and automated grading systems",
-      preview: "/herocard-2.png",
-      action: "See Teacher Dashboard",
-      href: "/teacher-dashboard",
-      color: "from-[#3B82F6] to-[#1E3A8A]",
-      features: ["Lesson Planning", "Student Analytics", "Grade Management", "AI Resources"]
+      title: "HYPE Economy",
+      icon: Zap,
+      description: "Earn, spend, and transfer HYPE points for real rewards",
+      link: "/dashboard",
+      image: "/feature-hype.jpg",
+      highlights: [
+        "130% sustainability rule",
+        "Real-world rewards",
+        "Achievement multipliers",
+        "Community challenges"
+      ]
     },
     {
-      title: "Coach Championship Suite",
-      description: "Team management, player development tracking, performance analytics, and recruitment tools for winning programs",
-      preview: "/herocard-3.png",
-      action: "View Coach Dashboard",
-      href: "/coach-dashboard",
-      color: "from-[#059669] to-[#10B981]",
-      features: ["Team Management", "Performance Tracking", "Recruitment", "Analytics"]
+      title: "AI Highlights",
+      icon: Video,
+      description: "ESPN-grade highlight reels generated automatically",
+      link: "/dashboard",
+      image: "/feature-highlights.jpg",
+      highlights: [
+        "Professional voiceover",
+        "Cinematic effects",
+        "School branding",
+        "Social media ready"
+      ]
     },
     {
-      title: "Parent Partnership Portal",
-      description: "Complete oversight of your child's academic and athletic progress with real-time updates and communication tools",
-      preview: "/herocard-4.png",
-      action: "Experience Parent Dashboard",
-      href: "/parent-dashboard",
-      color: "from-[#DC2626] to-[#EF4444]",
-      features: ["Progress Monitoring", "Communication", "Academic Support", "Schedule Management"]
+      title: "HeroCard Creator",
+      icon: Star,
+      description: "Professional trading cards with your stats and achievements",
+      link: "/herocard/create",
+      image: "/feature-herocard.jpg",
+      highlights: [
+        "Custom designs",
+        "QR code linking",
+        "Holographic effects",
+        "Print-ready formats"
+      ]
     },
     {
-      title: "Recruiting Intelligence Hub",
-      description: "Advanced talent discovery platform with AI-powered scouting, comprehensive player analytics, and recruitment pipelines",
-      preview: "/herocard-5.png",
-      action: "Explore Recruiting Dashboard",
-      href: "/recruiting",
-      color: "from-[#7C3AED] to-[#5B21B6]",
-      features: ["Talent Discovery", "AI Scouting", "Analytics", "Pipeline Management"]
+      title: "Recruiting Hub",
+      icon: Eye,
+      description: "Connect with college scouts and showcase your talent",
+      link: "/recruiting",
+      image: "/feature-recruiting.jpg",
+      highlights: [
+        "AI talent matching",
+        "Direct scout messaging",
+        "Performance analytics",
+        "Virtual tryouts"
+      ]
     },
     {
-      title: "Community & Social Feed",
-      description: "Dynamic social ecosystem with real-time activity feeds, community events, school rivalries, and viral content creation",
-      preview: "/herocard-6.png",
-      action: "Join Community Feed",
-      href: "/feed",
-      color: "from-[#EC4899] to-[#BE185D]",
-      features: ["Activity Feed", "Community Events", "School Rivalries", "Content Sharing"]
+      title: "Community Feed",
+      icon: Users,
+      description: "Connect with teammates, schools, and the UltraPreps network",
+      link: "/community",
+      image: "/feature-community.jpg",
+      highlights: [
+        "Real-time updates",
+        "Event coordination",
+        "Team challenges",
+        "Parent engagement"
+      ]
     }
   ];
 
   return (
-    <section ref={ref} className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
-      {/* Section Header */}
+    <section className="relative py-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-black via-[#1E3A8A]/5 to-black">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-[#F59E0B]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 right-0 w-[600px] h-[600px] bg-[#3B82F6]/10 rounded-full blur-3xl" />
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 1 }}
-        className="text-center mb-20"
+        ref={ref}
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        className="relative z-10 max-w-7xl mx-auto"
       >
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <Play className="w-12 h-12 text-[#F59E0B]" />
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
-            EXPERIENCE THE PLATFORM
-          </h2>
-          <Play className="w-12 h-12 text-[#F59E0B]" />
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-6 py-2 bg-[#F59E0B]/20 border border-[#F59E0B]/40 rounded-full mb-6"
+          >
+            <Sparkles className="w-5 h-5 text-[#F59E0B]" />
+            <span className="text-[#F59E0B] font-bold uppercase tracking-wider">Platform Features</span>
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+          >
+            Everything You Need
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-white/80 max-w-3xl mx-auto"
+          >
+            Comprehensive tools and features designed to elevate every aspect of your journey
+          </motion.p>
         </div>
-        <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B]/60 to-[#F97316]/60 mx-auto rounded-full" />
-      </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-0">
-        {/* Demo Navigation Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-16"
-        >
-          {demos.map((demo, index) => (
-            <motion.button
-              key={index}
-              onClick={() => setActiveDemo(index)}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={clsx(
-                "px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 border-2",
-                activeDemo === index 
-                  ? "bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black border-[#F59E0B] shadow-lg" 
-                  : "bg-black/40 backdrop-blur-sm text-white border-white/20 hover:border-[#F59E0B] hover:text-[#F59E0B]"
-              )}
-            >
-              {demo.title}
-            </motion.button>
-          ))}
-        </motion.div>
+        {/* Feature Tabs */}
+        <div className="mb-12">
+          <div className="flex flex-wrap justify-center gap-4">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.button
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.1 * index }}
+                  onClick={() => setActiveFeature(index)}
+                  className={`
+                    flex items-center gap-3 px-6 py-3 rounded-full font-bold transition-all duration-300
+                    ${activeFeature === index 
+                      ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black scale-105' 
+                      : 'bg-white/10 text-white hover:bg-white/20'
+                    }
+                  `}
+                >
+                  <Icon className="w-5 h-5" />
+                  <span>{feature.title}</span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
 
-        {/* Active Demo Display */}
-        <motion.div
-          key={activeDemo}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-black/90 to-[#1E3A8A]/30 border-2 border-[#F59E0B]/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 backdrop-blur-xl shadow-2xl"
-        >
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-            {/* Demo Content */}
-            <div className="text-center lg:text-left">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase text-white mb-4 sm:mb-6 tracking-wider">
-                {demos[activeDemo].title}
+        {/* Active Feature Display */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFeature}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+            className="grid lg:grid-cols-2 gap-12 items-center"
+          >
+            {/* Feature Details */}
+            <div>
+              <h3 className="text-3xl font-black text-white mb-4">
+                {features[activeFeature].title}
               </h3>
-              <p className="text-base sm:text-lg lg:text-xl text-white/80 mb-6 sm:mb-8 leading-relaxed">
-                {demos[activeDemo].description}
+              <p className="text-xl text-white/80 mb-8">
+                {features[activeFeature].description}
               </p>
+              
+              {/* Highlights */}
+              <div className="space-y-3 mb-8">
+                {features[activeFeature].highlights.map((highlight) => (
+                  <div key={highlight} className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#F59E0B]/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-[#F59E0B]" />
+                    </div>
+                    <span className="text-white/70">{highlight}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
               <motion.a
-                href={demos[activeDemo].href}
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(245, 158, 11, 0.5)" }}
+                href={features[activeFeature].link}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-gradient-to-r ${demos[activeDemo].color} text-black font-black rounded-full text-sm sm:text-base lg:text-lg uppercase shadow-xl transition-all duration-300 border-2 border-[#F59E0B]`}
+                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold rounded-xl hover:shadow-2xl transition-all duration-300"
               >
-                <Rocket className="w-5 h-5" />
-                {demos[activeDemo].action}
+                Explore {features[activeFeature].title}
+                <ArrowRight className="w-5 h-5" />
               </motion.a>
             </div>
 
-            {/* Demo Preview */}
+            {/* Feature Visual */}
             <div className="relative">
-              <motion.div
-                whileHover={{ scale: 1.02, rotateY: 2 }}
-                className="relative rounded-2xl overflow-hidden border-2 border-[#F59E0B]/40 shadow-2xl bg-black/50 backdrop-blur"
-              >
-                <div className="aspect-video bg-gradient-to-br from-[#1E3A8A] to-black flex items-center justify-center">
-                  <div className="text-center">
-                    <Play className="w-12 sm:w-16 lg:w-20 h-12 sm:h-16 lg:h-20 text-[#F59E0B] mx-auto mb-2 sm:mb-4" />
-                    <div className="text-white font-bold text-base sm:text-lg lg:text-xl">Interactive Demo</div>
-                    <div className="text-white/60 text-sm sm:text-base">Click to Experience</div>
-                  </div>
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#F59E0B]/20 to-[#F97316]/20 p-8">
+                {/* Placeholder for feature visual */}
+                <div className="aspect-video bg-black/50 rounded-xl flex items-center justify-center">
+                  {React.createElement(features[activeFeature].icon, {
+                    className: "w-32 h-32 text-[#F59E0B]/50"
+                  })}
+                </div>
+                
+                {/* Decorative elements */}
+                <div className="absolute top-4 right-4 w-20 h-20 bg-[#F59E0B]/20 rounded-full blur-2xl" />
+                <div className="absolute bottom-4 left-4 w-24 h-24 bg-[#F97316]/20 rounded-full blur-2xl" />
+              </div>
             </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-[#F59E0B]/10" />
-              </motion.div>
-            </div>
-        </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+          </motion.div>
+        </AnimatePresence>
 
-function VisionSection() {
-  return (
-    <section className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-20">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <Target className="w-12 h-12 text-[#F59E0B]" />
-            <h2 className="text-5xl md:text-7xl font-black uppercase text-white tracking-tight drop-shadow-xl">
-              THE VISION
-            </h2>
-            <Target className="w-12 h-12 text-[#F59E0B]" />
-          </div>
-          <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full mb-8" />
-        </div>
-        
-        <div className="text-center mb-12">
-          <p className="text-xl md:text-2xl text-white/80 font-bold uppercase mb-8 max-w-4xl mx-auto leading-relaxed">
-            UltraPreps is building the world&apos;s first AI-powered, pro-grade digital stadium where every student, every achievement, every talent, and every family belongs.
-          </p>
-        </div>
-        
-        <div className="max-w-4xl mx-auto">
-          <ul className="text-lg text-white/70 font-medium space-y-4 text-left">
-            <li>• Every student deserves greatness—cinematic HeroCards for all, not just the stars</li>
-            <li>• Stadium Spaces: Digital arenas for every school, event, and community</li>
-            <li>• Live HYPE Meter, Pep Rally Streams, and real-time fan/family engagement</li>
-            <li>• AI-powered showcasing, achievement highlights, and digital legacy tools for every student</li>
-            <li>• Family-first privacy, 101 AI safety bots, and verified digital identity</li>
-            <li>• Built for Friday Night Lights, Saturday College Dreams, and every journey in between</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Deterministic particle positions for SSR compatibility
-const PARTICLE_POSITIONS = Array.from({ length: 60 }, (_, i) => {
-  const seed = i * 1234567; // Use index as seed for deterministic randomness
-  const random1 = (seed % 97) / 97; // Pseudo-random 0-1
-  const random2 = ((seed * 7) % 89) / 89;
-  const random3 = ((seed * 13) % 83) / 83;
-  const random4 = ((seed * 19) % 79) / 79;
-  const random5 = ((seed * 23) % 73) / 73;
-  const random6 = ((seed * 29) % 71) / 71;
-  
-  return {
-    left: random1 * 100,
-    top: random2 * 100,
-    width: 2 + random3 * 3,
-    height: 2 + random4 * 3,
-    color: ["#F59E0B", "#3B82F6", "#FFFFFF", "#F97316"][i % 4],
-    opacity: 0.2 + random5 * 0.15,
-    boxShadowSize: 4 + random6 * 8,
-    animationDelay: random1 * 10,
-    animationDuration: 12 + random2 * 10,
-    yDistance: -60 - random3 * 40,
-    xDistance: (random4 - 0.5) * 40
-  };
-});
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function AIParticles() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Don't render particles until after hydration
-  if (!isMounted) {
-    return <div className="absolute inset-0 pointer-events-none" />;
-  }
-
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      {PARTICLE_POSITIONS.map((particle, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            left: `${particle.left}%`,
-            top: `${particle.top}%`,
-            width: `${particle.width}px`,
-            height: `${particle.height}px`,
-            background: particle.color,
-            opacity: particle.opacity,
-            filter: 'blur(0.5px)',
-            boxShadow: `0 0 ${particle.boxShadowSize}px currentColor`
-          }}
-          animate={{ 
-            y: [0, particle.yDistance, 0],
-            x: [0, particle.xDistance, 0],
-            opacity: [particle.opacity, particle.opacity + 0.2, particle.opacity]
-          }}
-          transition={{ 
-            duration: particle.animationDuration, 
-            repeat: Infinity, 
-            delay: particle.animationDelay,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-
-
-function CallToAction() {
-  return (
-    <section className="relative z-20 py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-[#F59E0B]/30 text-center overflow-hidden">
-      {/* Dynamic background effects */}
-      <div className="absolute inset-0 opacity-10">
-        <motion.div
-          className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full"
-          style={{ filter: 'blur(100px)' }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.15, 0.05] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-1/4 w-72 h-72 bg-gradient-to-r from-[#3B82F6] to-[#1E3A8A] rounded-full"
-          style={{ filter: 'blur(80px)' }}
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-        />
-      </div>
-
-              <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Explosive headline */}
+        {/* Quick Links Grid */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8 }}
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
+          {[
+            { title: "Create Stadium", link: "/stadium/create", icon: Building2 },
+            { title: "Create HeroCard", link: "/herocard/create", icon: Star },
+            { title: "Create Poster", link: "/poster/create", icon: Trophy },
+            { title: "Join Community", link: "/community", icon: Users }
+          ].map((quickLink) => {
+            const Icon = quickLink.icon;
+            return (
+              <motion.a
+                key={quickLink.title}
+                href={quickLink.link}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:border-[#F59E0B]/50 transition-all duration-300"
+              >
+                <Icon className="w-12 h-12 text-[#F59E0B] mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <h4 className="font-bold text-white group-hover:text-[#F59E0B] transition-colors">
+                  {quickLink.title}
+                </h4>
+              </motion.a>
+            );
+          })}
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+// Final Call to Action Section
+function CallToAction() {
+  return (
+    <section className="py-24 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-[#F59E0B]/10 via-transparent to-[#F97316]/10" />
+      
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
           className="mb-8"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white mb-6 tracking-tight drop-shadow-2xl">
-            <span className="block text-[#F59E0B]">READY TO</span>
-            <span className="block">BUILD YOUR LEGACY?</span>
+          <Crown className="w-20 h-20 text-[#F59E0B] mx-auto mb-6" />
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+            Your Stadium Awaits
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] mx-auto rounded-full mb-6" />
+          <p className="text-2xl text-white/80 mb-12">
+            Join 4.2 million students already building their legacy
+          </p>
         </motion.div>
 
-        {/* Compelling description */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
-        >
-          Experience the future of student achievement showcase. 
-          <span className="text-[#F59E0B] font-bold"> Join thousands of students, educators, and families</span> who are building their digital legacy right now.
-        </motion.p>
-
-        {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          transition={{ delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          {/* Primary CTA - Create Stadium */}
-          <motion.a
+          <Link
             href="/stadium/create"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(245, 158, 11, 0.5)" }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-full text-xl uppercase shadow-2xl hover:from-[#F97316] hover:to-[#F59E0B] transition-all duration-300 border-2 border-[#F59E0B] group"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-full text-xl shadow-2xl hover:scale-105 transition-all duration-300"
           >
-            <Rocket className="w-6 h-6 group-hover:animate-pulse" />
-            Create Your Stadium
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="ml-2"
-            >
-              →
-            </motion.div>
-          </motion.a>
-
-          {/* Secondary CTA - Explore Platform */}
-          <motion.a
-            href="/dashboard"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white font-bold rounded-full text-lg uppercase border-2 border-white/30 hover:border-[#F59E0B] hover:text-[#F59E0B] transition-all duration-300 backdrop-blur-sm"
+            <Rocket className="w-6 h-6" />
+            Create Your Stadium Now
+            <ArrowRight className="w-6 h-6" />
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-5 bg-white/10 text-white font-bold rounded-full text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
           >
-            <Building2 className="w-5 h-5" />
-            Explore Platform
-          </motion.a>
+            <MessageSquare className="w-5 h-5" />
+            Questions? Let's Talk
+          </Link>
         </motion.div>
 
-        {/* Social proof */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="mt-12 text-white/60 text-sm uppercase tracking-widest"
+          transition={{ delay: 0.6 }}
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Star className="w-4 h-4 text-[#F59E0B]" />
-            <span>Trusted by 500+ Schools</span>
-            <Star className="w-4 h-4 text-[#F59E0B]" />
-          </div>
-          <div>Free to Start • Create Your Stadium in Minutes</div>
+          {[
+            { number: "500+", label: "Schools" },
+            { number: "4.2M+", label: "Students" },
+            { number: "98%", label: "Satisfaction" },
+            { number: "24/7", label: "Support" }
+          ].map((stat, index) => (
+            <div key={index}>
+              <p className="text-3xl font-black text-[#F59E0B]">{stat.number}</p>
+              <p className="text-white/60">{stat.label}</p>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
 }
 
+// Enhanced Footer
+function EnhancedFooter() {
+  const footerLinks = {
+    product: {
+      title: "Product",
+      links: [
+        { name: "Features", href: "/features" },
+        { name: "Pricing", href: "/pricing" },
+        { name: "Demos", href: "/demos" },
+        { name: "UltraAI Technology", href: "/ultraai" }
+      ]
+    },
+    solutions: {
+      title: "Solutions",
+      links: [
+        { name: "For Students", href: "/solutions/students" },
+        { name: "For Parents", href: "/solutions/parents" },
+        { name: "For Teachers", href: "/solutions/teachers" },
+        { name: "For Schools", href: "/solutions/schools" },
+        { name: "For Districts", href: "/solutions/districts" }
+      ]
+    },
+    resources: {
+      title: "Resources",
+      links: [
+        { name: "Help Center", href: "/help" },
+        { name: "Blog", href: "/blog" },
+        { name: "API Documentation", href: "/api-docs" },
+        { name: "System Status", href: "/status" },
+        { name: "Video Tutorials", href: "/tutorials" }
+      ]
+    },
+    company: {
+      title: "Company",
+      links: [
+        { name: "About Us", href: "/about" },
+        { name: "Careers", href: "/careers" },
+        { name: "Contact", href: "/contact" },
+        { name: "Press Kit", href: "/press" },
+        { name: "Partners", href: "/partners" }
+      ]
+    }
+  };
+
+  const socialLinks = [
+    { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>, href: "https://facebook.com/ultrapreps" },
+    { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>, href: "https://twitter.com/ultrapreps" },
+    { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/></svg>, href: "https://instagram.com/ultrapreps" },
+    { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>, href: "https://youtube.com/ultrapreps" },
+    { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>, href: "https://linkedin.com/company/ultrapreps" }
+  ];
+
+  return (
+    <footer className="bg-black border-t border-white/10 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
+          {/* Brand Column */}
+          <div className="col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <Crown className="w-8 h-8 text-[#F59E0B]" />
+              <span className="text-2xl font-black text-white">UltraPreps</span>
+            </div>
+            <p className="text-white/60 mb-6">
+              Every student deserves greatness. Build your digital legacy with UltraAI technology.
+            </p>
+            <div className="flex gap-4">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#F59E0B] transition-all text-white hover:text-black"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Links Columns */}
+          {Object.entries(footerLinks).map(([key, section]) => (
+            <div key={key}>
+              <h3 className="text-white font-bold mb-4">{section.title}</h3>
+              <ul className="space-y-2">
+                {section.links.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-white/60 hover:text-[#F59E0B] transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="border-t border-white/10 pt-8 mb-8">
+          <div className="max-w-md mx-auto text-center">
+            <h3 className="text-xl font-bold text-white mb-4">Stay in the Game</h3>
+            <p className="text-white/60 mb-4">Get updates on new features and tips for success</p>
+            <form className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-full text-white placeholder:text-white/50 focus:outline-none focus:border-[#F59E0B]"
+              />
+              <button
+                type="submit"
+                className="px-6 py-2 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold rounded-full hover:scale-105 transition-all"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/10 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-white/60 text-sm">
+              © {new Date().getFullYear()} UltraPreps. All rights reserved. Powered by UltraAI.
+            </p>
+            <div className="flex gap-6">
+              <Link href="/privacy" className="text-white/60 hover:text-[#F59E0B] text-sm">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-white/60 hover:text-[#F59E0B] text-sm">
+                Terms of Service
+              </Link>
+              <Link href="/cookies" className="text-white/60 hover:text-[#F59E0B] text-sm">
+                Cookie Policy
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// Main Homepage Component
 export default function HomePage() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [activeUserType, setActiveUserType] = useState('student');
+  const [showWelcomeNotification, setShowWelcomeNotification] = useState(false);
+
   // Register service worker for PWA functionality
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -1446,63 +1209,78 @@ export default function HomePage() {
           console.log('❌ SW registration failed:', error);
         });
     }
-  }, []);
 
-  // Simple mobile viewport height for CSS custom properties only
-  useEffect(() => {
-    const setViewportHeight = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-    
-    setViewportHeight();
-    window.addEventListener('resize', setViewportHeight);
-    window.addEventListener('orientationchange', () => {
-      setTimeout(setViewportHeight, 100);
-    });
-    
-    return () => {
-      window.removeEventListener('resize', setViewportHeight);
-      window.removeEventListener('orientationchange', setViewportHeight);
-    };
+    // Show welcome notification after 2 seconds
+    const timer = setTimeout(() => {
+      setShowWelcomeNotification(true);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <main className="relative min-h-screen bg-black overflow-x-hidden">
-      {/* DRAMATIC DARK STADIUM BACKGROUND - NIKE STYLE */}
-      <div className="absolute inset-0 z-0">
-        {/* REFINED STADIUM BACKGROUND - LAYOUT OPTIMIZED */}
-        <div 
-          className="absolute inset-0 bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/stadium-crowd-energy.jpg')`,
-            backgroundAttachment: 'scroll',
-            backgroundPosition: 'center top',
-            backgroundSize: '120% auto',
-            filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
-            WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
-          }}
-        />
-        
-        {/* Enhanced dark overlay for content readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
-        
-        {/* Subtle texture layer */}
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-
+      {/* Navigation */}
       <MegaNavigation currentPage="home" userRole="guest" userName="Guest User" />
-      <div className="pt-16 sm:pt-18 md:pt-20">
+      
+      {/* Main Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
         <HeroSection />
-        <StudentSpotlightGallery />
-        <UltraAISystemsSection />
-        <DigitalImmortalitySection />
-        <DemoSection />
-        <PepRallySection />
-        <VisionSection />
+        
+        {/* Quick Access Portal */}
+        <QuickAccessPortal />
+        
+        {/* Platform Overview */}
+        <PlatformOverview />
+        
+        {/* Features Showcase */}
+        <FeaturesShowcase />
+        
+        {/* Final CTA */}
         <CallToAction />
-        <Footer />
+        
+        {/* Enhanced Footer */}
+        <EnhancedFooter />
       </div>
+      
+      {/* Gage AI Chat */}
+      <GageAIChat
+        userId="guest"
+        isOpen={isChatOpen}
+        onToggle={() => setIsChatOpen(!isChatOpen)}
+      />
+      
+      {/* Welcome Notification */}
+      <AnimatePresence>
+        {showWelcomeNotification && (
+          <motion.div
+            initial={{ x: 400, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 400, opacity: 0 }}
+            className="fixed top-24 right-4 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-50 max-w-sm"
+          >
+            <div className="flex items-start gap-3">
+              <Bell className="w-5 h-5 text-[#F59E0B] mt-1" />
+              <div className="flex-1">
+                <p className="text-white font-bold">Welcome to UltraPreps!</p>
+                <p className="text-white/70 text-sm mt-1">Your journey to greatness starts here. Create your stadium now!</p>
+                <div className="flex gap-2 mt-3">
+                  <Link href="/stadium/create" className="text-[#F59E0B] text-sm font-bold hover:underline">Get Started</Link>
+                  <button 
+                    onClick={() => setShowWelcomeNotification(false)}
+                    className="text-white/50 text-sm hover:text-white"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+              <button onClick={() => setShowWelcomeNotification(false)}>
+                <X className="w-4 h-4 text-white/50 hover:text-white" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

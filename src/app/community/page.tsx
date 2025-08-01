@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
+import MegaNavigation from '../../components/MegaNavigation';
 
 interface CommunityTab {
   id: string;
@@ -223,6 +224,9 @@ export default function CommunityPage() {
       
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
       <div className="absolute inset-0 bg-black/40" />
+
+      {/* Navigation */}
+      <MegaNavigation currentPage="community" userRole="student" userName="Community" />
 
       <div className="relative z-10">
         {/* Header */}

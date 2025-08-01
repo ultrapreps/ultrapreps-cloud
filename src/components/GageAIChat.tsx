@@ -327,10 +327,14 @@ export default function GageAIChat({ userId, isOpen, onToggle }: GageAIChatProps
   if (!isOpen) {
     return (
       <motion.button
-        onClick={onToggle}
-        className="fixed bottom-6 right-6 z-50 group"
+        onClick={() => {
+          console.log('Gage button clicked!');
+          onToggle();
+        }}
+        className="fixed bottom-6 right-6 z-[9999] group cursor-pointer"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
+        style={{ pointerEvents: 'auto' }}
       >
         {/* Glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full blur-lg opacity-60 group-hover:opacity-80 transition-opacity" />

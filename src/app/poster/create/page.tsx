@@ -9,6 +9,7 @@ import {
   Instagram, Facebook, Twitter, Copy, Check
 } from 'lucide-react';
 import GageAIChat from '../../../components/GageAIChat';
+import MegaNavigation from '../../../components/MegaNavigation';
 
 interface PosterTemplate {
   id: string;
@@ -172,6 +173,9 @@ export default function PosterCreatePage() {
       {/* Enhanced dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
       <div className="absolute inset-0 bg-black/40" />
+
+      {/* Navigation */}
+      <MegaNavigation currentPage="poster-create" userRole="student" userName="Create Poster" />
 
       {/* Content */}
       <div className="relative z-10">

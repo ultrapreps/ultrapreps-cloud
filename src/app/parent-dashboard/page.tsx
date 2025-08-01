@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
+import MegaNavigation from '../../components/MegaNavigation';
 
 interface StudentChild {
   id: string;
@@ -204,6 +205,9 @@ export default function ParentDashboard() {
       
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
       <div className="absolute inset-0 bg-black/40" />
+
+      {/* Navigation */}
+      <MegaNavigation currentPage="parent-dashboard" userRole="parent" userName="Parent Dashboard" />
 
       <div className="relative z-10">
         {/* Header */}

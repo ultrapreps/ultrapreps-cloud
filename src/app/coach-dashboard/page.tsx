@@ -528,8 +528,8 @@ export default function CoachDashboard() {
       <div className="absolute inset-0 bg-black/40" />
 
       <div className="relative z-10">
-        {/* MegaNavigation */}
-        <MegaNavigation userRole="coach" />
+              {/* MegaNavigation */}
+      <MegaNavigation currentPage="coach-dashboard" userRole="coach" userName="Coach Thompson" />
         {/* Header */}
         <header className="border-b border-white/10 bg-black/20 backdrop-blur-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

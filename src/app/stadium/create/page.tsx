@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Star, ArrowRight, Sparkles, Target, Crown } from 'lucide-react';
+import MegaNavigation from '../../../components/MegaNavigation';
 
 interface StadiumData {
   username: string;
@@ -133,6 +134,9 @@ export default function StadiumCreatePage() {
       {/* Enhanced dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
       <div className="absolute inset-0 bg-black/40" />
+
+      {/* Navigation */}
+      <MegaNavigation currentPage="stadium-create" userRole="student" userName="Create Stadium" />
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">

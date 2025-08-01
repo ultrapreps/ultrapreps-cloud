@@ -86,49 +86,242 @@ export default function StudentDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#111827] flex items-center justify-center relative overflow-hidden">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="w-20 h-20 border-4 border-[#F59E0B] border-t-transparent rounded-full mx-auto mb-6"
-          />
-          <h2 className="text-2xl font-black text-white mb-2" style={{ fontFamily: 'Oswald, sans-serif' }}>
-            LOADING YOUR STADIUM
-          </h2>
-          <p className="text-white/60">Preparing your command center...</p>
-        </motion.div>
+      <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Cinematic Stadium Background */}
+        <div
+          className="absolute inset-0 bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/stadium-crowd-energy.jpg')`,
+            backgroundAttachment: 'fixed',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
+            WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
+          }}
+        />
+        
+        {/* Enhanced dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
+        
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full opacity-10"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          style={{ filter: 'blur(100px)' }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-r from-[#3B82F6] to-[#1E3A8A] rounded-full opacity-10"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            x: [0, -50, 0],
+            y: [0, 30, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+          style={{ filter: 'blur(80px)' }}
+        />
+        
+        {/* Loading Content */}
+        <div className="relative z-10 flex items-center justify-center min-h-screen">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center bg-black/40 backdrop-blur-xl p-12 rounded-3xl border border-[#F59E0B]/30 shadow-2xl"
+          >
+            {/* Animated Crown Logo */}
+            <motion.div
+              animate={{ 
+                rotate: [0, 360],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                rotate: { duration: 3, repeat: Infinity, ease: "linear" },
+                scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="relative w-24 h-24 mx-auto mb-8"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full animate-pulse opacity-20" />
+              <div className="relative w-full h-full bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full flex items-center justify-center">
+                <Crown className="w-12 h-12 text-white" />
+              </div>
+            </motion.div>
+            
+            {/* Loading Text */}
+            <motion.h2 
+              className="text-3xl md:text-4xl font-black text-white mb-4 uppercase tracking-wide drop-shadow-2xl"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              Loading Your Stadium
+            </motion.h2>
+            
+            {/* Progress Bar */}
+            <div className="w-64 h-2 bg-white/10 rounded-full overflow-hidden mb-6 mx-auto">
+              <motion.div
+                className="h-full bg-gradient-to-r from-[#F59E0B] to-[#F97316]"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                style={{ width: '100%' }}
+              />
+            </div>
+            
+            {/* Loading Messages */}
+            <motion.p 
+              className="text-white/80 text-lg"
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              Preparing your command center...
+            </motion.p>
+            
+            {/* Loading Stats */}
+            <motion.div 
+              className="mt-8 flex justify-center gap-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#F59E0B]">98%</div>
+                <div className="text-white/60 text-sm">HYPE Ready</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#F97316]">7</div>
+                <div className="text-white/60 text-sm">AI Systems</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#3B82F6]">∞</div>
+                <div className="text-white/60 text-sm">Possibilities</div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     );
   }
 
   if (!student) {
     return (
-      <div className="min-h-screen bg-[#111827] flex items-center justify-center relative overflow-hidden">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center max-w-md"
-        >
-          <Trophy className="w-32 h-32 text-[#F59E0B]/50 mx-auto mb-8" />
-          <h2 className="text-4xl font-black text-white mb-4" style={{ fontFamily: 'Oswald, sans-serif' }}>
-            WELCOME TO ULTRAPREPS!
-          </h2>
-          <p className="text-white/70 mb-8 text-lg">Your journey to greatness starts with creating your digital stadium.</p>
-          <Link 
-            href="/stadium/create"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-200"
-            style={{ boxShadow: '0px 8px 32px rgba(245, 158, 11, 0.35)' }}
+      <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Cinematic Stadium Background */}
+        <div
+          className="absolute inset-0 bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/stadium-crowd-energy.jpg')`,
+            backgroundAttachment: 'fixed',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
+            WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
+          }}
+        />
+        
+        {/* Enhanced dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
+        
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full opacity-20"
+          animate={{ 
+            scale: [1, 1.3, 1],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ duration: 20, repeat: Infinity }}
+          style={{ filter: 'blur(100px)' }}
+        />
+        
+        {/* Content */}
+        <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-2xl"
           >
-            <Crown className="w-6 h-6" />
-            Build Your Stadium
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </motion.div>
+            {/* Animated Trophy */}
+            <motion.div
+              animate={{ 
+                y: [0, -20, 0],
+                rotate: [0, 5, -5, 0]
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="relative inline-block mb-8"
+            >
+              <div className="absolute inset-0 w-32 h-32 bg-gradient-to-r from-[#F59E0B] to-[#F97316] rounded-full blur-3xl opacity-50" />
+              <Trophy className="w-32 h-32 text-[#F59E0B] relative z-10" />
+            </motion.div>
+            
+            {/* Welcome Text */}
+            <motion.h2 
+              className="text-5xl md:text-7xl font-black text-white mb-6 uppercase tracking-tight drop-shadow-2xl"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <span className="block text-[#F59E0B]">Welcome to</span>
+              <span className="block">UltraPreps!</span>
+            </motion.h2>
+            
+            <motion.p 
+              className="text-white/80 mb-12 text-xl md:text-2xl font-medium max-w-xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Your journey to greatness starts with creating your digital stadium.
+            </motion.p>
+            
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link 
+                href="/stadium/create"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black text-lg rounded-full hover:shadow-2xl transition-all duration-300 group"
+                style={{ boxShadow: '0px 8px 32px rgba(245, 158, 11, 0.5)' }}
+              >
+                <Crown className="w-7 h-7 group-hover:rotate-12 transition-transform" />
+                BUILD YOUR STADIUM
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowRight className="w-6 h-6" />
+                </motion.div>
+              </Link>
+            </motion.div>
+            
+            {/* Stats */}
+            <motion.div 
+              className="mt-12 flex justify-center gap-8 md:gap-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#F59E0B]">500+</div>
+                <div className="text-white/60 text-sm uppercase tracking-wider">Schools</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#F97316]">10K+</div>
+                <div className="text-white/60 text-sm uppercase tracking-wider">Students</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#3B82F6]">∞</div>
+                <div className="text-white/60 text-sm uppercase tracking-wider">Dreams</div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     );
   }
@@ -335,8 +528,11 @@ export default function StudentDashboard() {
                       </Link>
                       
                       <button 
-                        onClick={() => setIsChatOpen(true)}
-                        className="flex items-center gap-3 p-4 bg-[#F97316]/20 hover:bg-[#F97316]/30 rounded-xl transition-all duration-200 group"
+                        onClick={() => {
+                          console.log('Chat with Gage button clicked! Setting chat open...');
+                          setIsChatOpen(true);
+                        }}
+                        className="flex items-center gap-3 p-4 bg-[#F97316]/20 hover:bg-[#F97316]/30 rounded-xl transition-all duration-200 group cursor-pointer"
                       >
                         <MessageCircle className="w-6 h-6 text-[#F97316]" />
                         <div>

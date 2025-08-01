@@ -20,6 +20,7 @@ import {
   MicOff,
   ChevronDown,
   ChevronRight,
+  ChevronLeft,
   Building,
   Shield,
   BookOpen,
@@ -41,7 +42,13 @@ import {
   Headphones,
   Wrench,
   GraduationCap,
-  BarChart3
+  BarChart3,
+  Sparkles,
+  Bell,
+  ChevronsLeft,
+  ChevronsRight,
+  Activity,
+  Rocket
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -81,6 +88,8 @@ export default function MegaNavigation({
   const [isVoiceActive, setIsVoiceActive] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [aiSuggestions, setAiSuggestions] = useState<NavItem[]>([]);
+  const [isNavCollapsed, setIsNavCollapsed] = useState(false);
+  const [showFeatureSpotlight, setShowFeatureSpotlight] = useState(true);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Enhanced scroll detection
@@ -313,94 +322,269 @@ export default function MegaNavigation({
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
-        isScrolled || isMegaMenuOpen || isMobileMenuOpen
-          ? 'bg-black/98 border-b border-[#F59E0B]/80' 
-          : 'bg-black/95 border-b border-[#F59E0B]/60'
-      }`}
+      className={clsx(
+        'fixed top-0 left-0 w-full z-50 backdrop-blur-xl shadow-2xl transition-all duration-300',
+        {
+          'bg-black/98 border-b border-[#F59E0B]/80': isScrolled || isMegaMenuOpen || isMobileMenuOpen || !isNavCollapsed,
+          'bg-black/60 border-b border-[#F59E0B]/40': !isScrolled && currentPage === 'home' && isNavCollapsed,
+          'bg-black/95 border-b border-[#F59E0B]/60': !isScrolled && currentPage !== 'home'
+        }
+      )}
       style={{
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)'
       }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-2">
-          {/* Logo */}
-          <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2"
-          >
-            <Link href="/" className="flex items-center gap-2">
-              <Crown className="w-6 h-6 sm:w-7 sm:h-7 text-[#F59E0B]" />
-              <span className="text-xl sm:text-2xl font-black uppercase tracking-wide sm:tracking-widest text-white drop-shadow-xl">
-                UltraPreps
+      {/* Feature Spotlight for Homepage */}
+      {currentPage === 'home' && showFeatureSpotlight && !isScrolled && !isNavCollapsed && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          className="bg-gradient-to-r from-[#F59E0B] via-[#F97316] to-[#F59E0B] overflow-hidden"
+        >
+          <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-4 h-4 text-white animate-pulse" />
+              <span className="text-white text-sm font-bold">
+                🚀 NEW: AI Film Room, Smart Gradebook, and 26 Revolutionary Dashboards Now Live!
               </span>
-            </Link>
-          </motion.div>
-
-          {/* Desktop Mega Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
-            {/* AI-Powered Search */}
-            <div className="relative">
-              <div className="flex items-center bg-black/40 backdrop-blur-sm rounded-full border border-white/20 px-4 py-2">
-                <Search className="w-4 h-4 text-white/60 mr-2" />
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search anything..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && searchQuery.trim()) {
-                      handleSearch(searchQuery);
-                    }
-                  }}
-                  className="bg-transparent text-white placeholder:text-white/60 text-sm w-32 sm:w-40 lg:w-48 focus:outline-none"
-                />
-                <button
-                  onClick={toggleVoiceSearch}
-                  className={`ml-2 p-1 rounded-full transition-colors ${
-                    isVoiceActive ? 'bg-[#F59E0B] text-black' : 'text-white/60 hover:text-white'
-                  }`}
-                >
-                  {isVoiceActive ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-                </button>
-              </div>
+              <Link href="/dashboard" className="ml-3 px-3 py-1 bg-white/20 hover:bg-white/30 text-white text-xs font-bold rounded-full transition-colors">
+                Explore Now →
+              </Link>
             </div>
-
-            {/* Quick Access based on role */}
-            <div className="flex items-center gap-2">
-              {aiSuggestions.slice(0, 2).map((suggestion, index) => (
-                <Link
-                  key={index}
-                  href={suggestion.href}
-                  className="flex items-center gap-1 px-3 py-2 text-white/80 hover:text-[#F59E0B] transition-colors text-sm font-bold rounded-lg hover:bg-white/10"
-                >
-                  <suggestion.icon className="w-4 h-4" />
-                  {suggestion.name}
-                </Link>
-              ))}
-            </div>
-
-            {/* Mega Menu Trigger */}
-            <motion.button
-              onMouseEnter={() => setIsMegaMenuOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 text-white/90 hover:text-[#F59E0B] transition-colors font-bold text-sm rounded-lg hover:bg-white/10"
+            <button
+              onClick={() => setShowFeatureSpotlight(false)}
+              className="text-white/80 hover:text-white transition-colors p-1"
             >
-              <Building className="w-4 h-4" />
-              All Platforms
-              <ChevronDown className="w-3 h-3" />
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      <div className="max-w-7xl mx-auto">
+        <div className={clsx(
+          "flex items-center justify-between px-4 sm:px-6 transition-all duration-300",
+          {
+            "py-3 sm:py-4": !isNavCollapsed || currentPage !== 'home',
+            "py-2": isNavCollapsed && currentPage === 'home'
+          }
+        )}>
+          {/* Logo with Collapse Toggle */}
+          <div className="flex items-center gap-3">
+            {/* Collapse Toggle - Desktop Only */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsNavCollapsed(!isNavCollapsed)}
+              className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              title={isNavCollapsed ? "Expand Navigation" : "Collapse Navigation"}
+            >
+              {isNavCollapsed ? (
+                <ChevronsRight className="w-4 h-4 text-white" />
+              ) : (
+                <ChevronsLeft className="w-4 h-4 text-white" />
+              )}
             </motion.button>
 
-            {/* User Profile */}
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-2"
+            >
+              <Link href="/" className="flex items-center gap-2">
+                <div className="relative">
+                  <Crown className="w-6 h-6 sm:w-7 sm:h-7 text-[#F59E0B]" />
+                  {currentPage === 'home' && (
+                    <motion.div
+                      className="absolute -top-1 -right-1 w-2 h-2 bg-[#F59E0B] rounded-full"
+                      animate={{ scale: [1, 1.5, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                  )}
+                </div>
+                <AnimatePresence>
+                  {!isNavCollapsed && (
+                    <motion.span 
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 'auto', opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-xl sm:text-2xl font-black uppercase tracking-wide sm:tracking-widest text-white drop-shadow-xl overflow-hidden whitespace-nowrap"
+                    >
+                      UltraPreps
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Desktop Mega Navigation */}
+          <div className="hidden lg:flex items-center gap-4 flex-1 justify-end">
+            {/* Homepage Live Stats - Only show on homepage when not collapsed */}
+            {currentPage === 'home' && !isNavCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-4 mr-4"
+              >
+                <div className="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full">
+                  <Activity className="w-4 h-4 text-[#F59E0B]" />
+                  <span className="text-white text-sm font-bold">12,847 Online</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full">
+                  <Flame className="w-4 h-4 text-[#F97316]" />
+                  <span className="text-white text-sm font-bold">98% HYPE</span>
+                </div>
+              </motion.div>
+            )}
+
+            {/* AI-Powered Search - Enhanced */}
+            <AnimatePresence>
+              {!isNavCollapsed && (
+                <motion.div
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 'auto', opacity: 1 }}
+                  exit={{ width: 0, opacity: 0 }}
+                  className="relative"
+                >
+                  <div className="flex items-center bg-black/40 backdrop-blur-sm rounded-full border border-white/20 px-4 py-2 hover:border-[#F59E0B]/50 transition-colors">
+                    <Search className="w-4 h-4 text-white/60 mr-2" />
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      placeholder="Search anything..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && searchQuery.trim()) {
+                          handleSearch(searchQuery);
+                        }
+                      }}
+                      className="bg-transparent text-white placeholder:text-white/60 text-sm w-32 sm:w-40 lg:w-48 focus:outline-none"
+                    />
+                    <button
+                      onClick={toggleVoiceSearch}
+                      className={`ml-2 p-1 rounded-full transition-colors ${
+                        isVoiceActive ? 'bg-[#F59E0B] text-black' : 'text-white/60 hover:text-white'
+                      }`}
+                    >
+                      {isVoiceActive ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Quick Access based on role - Enhanced for homepage */}
+            {currentPage === 'home' && !isNavCollapsed ? (
+              <div className="flex items-center gap-2">
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <Link
+                    href="/stadium/create"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white font-bold text-sm rounded-full hover:shadow-lg transition-all duration-300 group"
+                  >
+                    <Rocket className="w-4 h-4 group-hover:animate-pulse" />
+                    Create Stadium
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-full transition-colors"
+                  >
+                    <Brain className="w-4 h-4" />
+                    AI Dashboard
+                  </Link>
+                </motion.div>
+              </div>
+            ) : !isNavCollapsed && (
+              <div className="flex items-center gap-2">
+                {aiSuggestions.slice(0, 2).map((suggestion, index) => (
+                  <Link
+                    key={index}
+                    href={suggestion.href}
+                    className="flex items-center gap-1 px-3 py-2 text-white/80 hover:text-[#F59E0B] transition-colors text-sm font-bold rounded-lg hover:bg-white/10"
+                  >
+                    <suggestion.icon className="w-4 h-4" />
+                    {suggestion.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Mega Menu Trigger - Enhanced */}
+            <AnimatePresence>
+              {!isNavCollapsed && (
+                <motion.button
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  onMouseEnter={() => setIsMegaMenuOpen(true)}
+                  className="flex items-center gap-2 px-4 py-2 text-white/90 hover:text-[#F59E0B] transition-colors font-bold text-sm rounded-lg hover:bg-white/10 border border-transparent hover:border-[#F59E0B]/30"
+                >
+                  <Building className="w-4 h-4" />
+                  All Platforms
+                  <ChevronDown className="w-3 h-3" />
+                </motion.button>
+              )}
+            </AnimatePresence>
+
+            {/* Notifications - New Feature */}
+            {!isNavCollapsed && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative p-2 rounded-lg hover:bg-white/10 transition-colors"
+              >
+                <Bell className="w-5 h-5 text-white" />
+                {currentPage === 'home' && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#F59E0B] rounded-full animate-pulse" />
+                )}
+              </motion.button>
+            )}
+
+            {/* User Profile - Enhanced */}
             <div className="flex items-center gap-3">
-              <div className="text-right">
-                <div className="text-white text-sm font-bold">{userName}</div>
-                <div className="text-[#F59E0B] text-xs font-bold capitalize">{userRole}</div>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#F97316] flex items-center justify-center">
-                <UserCircle className="w-5 h-5 text-white" />
-              </div>
+              {!isNavCollapsed && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="text-right"
+                >
+                  <div className="text-white text-sm font-bold">{userName}</div>
+                  <div className="text-[#F59E0B] text-xs font-bold capitalize">{userRole}</div>
+                </motion.div>
+              )}
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={clsx(
+                  "rounded-full bg-gradient-to-r from-[#F59E0B] to-[#F97316] flex items-center justify-center shadow-lg transition-all",
+                  {
+                    "w-8 h-8": isNavCollapsed,
+                    "w-10 h-10": !isNavCollapsed
+                  }
+                )}
+              >
+                <UserCircle className={clsx(
+                  "text-white",
+                  {
+                    "w-5 h-5": isNavCollapsed,
+                    "w-6 h-6": !isNavCollapsed
+                  }
+                )} />
+              </motion.div>
             </div>
           </div>
 
