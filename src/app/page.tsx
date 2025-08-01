@@ -194,27 +194,67 @@ function HeroSection() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute top-20 left-0 right-0 bg-black/50 backdrop-blur-sm border-y border-[#F59E0B]/20 py-2 overflow-hidden"
+        className="absolute top-16 md:top-20 left-0 right-0 bg-black/80 backdrop-blur-md border-y border-[#F59E0B]/30 py-2 md:py-4 overflow-hidden z-20 shadow-lg"
       >
         <motion.div
-          animate={{ x: [0, -1000] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="flex items-center gap-8 whitespace-nowrap"
+          animate={{ x: [0, -2000] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex items-center gap-6 md:gap-12 whitespace-nowrap"
         >
-          <span className="text-white/60 text-sm">🏆 Marcus Thompson just earned 500 HYPE</span>
-          <span className="text-[#F59E0B]">•</span>
-          <span className="text-white/60 text-sm">📹 Sarah Chen&apos;s highlight reel is trending</span>
-          <span className="text-[#F59E0B]">•</span>
-          <span className="text-white/60 text-sm">🎯 Coach Martinez posted new training videos</span>
-          <span className="text-[#F59E0B]">•</span>
-          <span className="text-white/60 text-sm">📚 Ms. Johnson shared AI lesson plans</span>
-          <span className="text-[#F59E0B]">•</span>
-          <span className="text-white/60 text-sm">🏟️ 12,847 students online now</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <motion.span 
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="text-[#F59E0B] font-bold text-xs md:text-sm flex items-center gap-1"
+            >
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#F59E0B] rounded-full"></span>
+              LIVE
+            </motion.span>
+            <span className="text-white text-sm md:text-base font-medium">🏆 Marcus Thompson just earned 500 HYPE</span>
+          </div>
+          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">TRENDING</span>
+            <span className="text-white text-sm md:text-base font-medium">📹 Sarah Chen&apos;s highlight reel is trending</span>
+          </div>
+          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">NEW</span>
+            <span className="text-white text-sm md:text-base font-medium">🎯 Coach Martinez posted new training videos</span>
+          </div>
+          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">UPDATE</span>
+            <span className="text-white text-sm md:text-base font-medium">📚 Ms. Johnson shared AI lesson plans</span>
+          </div>
+          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">ONLINE</span>
+            <span className="text-white text-sm md:text-base font-medium">🏟️ 12,847 students online now</span>
+          </div>
+          {/* Duplicate for seamless loop */}
+          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <motion.span 
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="text-[#F59E0B] font-bold text-xs md:text-sm flex items-center gap-1"
+            >
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#F59E0B] rounded-full"></span>
+              LIVE
+            </motion.span>
+            <span className="text-white text-sm md:text-base font-medium">🏆 Marcus Thompson just earned 500 HYPE</span>
+          </div>
+          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">TRENDING</span>
+            <span className="text-white text-sm md:text-base font-medium">📹 Sarah Chen&apos;s highlight reel is trending</span>
+          </div>
         </motion.div>
       </motion.div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-24">
         {/* User Type Selector */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
