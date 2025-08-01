@@ -106,6 +106,7 @@ export default function HeroCardCreatePage() {
 
       if (response.ok) {
         const cardData = await response.json();
+        console.log('HeroCard API Response:', cardData);
         setGeneratedCard(cardData);
         
         // Award HYPE for HeroCard creation
@@ -122,7 +123,9 @@ export default function HeroCardCreatePage() {
         
         setStep('preview');
       } else {
-        console.error('Failed to generate HeroCard');
+        console.error('Failed to generate HeroCard:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error details:', errorText);
       }
     } catch (error) {
       console.error('Error generating HeroCard:', error);

@@ -3,6 +3,7 @@ import { CrawlerBot } from '../../../bots/CrawlerBot';
 import { aggregateStats } from '../../../bots/StatsBot';
 import { blendSelfie } from '../../../bots/SelfieEngine';
 import { heroCardGenerator } from '@/lib/ai/HeroCardGenerator';
+import { prisma } from '@/lib/db/prisma';
 
 export async function POST(req: NextRequest) {
   console.log('🚀 HeroCard API called - Using ULTRAPREPS_PROMPT_BIBLE_V3.0');
@@ -80,6 +81,11 @@ export async function POST(req: NextRequest) {
     });
 
     console.log('✅ HeroCard generated successfully');
+    console.log('📸 HeroCard URLs:', {
+      heroCardUrl: heroCardResult.herocard.herocard_url,
+      studentPortraitUrl: heroCardResult.studentDNA.portrait_url,
+      mascotUrl: heroCardResult.mascotDNA.mascot_url
+    });
     
     // Return the visual HeroCard data
     return NextResponse.json({
