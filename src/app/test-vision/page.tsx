@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, CheckCircle, XCircle, AlertCircle, RefreshCw, Sparkles, Image as ImageIcon } from 'lucide-react';
 
@@ -101,12 +101,12 @@ export default function TestVisionPage() {
   ];
 
   // Check VisionQA status on mount
-  useState(() => {
+  useEffect(() => {
     fetch('/api/vision/validate')
       .then(res => res.json())
       .then(data => setVisionStatus(data))
       .catch(err => console.error('Failed to get VisionQA status:', err));
-  });
+  }, []);
 
   const validateAsset = async () => {
     if (!selectedAsset) return;
