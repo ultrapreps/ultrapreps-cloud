@@ -1,0 +1,559 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum UserRole {
+  STUDENT
+  PARENT
+  TEACHER
+  COACH
+  ATHLETIC_DIRECTOR
+  SUPERINTENDENT
+  SCHOOL_BOARD
+  BOOSTER_CLUB
+  COLLEGE_SCOUT
+  YOUTH_COACH
+  ADMIN
+}
+
+enum Sport {
+  FOOTBALL
+  BASKETBALL
+  BASEBALL
+  SOFTBALL
+  SOCCER
+  VOLLEYBALL
+  TRACK_FIELD
+  WRESTLING
+  SWIMMING
+  TENNIS
+  GOLF
+  CROSS_COUNTRY
+  LACROSSE
+  HOCKEY
+  GYMNASTICS
+  CHEER
+  DANCE
+  ESPORTS
+  OTHER
+}
+
+enum HypeEventType {
+  EARNED
+  SPENT
+  PURCHASED
+  GIFTED
+  BONUS
+  ACHIEVEMENT
+  REFERRAL
+  SYSTEM
+}
+
+enum PosterType {
+  GAME_DAY
+  ACHIEVEMENT
+  RECRUITING
+  SEASON
+  CUSTOM
+}
+
+enum AchievementCategory {
+  ATHLETIC
+  ACADEMIC
+  LEADERSHIP
+  COMMUNITY
+  CREATIVE
+  SOCIAL
+}
+
+enum PrivacyLevel {
+  PUBLIC
+  FRIENDS
+  PRIVATE
+}
+
+// Models
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  username          String    @unique
+  password          String    // Hashed
+  role              UserRole
+  emailVerified     DateTime?
+  image             String?
+  
+  // Profile Information
+  firstName         String
+  lastName          String
+  dateOfBirth       DateTime?
+  phone             String?
+  bio               String?
+  
+  // Settings
+  privacyLevel      PrivacyLevel @default(PUBLIC)
+  notificationsEnabled Boolean @default(true)
+  twoFactorEnabled  Boolean   @default(false)
+  
+  // Relationships
+  school            School?   @relation(fields: [schoolId], references: [id])
+  schoolId          String?
+  
+  stadium           Stadium?
+  heroCards         HeroCard[]
+  posters           Poster[]
+  media             Media[]
+  
+  // HYPE Economy
+  hypeBalance       HypeBalance?
+  hypeEventsFrom    HypeEvent[] @relation("HypeFrom")
+  hypeEventsTo      HypeEvent[] @relation("HypeTo")
+  
+  // Family Connections
+  familyMembers     FamilyConnection[] @relation("FamilyMember")
+  familyConnections FamilyConnection[] @relation("ConnectedTo")
+  
+  // Activity
+  achievements      Achievement[]
+  activities        Activity[]
+  posts             Post[]
+  notifications     Notification[]
+  
+  // Timestamps
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  lastLoginAt       DateTime?
+  
+  @@index([email])
+  @@index([username])
+  @@index([schoolId])
+}
+
+model School {
+  id                String    @id @default(cuid())
+  name              String
+  district          String?
+  state             String
+  city              String
+  address           String?
+  zipCode           String?
+  phone             String?
+  website           String?
+  
+  // Branding
+  primaryColor      String    @default("#F59E0B")
+  secondaryColor    String    @default("#F97316")
+  accentColor       String?
+  mascot            String?
+  mascotImageUrl    String?
+  logoUrl           String?
+  bannerUrl         String?
+  
+  // AI Generated
+  nickname          String?
+  traditions        Json?     // Array of traditions
+  rivals            String[]  // Array of rival school IDs
+  famousAlumni      Json?     // Array of alumni info
+  campusLayout      Json?     // Campus zones and facilities
+  
+  // Relationships
+  users             User[]
+  stadiums          Stadium[]
+  events            Event[]
+  teams             Team[]
+  
+  // Stats
+  totalStudents     Int       @default(0)
+  totalHype         Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([state, city])
+}
+
+model Stadium {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String    @unique
+  
+  // Customization
+  theme             String    @default("modern") // modern, cinematic, vintage, minimal
+  bannerStyle       String    @default("dynamic")
+  backgroundUrl     String?
+  
+  // Content
+  headline          String?
+  tagline           String?
+  highlights        String[]  // Featured achievements
+  
+  // Settings
+  isPublic          Boolean   @default(true)
+  allowComments     Boolean   @default(true)
+  showStats         Boolean   @default(true)
+  
+  // Relationships
+  school            School?   @relation(fields: [schoolId], references: [id])
+  schoolId          String?
+  
+  // Stats
+  views             Int       @default(0)
+  likes             Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model HeroCard {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  
+  // Content
+  title             String
+  sport             Sport
+  position          String?
+  stats             Json      // Dynamic stats based on sport
+  imageUrl          String
+  
+  // AI Generated
+  aiHighlights      String[]
+  growthScore       Float?
+  
+  // Metadata
+  season            String
+  isActive          Boolean   @default(true)
+  views             Int       @default(0)
+  shares            Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([userId, isActive])
+}
+
+model Poster {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  
+  // Content
+  type              PosterType
+  title             String
+  subtitle          String?
+  imageUrl          String
+  thumbnailUrl      String?
+  
+  // Metadata
+  eventDate         DateTime?
+  opponent          String?
+  location          String?
+  result            String?
+  
+  // Engagement
+  views             Int       @default(0)
+  downloads         Int       @default(0)
+  shares            Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([userId, type])
+}
+
+model Media {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  
+  // Content
+  type              String    // image, video, document
+  url               String
+  thumbnailUrl      String?
+  title             String?
+  description       String?
+  
+  // Metadata
+  mimeType          String
+  size              Int       // in bytes
+  duration          Int?      // for videos, in seconds
+  width             Int?
+  height            Int?
+  
+  // Organization
+  tags              String[]
+  albumId           String?
+  
+  // Privacy
+  isPublic          Boolean   @default(true)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([userId, type])
+}
+
+model HypeBalance {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String    @unique
+  
+  freeHype          Int       @default(0)
+  paidHype          Int       @default(0)
+  totalEarned       Int       @default(0)
+  totalSpent        Int       @default(0)
+  
+  // Streaks & Multipliers
+  dailyStreak       Int       @default(0)
+  maxStreak         Int       @default(0)
+  currentMultiplier Float     @default(1.0)
+  
+  updatedAt         DateTime  @updatedAt
+}
+
+model HypeEvent {
+  id                String    @id @default(cuid())
+  
+  // Users involved
+  fromUser          User?     @relation("HypeFrom", fields: [fromUserId], references: [id])
+  fromUserId        String?
+  toUser            User?     @relation("HypeTo", fields: [toUserId], references: [id])
+  toUserId          String?
+  
+  // Transaction details
+  type              HypeEventType
+  amount            Int
+  category          String
+  description       String
+  metadata          Json?     // Additional context
+  
+  // For purchases
+  paymentId         String?
+  
+  createdAt         DateTime  @default(now())
+  
+  @@index([fromUserId])
+  @@index([toUserId])
+  @@index([type, createdAt])
+}
+
+model Achievement {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  
+  title             String
+  description       String
+  category          AchievementCategory
+  
+  // Details
+  date              DateTime
+  location          String?
+  details           Json?     // Sport-specific details
+  mediaUrls         String[]
+  
+  // Verification
+  isVerified        Boolean   @default(false)
+  verifiedBy        String?
+  verifiedAt        DateTime?
+  
+  // Engagement
+  likes             Int       @default(0)
+  shares            Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([userId, category])
+}
+
+model Activity {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  
+  type              String    // joined_team, earned_achievement, etc.
+  title             String
+  description       String?
+  metadata          Json?
+  
+  // Related entities
+  relatedUserId     String?
+  relatedPostId     String?
+  
+  createdAt         DateTime  @default(now())
+  
+  @@index([userId, createdAt])
+}
+
+model Team {
+  id                String    @id @default(cuid())
+  school            School    @relation(fields: [schoolId], references: [id])
+  schoolId          String
+  
+  name              String
+  sport             Sport
+  level             String    // Varsity, JV, Freshman
+  season            String
+  
+  // Staff
+  headCoachId       String?
+  assistantCoaches  String[]
+  
+  // Roster
+  roster            TeamMember[]
+  
+  // Stats
+  wins              Int       @default(0)
+  losses            Int       @default(0)
+  ties              Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([schoolId, sport])
+}
+
+model TeamMember {
+  id                String    @id @default(cuid())
+  team              Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId            String
+  
+  userId            String
+  jerseyNumber      String?
+  position          String?
+  role              String    // player, captain, manager
+  
+  joinedAt          DateTime  @default(now())
+  leftAt            DateTime?
+  
+  @@unique([teamId, userId])
+}
+
+model Event {
+  id                String    @id @default(cuid())
+  school            School    @relation(fields: [schoolId], references: [id])
+  schoolId          String
+  
+  title             String
+  description       String?
+  type              String    // game, meet, match, concert, etc.
+  sport             Sport?
+  
+  // Schedule
+  startTime         DateTime
+  endTime           DateTime?
+  location          String
+  
+  // Participants
+  homeTeamId        String?
+  awayTeamId        String?
+  
+  // Results
+  homeScore         Int?
+  awayScore         Int?
+  results           Json?     // Detailed results
+  
+  // Engagement
+  attendees         String[]  // User IDs
+  hypeGenerated     Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([schoolId, startTime])
+}
+
+model Post {
+  id                String    @id @default(cuid())
+  author            User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId          String
+  
+  content           String
+  mediaUrls         String[]
+  tags              String[]
+  
+  // Privacy
+  visibility        PrivacyLevel @default(PUBLIC)
+  
+  // Engagement
+  likes             Int       @default(0)
+  comments          Comment[]
+  shares            Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([authorId, createdAt])
+}
+
+model Comment {
+  id                String    @id @default(cuid())
+  post              Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId            String
+  
+  authorId          String
+  content           String
+  
+  likes             Int       @default(0)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([postId])
+}
+
+model FamilyConnection {
+  id                String    @id @default(cuid())
+  
+  member            User      @relation("FamilyMember", fields: [memberId], references: [id])
+  memberId          String
+  
+  connectedTo       User      @relation("ConnectedTo", fields: [connectedToId], references: [id])
+  connectedToId     String
+  
+  relationship      String    // parent, sibling, grandparent, etc.
+  isVerified        Boolean   @default(false)
+  
+  createdAt         DateTime  @default(now())
+  
+  @@unique([memberId, connectedToId])
+}
+
+model Notification {
+  id                String    @id @default(cuid())
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  
+  type              String    // hype_earned, new_follower, achievement_unlocked, etc.
+  title             String
+  message           String
+  
+  // Related entities
+  relatedUserId     String?
+  relatedPostId     String?
+  metadata          Json?
+  
+  read              Boolean   @default(false)
+  readAt            DateTime?
+  
+  createdAt         DateTime  @default(now())
+  
+  @@index([userId, read])
+}
+
+// Future models to implement:
+// - Recruiting (college connections, scout views, offers)
+// - Highlights (AI-generated video highlights)
+// - Messages (direct messaging between users)
+// - Groups (teams, clubs, organizations)
+// - Tournaments (bracket management)
+// - LiveStream (game streaming metadata)

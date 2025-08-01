@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import * as cheerio from 'cheerio';
+import { createUser, getUserByEmail } from '@/lib/db/users';
+import { createOrUpdateStadium } from '@/lib/db/stadiums';
+import { earnHype } from '@/lib/db/hype';
+import { UserRole, Sport, AchievementCategory } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!
@@ -60,74 +65,206 @@ async function analyzeAthlete(profileData: {
   return response.choices[0].message.content;
 }
 
-// MAIN PROFILE CREATION - PROGRESSIVE REVELATION BUILT IN
-export async function POST(req: NextRequest) {
-  const { name, school, email, userType } = await req.json();
-  
-  // Determine revelation level based on user type
-  const revelationLevel = userType === 'athlete' ? 1 : 2;
-  
-  // Phase 1: Basic scraping (happens for everyone)
-  const maxPrepsData = await scrapeMaxPreps(name, school);
-  
-  // Phase 2: AI Analysis
-  const analysis = await analyzeAthlete({ 
-    name, 
-    email,
-    school, 
-    sport: maxPrepsData?.sport || 'Unknown',
-    position: maxPrepsData?.position,
-  });
-  
-  // Phase 3: Create initial profile with limited data
-  const profile = {
-    id: Date.now().toString(),
-    name,
-    school,
-    email,
-    sport: maxPrepsData?.sport || 'Unknown',
-    position: maxPrepsData?.position || 'Unknown',
-    currentStats: revelationLevel >= 1 ? maxPrepsData?.stats : [],
-    aiAnalysis: revelationLevel >= 2 ? analysis : null,
-    revelationLevel,
-    createdAt: new Date().toISOString(),
-    // Hidden data (we collect but don't show yet)
-    _hiddenData: {
-      familyConnections: [], // Will populate in background
-      historicalStats: [],   // Will populate in background
-      generationalData: []   // Will populate in background
-    }
+// Map sport string to Sport enum
+function mapSportEnum(sport: string): Sport {
+  const sportMap: Record<string, Sport> = {
+    'football': Sport.FOOTBALL,
+    'basketball': Sport.BASKETBALL,
+    'baseball': Sport.BASEBALL,
+    'softball': Sport.SOFTBALL,
+    'soccer': Sport.SOCCER,
+    'volleyball': Sport.VOLLEYBALL,
+    'track': Sport.TRACK_FIELD,
+    'wrestling': Sport.WRESTLING,
+    'swimming': Sport.SWIMMING,
+    'tennis': Sport.TENNIS,
+    'golf': Sport.GOLF,
+    'cross country': Sport.CROSS_COUNTRY,
+    'lacrosse': Sport.LACROSSE,
+    'hockey': Sport.HOCKEY,
+    'gymnastics': Sport.GYMNASTICS,
+    'cheer': Sport.CHEER,
+    'dance': Sport.DANCE,
+    'esports': Sport.ESPORTS,
   };
   
-  // Store in database (using in-memory for MVP)
-  // In production, this would be PostgreSQL
-  // For now, we'll just return the profile
-  console.log('Profile created:', profile);
-  
-  // Trigger background enrichment (non-blocking)
-  setTimeout(() => enrichProfileInBackground(profile.id), 1000);
-  
-  return NextResponse.json({
-    success: true,
-    profile: {
-      ...profile,
-      _hiddenData: undefined // Don't send hidden data to client
+  return sportMap[sport.toLowerCase()] || Sport.OTHER;
+}
+
+// MAIN PROFILE CREATION - PROGRESSIVE REVELATION BUILT IN
+export async function POST(req: NextRequest) {
+  try {
+    const { name, school, email, userType, password } = await req.json();
+    
+    // Check if user already exists
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      return NextResponse.json(
+        { success: false, error: 'User already exists' },
+        { status: 400 }
+      );
     }
-  });
+    
+    // Parse name
+    const nameParts = name.split(' ');
+    const firstName = nameParts[0];
+    const lastName = nameParts.slice(1).join(' ') || 'User';
+    
+    // Generate username
+    const username = `${firstName.toLowerCase()}_${lastName.toLowerCase()}_${Date.now().toString().slice(-4)}`;
+    
+    // Find or create school
+    let schoolRecord = await prisma.school.findFirst({
+      where: {
+        name: { contains: school, mode: 'insensitive' }
+      }
+    });
+    
+    if (!schoolRecord) {
+      // Create basic school record
+      schoolRecord = await prisma.school.create({
+        data: {
+          name: school,
+          state: 'Unknown', // Would be enriched later
+          city: 'Unknown',
+        }
+      });
+    }
+    
+    // Determine role based on userType
+    const role = userType === 'parent' ? UserRole.PARENT :
+                 userType === 'coach' ? UserRole.COACH :
+                 UserRole.STUDENT;
+    
+    // Phase 1: Basic scraping (happens for everyone)
+    const maxPrepsData = await scrapeMaxPreps(name, school);
+    
+    // Phase 2: AI Analysis
+    const analysis = await analyzeAthlete({ 
+      name, 
+      email,
+      school, 
+      sport: maxPrepsData?.sport || 'Unknown',
+      position: maxPrepsData?.position,
+    });
+    
+    // Create user in database
+    const user = await createUser({
+      email,
+      username,
+      password: password || 'changeme123', // Temporary password
+      firstName,
+      lastName,
+      role,
+      schoolId: schoolRecord.id,
+      bio: `${maxPrepsData?.sport || 'Student'} at ${school}`,
+    });
+    
+    // Create stadium for students
+    if (role === UserRole.STUDENT) {
+      await createOrUpdateStadium({
+        userId: user.id,
+        schoolId: schoolRecord.id,
+        theme: 'modern',
+        headline: `${firstName}'s Journey to Greatness`,
+        tagline: maxPrepsData?.position || 'Rising Star',
+        highlights: maxPrepsData?.stats?.slice(0, 3) || [],
+      });
+      
+      // Create initial hero card if we have sport data
+      if (maxPrepsData?.sport) {
+        await prisma.heroCard.create({
+          data: {
+            userId: user.id,
+            title: `${name} - ${maxPrepsData.sport} ${new Date().getFullYear()}`,
+            sport: mapSportEnum(maxPrepsData.sport),
+            position: maxPrepsData.position || 'Player',
+            stats: { initialStats: maxPrepsData.stats || [] },
+            imageUrl: '/images/default-herocard.jpg',
+            aiHighlights: [
+              'Dedicated athlete with strong potential',
+              'Team player with leadership qualities',
+              'Continuously improving performance',
+            ],
+            season: new Date().getFullYear().toString(),
+          }
+        });
+      }
+      
+      // Earn initial achievement HYPE
+      await earnHype(
+        user.id,
+        100,
+        'profile_creation',
+        'Created your UltraPreps profile!'
+      );
+      
+      // Create welcome achievement
+      await prisma.achievement.create({
+        data: {
+          userId: user.id,
+          title: 'Welcome to UltraPreps!',
+          description: 'Started your digital athletic journey',
+          category: AchievementCategory.SOCIAL,
+          date: new Date(),
+        }
+      });
+    }
+    
+    // Trigger background enrichment (non-blocking)
+    setTimeout(() => enrichProfileInBackground(user.id), 1000);
+    
+    return NextResponse.json({
+      success: true,
+      profile: {
+        id: user.id,
+        name,
+        username: user.username,
+        school: schoolRecord.name,
+        email: user.email,
+        sport: maxPrepsData?.sport || 'Unknown',
+        position: maxPrepsData?.position || 'Unknown',
+        currentStats: maxPrepsData?.stats || [],
+        aiAnalysis: analysis,
+        revelationLevel: role === UserRole.STUDENT ? 2 : 1,
+        createdAt: user.createdAt,
+        hypeBalance: 600, // Welcome bonus + profile creation
+      }
+    });
+  } catch (error) {
+    console.error('Profile creation error:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to create profile' },
+      { status: 500 }
+    );
+  }
 }
 
 // Background enrichment (happens after initial response)
-async function enrichProfileInBackground(profileId: string) {
+async function enrichProfileInBackground(userId: string) {
   // This runs AFTER we've already responded to the user
   // So the profile loads fast, but we keep gathering data
   
-  console.log(`Enriching profile ${profileId} in background...`);
+  console.log(`Enriching profile ${userId} in background...`);
   
-  // Here we would:
-  // 1. Scrape more sources
-  // 2. Look for family connections
-  // 3. Find historical data
-  // 4. Build generational patterns
-  
-  // But we do it AFTER the user already has their profile
+  try {
+    // Update user's last activity
+    await prisma.activity.create({
+      data: {
+        userId,
+        type: 'profile_enriched',
+        title: 'Profile data enriched',
+        description: 'Additional data sources integrated',
+      }
+    });
+    
+    // Here we would:
+    // 1. Scrape more sources
+    // 2. Look for family connections
+    // 3. Find historical data
+    // 4. Build generational patterns
+    
+  } catch (error) {
+    console.error('Background enrichment error:', error);
+  }
 }
