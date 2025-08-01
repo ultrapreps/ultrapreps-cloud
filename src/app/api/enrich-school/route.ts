@@ -3,7 +3,7 @@ import { CrawlerBot } from '../../../bots/CrawlerBot';
 import { aggregateStats } from '../../../bots/StatsBot';
 import { blendSelfie } from '../../../bots/SelfieEngine';
 import { heroCardGenerator } from '@/lib/ai/HeroCardGenerator';
-import { prisma } from '@/lib/db/prisma';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
   console.log('🚀 HeroCard API called - Using ULTRAPREPS_PROMPT_BIBLE_V3.0');
