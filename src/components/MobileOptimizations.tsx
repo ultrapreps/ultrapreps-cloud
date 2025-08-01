@@ -12,11 +12,7 @@ interface BeforeInstallPromptEvent extends Event {
   }>;
 }
 
-interface MobileOptimizationsProps {
-  children: React.ReactNode;
-}
-
-export default function MobileOptimizations({ children }: MobileOptimizationsProps) {
+export default function MobileOptimizations() {
   const [isOnline, setIsOnline] = useState(true);
   const [isPWAInstallable, setIsPWAInstallable] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -132,8 +128,6 @@ export default function MobileOptimizations({ children }: MobileOptimizationsPro
           isOnline ? 'bg-green-400' : 'bg-red-400'
         }`} />
       </div>
-
-      {children}
     </>
   );
 }

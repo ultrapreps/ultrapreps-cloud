@@ -23,7 +23,8 @@ export interface Achievement {
   category: 'Sports' | 'Academic' | 'Social' | 'Leadership' | 'Creative';
 }
 
-export interface HypeTransaction {
+export // SIMPLIFIED HYPE SYSTEM FOR RAPID MVP
+interface HypeTransaction {
   id: string;
   userId: string;
   type: 'earn' | 'spend';

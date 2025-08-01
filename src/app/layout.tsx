@@ -3,6 +3,8 @@ import './globals.css';
 import React from 'react';
 // Placeholder for DNA theme engine
 import { ThemeProvider } from '../components/ThemeProvider';
+import UltraLayout from '../components/layout/UltraLayout';
+import MobileOptimizations from '../components/MobileOptimizations';
 
 export default function RootLayout({
   children,
@@ -43,7 +45,10 @@ export default function RootLayout({
       </head>
       <body style={{ margin: 0, padding: 0, backgroundColor: '#000000' }}>
         <ThemeProvider>
-          {children}
+          <UltraLayout>
+            {children}
+          </UltraLayout>
+          <MobileOptimizations />
         </ThemeProvider>
       </body>
     </html>

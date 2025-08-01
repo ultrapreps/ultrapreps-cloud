@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -62,14 +62,16 @@ import {
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import clsx from "clsx";
-import MegaNavigation from '../components/MegaNavigation';
 import GageAIChat from '../components/GageAIChat';
 import Link from 'next/link';
+
+import { useLiveActivities } from '@/lib/hooks/useLiveActivities';
 
 // Enhanced Hero Section with User Type Selection
 function HeroSection() {
   const [activeUserType, setActiveUserType] = useState('student');
   const [showNotification, setShowNotification] = useState(false);
+  const { activities, isConnected } = useLiveActivities(7000); // New activity every 7 seconds
 
   const userTypes = [
     { id: 'student', label: 'Students', icon: GraduationCap, color: 'from-[#F59E0B] to-[#F97316]' },
@@ -190,7 +192,7 @@ function HeroSection() {
         />
       </div>
 
-      {/* Live Activity Ticker */}
+      {/* Live Activity Ticker with Real Data */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -198,58 +200,69 @@ function HeroSection() {
       >
         <motion.div
           animate={{ x: [0, -2000] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           className="flex items-center gap-6 md:gap-12 whitespace-nowrap"
         >
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <motion.span 
-              animate={{ opacity: [1, 0.5, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-[#F59E0B] font-bold text-xs md:text-sm flex items-center gap-1"
-            >
-              <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#F59E0B] rounded-full"></span>
-              LIVE
-            </motion.span>
-            <span className="text-white text-sm md:text-base font-medium">🏆 Marcus Thompson just earned 500 HYPE</span>
-          </div>
+          {/* Live Connection Indicator */}
+          {isConnected && (
+            <>
+              <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
+                <motion.span 
+                  animate={{ opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="text-[#F59E0B] font-bold text-xs md:text-sm flex items-center gap-1"
+                >
+                  <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#F59E0B] rounded-full"></span>
+                  LIVE
+                </motion.span>
+                <span className="text-white text-sm md:text-base font-medium">Platform Active</span>
+              </div>
+              <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
+            </>
+          )}
+          
+          {/* Dynamic Activities */}
+          {activities.slice(0, 6).map((activity, index) => (
+            <React.Fragment key={activity.id}>
+              <div className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 ${
+                activity.priority === 'high' ? 'bg-[#F97316]/20' : 'bg-[#F59E0B]/10'
+              } rounded-full`}>
+                <span className="text-[#F59E0B] font-bold text-xs md:text-sm uppercase">
+                  {activity.type === 'trending' ? 'TRENDING' :
+                   activity.type === 'hype' ? 'HYPE' :
+                   activity.type === 'achievement' ? 'ACHIEVEMENT' :
+                   activity.type === 'milestone' ? 'MILESTONE' :
+                   activity.type === 'event' ? 'EVENT' : 'UPDATE'}
+                </span>
+                <span className="text-white text-sm md:text-base font-medium">
+                  {activity.emoji} {activity.message}
+                </span>
+              </div>
+              {index < 5 && <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>}
+            </React.Fragment>
+          ))}
+          
+          {/* Duplicate first few for seamless loop */}
           <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">TRENDING</span>
-            <span className="text-white text-sm md:text-base font-medium">📹 Sarah Chen&apos;s highlight reel is trending</span>
-          </div>
-          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">NEW</span>
-            <span className="text-white text-sm md:text-base font-medium">🎯 Coach Martinez posted new training videos</span>
-          </div>
-          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">UPDATE</span>
-            <span className="text-white text-sm md:text-base font-medium">📚 Ms. Johnson shared AI lesson plans</span>
-          </div>
-          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">ONLINE</span>
-            <span className="text-white text-sm md:text-base font-medium">🏟️ 12,847 students online now</span>
-          </div>
-          {/* Duplicate for seamless loop */}
-          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <motion.span 
-              animate={{ opacity: [1, 0.5, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-[#F59E0B] font-bold text-xs md:text-sm flex items-center gap-1"
-            >
-              <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#F59E0B] rounded-full"></span>
-              LIVE
-            </motion.span>
-            <span className="text-white text-sm md:text-base font-medium">🏆 Marcus Thompson just earned 500 HYPE</span>
-          </div>
-          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-            <span className="text-[#F59E0B] font-bold text-xs md:text-sm">TRENDING</span>
-            <span className="text-white text-sm md:text-base font-medium">📹 Sarah Chen&apos;s highlight reel is trending</span>
-          </div>
+          {activities.slice(0, 3).map((activity, index) => (
+            <React.Fragment key={`dup-${activity.id}`}>
+              <div className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 ${
+                activity.priority === 'high' ? 'bg-[#F97316]/20' : 'bg-[#F59E0B]/10'
+              } rounded-full`}>
+                <span className="text-[#F59E0B] font-bold text-xs md:text-sm uppercase">
+                  {activity.type === 'trending' ? 'TRENDING' :
+                   activity.type === 'hype' ? 'HYPE' :
+                   activity.type === 'achievement' ? 'ACHIEVEMENT' :
+                   activity.type === 'milestone' ? 'MILESTONE' :
+                   activity.type === 'event' ? 'EVENT' : 'UPDATE'}
+                </span>
+                <span className="text-white text-sm md:text-base font-medium">
+                  {activity.emoji} {activity.message}
+                </span>
+              </div>
+              {index < 2 && <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>}
+            </React.Fragment>
+          ))}
         </motion.div>
       </motion.div>
 
@@ -1131,7 +1144,7 @@ function MeetTheFounder() {
                   Built with the wisdom of champions, the strategy of coaches, and the heart of a true competitor, Gage is here 24/7 to guide you through your journey from youth sports to college recruitment and beyond.
                 </p>
                 <p className="font-bold text-[#F59E0B]">
-                  "Every champion needs a champion in their corner. That&apos;s why I&apos;m here." - Gage
+                  &quot;Every champion needs a champion in their corner. That&apos;s why I&apos;m here.&quot; - Gage
                 </p>
               </div>
 
@@ -1375,7 +1388,7 @@ function StudentSpotlight() {
               <div className="mb-8 p-6 bg-gradient-to-r from-[#F59E0B]/10 to-[#F97316]/10 rounded-xl border border-[#F59E0B]/20">
                 <Trophy className="w-8 h-8 text-[#F59E0B] mb-3" />
                 <h4 className="text-xl font-bold text-white mb-2">{spotlights[activeSpotlight].achievement}</h4>
-                <p className="text-white/80 italic text-lg">"{spotlights[activeSpotlight].quote}"</p>
+                <p className="text-white/80 italic text-lg">&quot;{spotlights[activeSpotlight].quote}&quot;</p>
               </div>
 
               {/* Stats */}
@@ -1697,10 +1710,7 @@ export default function HomePage() {
 
   return (
     <main className="relative min-h-screen bg-black overflow-x-hidden">
-      {/* Navigation */}
-      <MegaNavigation currentPage="home" userRole="guest" userName="Guest User" />
-      
-      {/* Main Content */}
+      {/* Main Content - Navigation handled by UltraLayout */}
       <div className="relative z-10">
         {/* Hero Section */}
         <HeroSection />
