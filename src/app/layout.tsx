@@ -6,6 +6,7 @@ import { ThemeProvider } from '../components/ThemeProvider';
 import UltraLayout from '../components/layout/UltraLayout';
 import MobileOptimizations from '../components/MobileOptimizations';
 import SessionProvider from '../components/providers/SessionProvider';
+import { WebSocketProvider } from '../lib/websocket/client';
 
 export default function RootLayout({
   children,
@@ -46,12 +47,14 @@ export default function RootLayout({
       </head>
       <body style={{ margin: 0, padding: 0, backgroundColor: '#000000' }}>
         <SessionProvider>
-          <ThemeProvider>
-            <UltraLayout>
-              {children}
-            </UltraLayout>
-            <MobileOptimizations />
-          </ThemeProvider>
+          <WebSocketProvider>
+            <ThemeProvider>
+              <UltraLayout>
+                {children}
+              </UltraLayout>
+              <MobileOptimizations />
+            </ThemeProvider>
+          </WebSocketProvider>
         </SessionProvider>
       </body>
     </html>

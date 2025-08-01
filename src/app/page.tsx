@@ -58,7 +58,8 @@ import {
   Wifi,
   Phone,
   Mail,
-  MessageCircle
+  MessageCircle,
+  CheckCircle
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import clsx from "clsx";
@@ -713,6 +714,189 @@ function QuickAccessPortal() {
             Get Started Now
             <ArrowRight className="w-6 h-6" />
           </motion.a>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+// MVP Test Suite Section
+function MVPTestSuite() {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  
+  return (
+    <section className="relative py-20 px-4 sm:px-6 bg-black">
+      <motion.div 
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="max-w-7xl mx-auto"
+      >
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-6 py-2 bg-green-500/20 border border-green-500/40 rounded-full mb-6"
+          >
+            <CheckCircle className="w-5 h-5 text-green-500" />
+            <span className="text-green-500 font-bold uppercase tracking-wider">MVP Ready</span>
+          </motion.div>
+          
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+            Test Drive the Core Systems
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            5 operational systems ready for launch. Experience the future of high school sports.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {/* Student Onboarding */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+          >
+            <Link 
+              href="/onboarding" 
+              className="block bg-gradient-to-br from-[#F59E0B] to-[#F97316] p-6 rounded-xl text-center transition-all hover:scale-105 group"
+            >
+              <div className="text-4xl mb-3">🚀</div>
+              <div className="font-bold text-xl mb-2">Student Onboarding</div>
+              <div className="text-sm opacity-90">Complete 5-step flow with instant HeroCard</div>
+              <div className="mt-3 text-xs bg-black/20 rounded-full px-3 py-1 inline-block">
+                &lt; 20 second benchmark
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* HUD Engine */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+          >
+            <Link 
+              href="/test-hud" 
+              className="block bg-gray-800 hover:bg-gray-700 p-6 rounded-xl text-center transition-all hover:scale-105 border border-gray-700"
+            >
+              <div className="text-4xl mb-3">📊</div>
+              <div className="font-bold text-xl mb-2">HUD Engine</div>
+              <div className="text-sm text-gray-400">Real-time overlay system</div>
+              <div className="mt-3 text-xs bg-gray-900 rounded-full px-3 py-1 inline-block">
+                WebSocket powered
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* School Universe */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.5 }}
+          >
+            <Link 
+              href="/test-school" 
+              className="block bg-gray-800 hover:bg-gray-700 p-6 rounded-xl text-center transition-all hover:scale-105 border border-gray-700"
+            >
+              <div className="text-4xl mb-3">🏫</div>
+              <div className="font-bold text-xl mb-2">SchoolUniverseBot</div>
+              <div className="text-sm text-gray-400">Auto campus creation</div>
+              <div className="mt-3 text-xs bg-gray-900 rounded-full px-3 py-1 inline-block">
+                &lt; 2 seconds
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Mascot Engine */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.6 }}
+          >
+            <Link 
+              href="/test-mascot" 
+              className="block bg-gray-800 hover:bg-gray-700 p-6 rounded-xl text-center transition-all hover:scale-105 border border-gray-700"
+            >
+              <div className="text-4xl mb-3">🎭</div>
+              <div className="font-bold text-xl mb-2">Mascot Engine</div>
+              <div className="text-sm text-gray-400">Living mascot identities</div>
+              <div className="mt-3 text-xs bg-gray-900 rounded-full px-3 py-1 inline-block">
+                LoRA style-locked
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Vision QA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.7 }}
+          >
+            <Link 
+              href="/test-vision" 
+              className="block bg-gray-800 hover:bg-gray-700 p-6 rounded-xl text-center transition-all hover:scale-105 border border-gray-700"
+            >
+              <div className="text-4xl mb-3">👁️</div>
+              <div className="font-bold text-xl mb-2">VisionQA</div>
+              <div className="text-sm text-gray-400">AI quality validation</div>
+              <div className="mt-3 text-xs bg-gray-900 rounded-full px-3 py-1 inline-block">
+                80%+ threshold
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* Create Stadium */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.8 }}
+          >
+            <Link 
+              href="/stadium/create" 
+              className="block bg-gray-800 hover:bg-gray-700 p-6 rounded-xl text-center transition-all hover:scale-105 border border-gray-700"
+            >
+              <div className="text-4xl mb-3">🏟️</div>
+              <div className="font-bold text-xl mb-2">Stadium Creator</div>
+              <div className="text-sm text-gray-400">Legacy stadium system</div>
+              <div className="mt-3 text-xs bg-gray-900 rounded-full px-3 py-1 inline-block">
+                Original flow
+              </div>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Status Bar */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 0.9 }}
+          className="bg-gray-900 rounded-xl p-6 max-w-3xl mx-auto"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-bold text-green-400">✓</div>
+              <div className="text-sm text-gray-400">Database</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-green-400">✓</div>
+              <div className="text-sm text-gray-400">Auth</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-green-400">✓</div>
+              <div className="text-sm text-gray-400">WebSocket</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-green-400">✓</div>
+              <div className="text-sm text-gray-400">AI Ready</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-green-400">✓</div>
+              <div className="text-sm text-gray-400">MVP Live</div>
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     </section>
@@ -1720,6 +1904,9 @@ export default function HomePage() {
         
         {/* Platform Overview */}
         <PlatformOverview />
+        
+        {/* MVP Test Suite */}
+        <MVPTestSuite />
         
         {/* Features Showcase */}
         <FeaturesShowcase />
