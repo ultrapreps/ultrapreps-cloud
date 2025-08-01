@@ -156,21 +156,55 @@ export default function OnboardingPage() {
     setStartTime(Date.now()); // Start 20-second timer
     
     try {
-      // Simulate HeroCard generation
-      // In production, this would call DALL-E 3
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Call the actual HeroCard API following ULTRAPREPS_PROMPT_BIBLE_V3.0
+      console.log('🚀 Calling HeroCard API with data:', {
+        athleteName: `${studentInfo.firstName} ${studentInfo.lastName}`,
+        school: schoolInfo.name,
+        classYear: new Date().getFullYear() + (12 - parseInt(studentInfo.grade)),
+        sport: studentInfo.sports[0] || 'Football',
+        selfie: selfieUrl
+      });
       
-      const heroCardPlaceholder = `/api/placeholder/800/1200?text=${encodeURIComponent(
-        `${studentInfo.firstName} ${studentInfo.lastName} - ${schoolInfo.mascot} ${studentInfo.sports[0]}`
-      )}`;
+      const response = await fetch('/api/enrich-school', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          athleteName: `${studentInfo.firstName} ${studentInfo.lastName}`,
+          school: schoolInfo.name,
+          classYear: String(new Date().getFullYear() + (12 - parseInt(studentInfo.grade))),
+          sport: studentInfo.sports[0] || 'Football',
+          jerseyNumber: '6', // Default jersey number
+          selfie: selfieUrl
+        })
+      });
       
-      setHeroCardUrl(heroCardPlaceholder);
-      
-      // Create HeroCard record
-      console.log('🎨 HeroCard generated in:', elapsedTime.toFixed(1), 'seconds');
+      if (response.ok) {
+        const cardData = await response.json();
+        console.log('✅ HeroCard API response:', cardData);
+        
+        // Update school info with mascot from API
+        if (cardData.mascot) {
+          setSchoolInfo(prev => ({ ...prev, mascot: cardData.mascot }));
+        }
+        
+        // Set the actual generated HeroCard URL
+        setHeroCardUrl(cardData.heroCardUrl || `/api/placeholder/800/1200?text=${encodeURIComponent(
+          `${studentInfo.firstName} ${studentInfo.lastName} - ${cardData.school} ${studentInfo.sports[0] || 'Sports'}`
+        )}`);
+        
+        console.log('🎨 HeroCard generated in:', elapsedTime.toFixed(1), 'seconds');
+      } else {
+        console.error('HeroCard API error:', response.status, response.statusText);
+        throw new Error('Failed to generate HeroCard');
+      }
       
     } catch (error) {
       console.error('HeroCard generation error:', error);
+      // Fallback to placeholder on error
+      const heroCardPlaceholder = `/api/placeholder/800/1200?text=${encodeURIComponent(
+        `${studentInfo.firstName} ${studentInfo.lastName} - ${schoolInfo.name} ${studentInfo.sports[0] || 'Sports'}`
+      )}`;
+      setHeroCardUrl(heroCardPlaceholder);
     } finally {
       setHeroCardGenerating(false);
     }
