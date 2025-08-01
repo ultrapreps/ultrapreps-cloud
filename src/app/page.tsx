@@ -75,12 +75,12 @@ function HeroSection() {
   const { activities, isConnected } = useLiveActivities(7000); // New activity every 7 seconds
 
   const userTypes = [
-    { id: 'student', label: 'Students', icon: GraduationCap, color: 'from-[#F59E0B] to-[#F97316]' },
-    { id: 'parent', label: 'Parents', icon: Home, color: 'from-[#3B82F6] to-[#1E3A8A]' },
-    { id: 'teacher', label: 'Teachers', icon: BookOpen, color: 'from-[#059669] to-[#10B981]' },
-    { id: 'coach', label: 'Coaches', icon: Trophy, color: 'from-[#DC2626] to-[#EF4444]' },
-    { id: 'admin', label: 'Administrators', icon: Building, color: 'from-[#7C3AED] to-[#5B21B6]' },
-    { id: 'scout', label: 'Scouts', icon: Eye, color: 'from-[#EC4899] to-[#BE185D]' }
+    { id: 'student', label: 'Student', icon: GraduationCap, color: 'from-[#F59E0B] to-[#F97316]' },
+    { id: 'parent', label: 'Parent', icon: Home, color: 'from-[#3B82F6] to-[#1E3A8A]' },
+    { id: 'teacher', label: 'Teacher', icon: BookOpen, color: 'from-[#059669] to-[#10B981]' },
+    { id: 'coach', label: 'Coach', icon: Trophy, color: 'from-[#DC2626] to-[#EF4444]' },
+    { id: 'admin', label: 'Administrator', icon: Building, color: 'from-[#7C3AED] to-[#5B21B6]' },
+    { id: 'scout', label: 'Scout', icon: Eye, color: 'from-[#EC4899] to-[#BE185D]' }
   ];
 
   const userContent = {
