@@ -248,7 +248,7 @@ export default function OnboardingPage() {
                 <div className="text-center mb-8">
                   <School className="w-16 h-16 mx-auto mb-4 text-[#F59E0B]" />
                   <h2 className="text-2xl font-bold mb-2">Find Your School</h2>
-                  <p className="text-gray-400">We\'ll create your school\'s digital universe</p>
+                  <p className="text-gray-400">We'll create your school's digital universe</p>
                 </div>
 
                 <div className="space-y-4">
@@ -389,7 +389,7 @@ export default function OnboardingPage() {
                 <div className="text-center mb-8">
                   <Camera className="w-16 h-16 mx-auto mb-4 text-[#F59E0B]" />
                   <h2 className="text-2xl font-bold mb-2">Upload Your Photo</h2>
-                  <p className="text-gray-400">We\'ll create your cinematic HeroCard</p>
+                  <p className="text-gray-400">We'll create your cinematic HeroCard</p>
                 </div>
 
                 <div className="space-y-4">

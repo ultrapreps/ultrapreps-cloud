@@ -14,6 +14,9 @@ export async function POST(req: NextRequest) {
       type, 
       schoolId, 
       title, 
+
+
+      
       subtitle, 
       mainText,
       date,
