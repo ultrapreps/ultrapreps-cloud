@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import './globals.css';
 import React from 'react';
 import { ThemeProvider } from '../components/ThemeContext';
