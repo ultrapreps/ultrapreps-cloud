@@ -8,7 +8,10 @@ import Link from 'next/link';
 // Temporarily disabled WebSocket import due to auth issues
 // import { useWebSocket } from '@/lib/websocket/client';
 
+import TestHUDRedirect from './redirect';
+
 export default function TestHUDPage() {
+  return <TestHUDRedirect />;
   const [userRole, setUserRole] = useState<string>('guest');
   const [isConnected, setIsConnected] = useState(false);
   const [athleteData, setAthleteData] = useState<any>(null);

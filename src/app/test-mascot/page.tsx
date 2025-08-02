@@ -14,7 +14,10 @@ interface SampleDialogue {
   achievement: string;
 }
 
+import TestMascotRedirect from './redirect';
+
 export default function TestMascotPage() {
+  return <TestMascotRedirect />;
   const [schools, setSchools] = useState<any[]>([]);
   const [selectedSchoolId, setSelectedSchoolId] = useState('');
   const [loading, setLoading] = useState(false);

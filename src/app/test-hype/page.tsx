@@ -27,7 +27,10 @@ const transactionTypes = [
   { type: 'milestone', name: 'Milestone', icon: Target, amount: 100, color: 'text-pink-500' }
 ];
 
+import TestHypeRedirect from './redirect';
+
 export default function TestHypePage() {
+  return <TestHypeRedirect />;
   const [selectedUser, setSelectedUser] = useState(mockUsers[0]);
   const [userBalance, setUserBalance] = useState<number>(0);
   const [recentTransactions, setRecentTransactions] = useState<any[]>([]);

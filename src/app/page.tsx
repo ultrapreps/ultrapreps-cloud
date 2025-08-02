@@ -15,19 +15,19 @@ export default function UltraPrepsHomepage() {
   const { theme, toggleTheme, isDark } = useTheme();
 
   const coreFeatures = [
-    { icon: Trophy, title: "AI HeroCards", description: "Professional athletic cards in 60 seconds", href: "/stadium/create" },
-    { icon: Camera, title: "Championship Posters", description: "Victory celebration generator", href: "/poster/create" },
-    { icon: BarChart3, title: "Performance Analytics", description: "Live athletic intelligence", href: "/test-hud" },
-    { icon: Bot, title: "AI Mascots", description: "Custom school spirit creation", href: "/test-mascot" },
-    { icon: Zap, title: "HYPE Economy", description: "Community-powered rewards", href: "/test-hype" },
-    { icon: Star, title: "MediaKit Generator", description: "ESPN-quality press materials", href: "/media-kit" }
+    { icon: Trophy, title: "HeroCards", description: "Professional athletic trading cards", href: "/stadium/create" },
+    { icon: Camera, title: "Championship Posters", description: "Victory celebration graphics", href: "/poster/create" },
+    { icon: BarChart3, title: "Performance Tracking", description: "Athletic progress insights", href: "/dashboard" },
+    { icon: Star, title: "School Mascots", description: "Custom team spirit graphics", href: "/community" },
+    { icon: Zap, title: "HYPE Points", description: "Achievement rewards system", href: "/dashboard" },
+    { icon: Users, title: "Media Center", description: "Professional press materials", href: "/media-kit" }
   ];
 
   const stakeholderDemos = [
     { id: 'student', label: 'Student Athlete', icon: Trophy, href: '/stadium/create', color: 'from-orange-500 to-red-500' },
     { id: 'parent', label: 'Parent & Family', icon: Heart, href: '/parent-dashboard', color: 'from-blue-500 to-indigo-600' },
     { id: 'coach', label: 'Coach', icon: Users, href: '/coach-dashboard', color: 'from-green-500 to-emerald-600' },
-    { id: 'grandpa', label: 'Grandpa Jim Demo', icon: Crown, href: '/grandpa-jim-demo', color: 'from-purple-500 to-pink-500' }
+    { id: 'community', label: 'Community', icon: Crown, href: '/community', color: 'from-purple-500 to-pink-500' }
   ];
 
   return (
@@ -87,20 +87,20 @@ export default function UltraPrepsHomepage() {
           >
             <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tight">
               <span className="bg-gradient-to-r from-[#F59E0B] to-[#F97316] bg-clip-text text-transparent">
-                DIGITAL
+                YOUR
               </span>
               <br />
-              <span className={isDark ? 'text-white' : 'text-gray-900'}>IMMORTALITY</span>
+              <span className={isDark ? 'text-white' : 'text-gray-900'}>ATHLETIC STORY</span>
             </h1>
             
             <p className={`text-2xl md:text-3xl mb-4 max-w-4xl mx-auto leading-relaxed ${
               isDark ? 'text-gray-300' : 'text-gray-700'
             }`}>
-              The World's First AI-Powered Athletic Legacy Platform
+              Complete High School Athletic Experience Platform
             </p>
             
             <p className="text-xl text-[#F59E0B] font-bold mb-16 max-w-3xl mx-auto leading-relaxed">
-              From First T-Ball Practice to Professional Championship - Every Moment Preserved Forever
+              From First Practice to Championship Glory - Capture, Share, and Celebrate Every Achievement
             </p>
 
             {/* Core Features Grid */}
@@ -154,7 +154,7 @@ export default function UltraPrepsHomepage() {
                          rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-2xl hover:shadow-[#F59E0B]/30"
               >
                 <Rocket className="w-7 h-7" />
-                Create Your Stadium
+                Get Started
                 <ArrowRight className="w-7 h-7" />
               </Link>
               

@@ -45,19 +45,19 @@ const STAKEHOLDER_CATEGORIES: StakeholderCategory[] = [
       {
         id: 'student',
         title: 'Student Athlete',
-        subtitle: 'Your digital legacy awaits',
+        subtitle: 'Your athletic journey starts here',
         icon: Trophy,
         href: '/stadium/create',
-        description: 'AI HeroCards, performance tracking, college recruitment',
+        description: 'HeroCards, performance tracking, college recruitment',
         primaryAudience: true
       },
       {
         id: 'parent',
         title: 'Parent & Family',
-        subtitle: 'Multi-generational support hub',
+        subtitle: 'Support your athlete\'s journey',
         icon: Heart,
         href: '/parent-dashboard',
-        description: 'Family command center, legacy building, health tracking',
+        description: 'Family updates, progress tracking, achievement sharing',
         primaryAudience: true
       }
     ]
@@ -72,10 +72,10 @@ const STAKEHOLDER_CATEGORIES: StakeholderCategory[] = [
       {
         id: 'coach',
         title: 'Head Coach',
-        subtitle: 'Team management & strategy',
+        subtitle: 'Lead your team to victory',
         icon: Users,
         href: '/coach-dashboard',
-        description: 'Team analytics, recruitment, rivalry campaigns',
+        description: 'Team management, recruitment tools, performance insights',
         primaryAudience: true
       },
       {
@@ -106,10 +106,10 @@ const STAKEHOLDER_CATEGORIES: StakeholderCategory[] = [
       {
         id: 'superintendent',
         title: 'Superintendent',
-        subtitle: 'District-wide vision',
+        subtitle: 'District-wide excellence',
         icon: Crown,
         href: '/superintendent-dashboard',
-        description: 'District analytics, media kits, strategic oversight'
+        description: 'District oversight, media resources, program management'
       },
       {
         id: 'school-board',
@@ -363,7 +363,7 @@ export default function StakeholderRoleSelector({ isOpen, onClose }: Stakeholder
                 <div className="flex items-center gap-2">
                   <Crown className="w-4 h-4 text-[#F59E0B]" />
                   <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                    AI-Powered Athletics Platform
+                    High School Athletics Platform
                   </span>
                 </div>
               </div>
