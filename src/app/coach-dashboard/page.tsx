@@ -11,11 +11,11 @@ import { useSession } from 'next-auth/react';
 import { Spinner } from '@/components/Spinner'; // Assume a Spinner component exists
 
 export default function CoachDashboard() {
-  const { data: session, status } = useSession();
-  if (status === 'loading') {
+  const sessionResult = useSession();
+  if (sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen"><Spinner /> Loading...</div>;
   }
-  if (!session?.user?.id) {
+  if (!sessionResult.data?.user?.id) {
     return <div className="flex items-center justify-center min-h-screen text-red-500 text-xl font-bold">Error: You must be signed in to view this dashboard.</div>;
   }
   const coachId = session.user.id;

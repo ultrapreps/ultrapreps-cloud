@@ -27,9 +27,9 @@ interface Poster {
 
 export default function PosterGalleryPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
   
-  if (status === 'loading') {
+  if (sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
   const [posters, setPosters] = useState<Poster[]>([]);

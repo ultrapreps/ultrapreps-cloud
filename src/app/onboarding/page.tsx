@@ -39,12 +39,12 @@ interface StudentInfo {
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
   
-  if (status === 'loading') {
+  if (sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
-  const userId = session?.user?.id || '';
+  const userId = sessionResult.data?.user?.id || '';
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [heroCardGenerating, setHeroCardGenerating] = useState(false);

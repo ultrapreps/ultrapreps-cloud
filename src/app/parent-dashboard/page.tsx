@@ -160,14 +160,14 @@ const MOCK_CHILDREN: StudentChild[] = [
 ];
 
 export default function ParentDashboard() {
-  const { data: session, status } = useSession();
-  if (status === 'loading') {
+  const sessionResult = useSession();
+  if (sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen"><Spinner /> Loading...</div>;
   }
-  if (!session?.user?.id) {
+  if (!sessionResult.data?.user?.id) {
     return <div className="flex items-center justify-center min-h-screen text-red-500 text-xl font-bold">Error: You must be signed in to view this dashboard.</div>;
   }
-  const parentId = session.user.id;
+  const parentId = sessionResult.data.user.id;
   const [selectedChild, setSelectedChild] = useState<StudentChild>(MOCK_CHILDREN[0]);
   const [activeTab, setActiveTab] = useState('overview');
   const [isChatOpen, setIsChatOpen] = useState(false);

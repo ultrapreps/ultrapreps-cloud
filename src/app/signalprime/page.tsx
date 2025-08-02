@@ -11,12 +11,12 @@ const shareTemplates = [
 ];
 
 export default function SignalPrimeViralityCenter() {
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
   
-  if (status === 'loading') {
+  if (sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
-  const userId = session?.user?.id || '';
+  const userId = sessionResult.data?.user?.id || '';
   const [selectedTemplate, setSelectedTemplate] = useState(shareTemplates[0]);
   const [showBrag, setShowBrag] = useState(false);
   const [hypeBonus, setHypeBonus] = useState(0);

@@ -35,7 +35,7 @@ interface StudentData {
 }
 
 export default function StudentDashboard() {
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
   const [student, setStudent] = useState<StudentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
