@@ -65,9 +65,10 @@ import { useInView } from "react-intersection-observer";
 import clsx from "clsx";
 import Link from 'next/link';
 
-// MVP-Focused Hero Section - Phase 1 Priority
+// MVP-Focused Hero Section - Phase 1 Priority with Dual Theme Support
 function HeroSection() {
   const [activeUserType, setActiveUserType] = useState('student');
+  const [isLegacyMode, setIsLegacyMode] = useState(false);
 
   // SIMPLIFIED: Only 3 primary MVP paths to eliminate decision paralysis
   const userTypes = [
@@ -77,23 +78,29 @@ function HeroSection() {
   ];
 
   // MVP PHASE 1 FOCUS: HeroCard Engine + Mascot Engine + HUD + HYPE Loop
+  // DUAL THEME: Pro Mode vs Legacy Mode (Family-Friendly)
   const userContent = {
     student: {
-      title: "Create Your Digital Stadium in 30 Seconds",
-      subtitle: "Phase 1 MVP: HeroCard Engine + Live HUD + HYPE Economy",
-      features: [
+      title: isLegacyMode ? "Create Your Digital Profile in 30 Seconds" : "Create Your Digital Stadium in 30 Seconds",
+      subtitle: isLegacyMode ? "Digital portfolio with achievements and progress tracking" : "Phase 1 MVP: HeroCard Engine + Live HUD + HYPE Economy",
+      features: isLegacyMode ? [
+        "📸 Personal Achievement Cards",
+        "🎨 Custom School Spirit Design", 
+        "📈 Progress Tracking Dashboard",
+        "⭐ Earn Recognition Points"
+      ] : [
         "🏆 AI HeroCard Generation (Instant)",
         "🎭 Custom School Mascot Engine", 
         "📊 Live Performance HUD Overlay",
         "⚡ Earn HYPE Points & Share Rewards"
       ],
-      cta: "Create Your HeroCard Now",
+      cta: isLegacyMode ? "Create Your Profile" : "Create Your HeroCard Now",
       href: "/stadium/create",
       demo: "/test-poster"
     },
     parent: {
       title: "Your Child's Digital Legacy",
-      subtitle: "Simple family tracking for busy parents", 
+      subtitle: "Simple family tracking with Legacy Mode experience", 
       features: [
         "👨‍👩‍👧‍👦 Multi-Child Progress Tracking",
         "🏆 Achievement Milestone Timeline",
@@ -144,15 +151,21 @@ function HeroSection() {
 
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
+      <div className={clsx(
+        "relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24",
+        isLegacyMode && "font-serif"
+      )}>
         {/* User Type Selector */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h2 className="text-xl md:text-2xl font-bold text-white/80 mb-6">
-            Choose Your Path to Greatness
+          <h2 className={clsx(
+            "text-xl md:text-2xl font-bold mb-6",
+            isLegacyMode ? "text-amber-200" : "text-white/80"
+          )}>
+            {isLegacyMode ? "Welcome to Your Family's Digital Journey" : "Choose Your Path to Greatness"}
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
             {userTypes.map((type) => {
