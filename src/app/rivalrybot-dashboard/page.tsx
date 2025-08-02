@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { HypeLeaderboard } from '@/components/HypeLeaderboard';
 import MascotAnimation from '@/components/MascotAnimation'; // Assume this will be created for animated mascots

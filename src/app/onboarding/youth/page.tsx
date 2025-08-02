@@ -1,3 +1,5 @@
+'use client';
+
 import { useSession } from 'next-auth/react';
 import HeroCard from '@/components/HeroCard';
 import { useState } from 'react';
