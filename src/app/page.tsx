@@ -3,12 +3,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Trophy, Heart, Users, Crown, Play, ArrowRight, Rocket, Zap, Star, Camera, BarChart3, Bot
+  Trophy, Heart, Users, Crown, Play, ArrowRight, Rocket, Zap, Star, Camera, BarChart3, Bot, Sun, Moon
 } from "lucide-react";
 import Link from 'next/link';
+import { useTheme } from '@/components/ThemeContext';
 
 export default function UltraPrepsHomepage() {
   const [activeDemo, setActiveDemo] = useState('student');
+  const { theme, toggleTheme, isDark } = useTheme();
 
   const coreFeatures = [
     { icon: Trophy, title: "AI HeroCards", description: "Professional athletic cards in 60 seconds", href: "/stadium/create" },
@@ -27,24 +29,51 @@ export default function UltraPrepsHomepage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDark 
+        ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white' 
+        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
+    }`}>
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('/stadium-crowd-energy.jpg')] bg-cover bg-center opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+          <div className={`absolute inset-0 bg-[url('/stadium-crowd-energy.jpg')] bg-cover bg-center ${
+            isDark ? 'opacity-20' : 'opacity-10'
+          }`} />
+          <div className={`absolute inset-0 ${
+            isDark 
+              ? 'bg-gradient-to-t from-black/80 via-transparent to-black/40' 
+              : 'bg-gradient-to-t from-gray-50/90 via-white/60 to-gray-100/80'
+          }`} />
         </div>
 
-        {/* ULTRAPREPS Crown Logo */}
+        {/* ULTRAPREPS Crown Logo & Theme Toggle */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
           <div className="flex items-center gap-3">
             <Crown className="w-12 h-12 text-[#F59E0B]" />
             <div className="text-center">
-              <h1 className="text-3xl font-black tracking-wider text-white">ULTRAPREPS</h1>
+              <h1 className={`text-3xl font-black tracking-wider ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                ULTRAPREPS
+              </h1>
               <p className="text-xs text-[#F59E0B] font-bold tracking-widest">AI-POWERED ATHLETICS</p>
             </div>
           </div>
+        </div>
+
+        {/* Theme Toggle - Top Right */}
+        <div className="absolute top-8 right-8 z-20">
+          <button
+            onClick={toggleTheme}
+            className={`p-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-110 ${
+              isDark 
+                ? 'bg-white/10 border-white/20 text-white hover:bg-white/20' 
+                : 'bg-black/10 border-black/20 text-gray-900 hover:bg-black/20'
+            }`}
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+          </button>
         </div>
 
         {/* Main Content */}
@@ -59,10 +88,12 @@ export default function UltraPrepsHomepage() {
                 DIGITAL
               </span>
               <br />
-              <span className="text-white">IMMORTALITY</span>
+              <span className={isDark ? 'text-white' : 'text-gray-900'}>IMMORTALITY</span>
             </h1>
             
-            <p className="text-2xl md:text-3xl mb-4 max-w-4xl mx-auto leading-relaxed text-gray-300">
+            <p className={`text-2xl md:text-3xl mb-4 max-w-4xl mx-auto leading-relaxed ${
+              isDark ? 'text-gray-300' : 'text-gray-700'
+            }`}>
               The World's First AI-Powered Athletic Legacy Platform
             </p>
             
@@ -81,16 +112,25 @@ export default function UltraPrepsHomepage() {
                 >
                   <Link
                     href={feature.href}
-                    className="group bg-white/5 hover:bg-white/15 border border-white/20 hover:border-[#F59E0B]/60 
-                             rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl 
-                             hover:shadow-[#F59E0B]/20 flex flex-col items-center gap-3 text-center min-h-[140px]"
+                    className={`group border rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl 
+                             hover:shadow-[#F59E0B]/20 flex flex-col items-center gap-3 text-center min-h-[140px] ${
+                      isDark 
+                        ? 'bg-white/5 hover:bg-white/15 border-white/20 hover:border-[#F59E0B]/60' 
+                        : 'bg-white/90 hover:bg-white border-gray-200 hover:border-[#F59E0B]/60 shadow-lg'
+                    }`}
                   >
-                    <feature.icon className="w-8 h-8 text-white group-hover:text-[#F59E0B] transition-colors" />
+                    <feature.icon className={`w-8 h-8 group-hover:text-[#F59E0B] transition-colors ${
+                      isDark ? 'text-white' : 'text-gray-700'
+                    }`} />
                     <div>
-                      <h3 className="font-black text-white group-hover:text-[#F59E0B] transition-colors mb-1">
+                      <h3 className={`font-black group-hover:text-[#F59E0B] transition-colors mb-1 ${
+                        isDark ? 'text-white' : 'text-gray-900'
+                      }`}>
                         {feature.title}
                       </h3>
-                      <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors leading-tight">
+                      <p className={`text-xs transition-colors leading-tight ${
+                        isDark ? 'text-gray-400 group-hover:text-gray-300' : 'text-gray-600 group-hover:text-gray-700'
+                      }`}>
                         {feature.description}
                       </p>
                     </div>

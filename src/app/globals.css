@@ -12,12 +12,21 @@
   --vvh: 1vh; /* Visual viewport height */
   
   /* ===== UNIFIED DESIGN SYSTEM ===== */
-  /* Consistent Component Styles */
+  /* DARK MODE - Consistent Component Styles */
   --ultra-card-bg: rgba(255, 255, 255, 0.08);
   --ultra-card-border: rgba(255, 255, 255, 0.15);
   --ultra-card-hover-bg: rgba(255, 255, 255, 0.12);
   --ultra-card-hover-border: rgba(245, 158, 11, 0.5);
   --ultra-backdrop-blur: 16px;
+  
+  /* LIGHT MODE - Professional Component Styles */
+  --ultra-card-bg-light: rgba(255, 255, 255, 0.9);
+  --ultra-card-border-light: rgba(0, 0, 0, 0.1);
+  --ultra-card-hover-bg-light: rgba(255, 255, 255, 1);
+  --ultra-card-hover-border-light: rgba(245, 158, 11, 0.6);
+  --ultra-text-primary-light: #111827;
+  --ultra-text-secondary-light: #6B7280;
+  --ultra-bg-light: #F9FAFB;
   
   /* Stadium Background System */
   --ultra-bg-filter: grayscale(100%) contrast(1.2) brightness(0.3) blur(3px);
