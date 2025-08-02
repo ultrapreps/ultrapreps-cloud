@@ -11,7 +11,7 @@ import { Spinner } from '@/components/Spinner'; // Assume a Spinner component ex
 export default function NILMarketplace() {
   const sessionResult = useSession();
   
-  if (sessionResult.status === 'loading') {
+  if (!sessionResult || sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen"><Spinner /> Loading...</div>;
   }
   if (!sessionResult.data?.user?.id) {
