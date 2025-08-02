@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Trophy,
+import { 
+  Trophy, 
   Heart,
-  Users,
+  Users, 
   ArrowRight,
   Play,
   Rocket,
@@ -156,17 +156,17 @@ function HeroSection() {
             className="text-center"
           >
           {/* Icon & Title */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring" }}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
             className="mb-12"
-          >
+            >
             <div className={`w-32 h-32 mx-auto rounded-full bg-gradient-to-r ${gradient} p-2 shadow-2xl mb-8`}>
-              <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                 <IconComponent className="w-16 h-16 text-white" />
+                </div>
               </div>
-            </div>
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight">
               {currentStakeholder.title}
@@ -178,13 +178,13 @@ function HeroSection() {
             
             <p className="text-xl text-[#F59E0B] font-bold mb-16 max-w-4xl mx-auto leading-relaxed">
               {currentStakeholder.visionStatement}
-            </p>
-          </motion.div>
+                      </p>
+                    </motion.div>
 
           {/* Live Demo Experiences (NO SIGNUP WALLS) */}
-          <motion.div
+                <motion.div
             initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+              animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
             className="mb-16"
           >
@@ -192,8 +192,8 @@ function HeroSection() {
               <Play className="w-8 h-8 text-[#F59E0B]" />
               <h3 className="text-3xl font-black text-white">LIVE DEMO EXPERIENCES</h3>
               <Sparkles className="w-8 h-8 text-[#F59E0B]" />
-            </div>
-            
+        </div>
+
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto mb-8">
               {currentStakeholder.liveExperiences.map((demo, index) => (
                 <Link
@@ -211,11 +211,11 @@ function HeroSection() {
                     <span className="text-xs text-white/60 group-hover:text-white/80 leading-tight">
                       {demo.description}
                     </span>
-                  </div>
+                </div>
                 </Link>
-              ))}
-            </div>
-            
+                  ))}
+                </div>
+
             <div className="bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 backdrop-blur-sm rounded-2xl border border-[#F59E0B]/50 p-6 max-w-4xl mx-auto">
               <h4 className="text-xl font-black text-white mb-4">🚀 LIVE FEATURES - NO SIGNUP REQUIRED</h4>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -223,14 +223,14 @@ function HeroSection() {
                   <div key={index} className="flex items-center gap-3 text-white/90">
                     <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
                     <span className="text-sm font-medium">{feature}</span>
-                  </div>
+                </div>
                 ))}
+        </div>
               </div>
-            </div>
-          </motion.div>
+        </motion.div>
 
           {/* 7-Bot AI Neural Network */}
-          <motion.div
+        <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.6 }}
@@ -240,13 +240,13 @@ function HeroSection() {
               <Brain className="w-8 h-8 text-purple-400" />
               <h3 className="text-3xl font-black text-white">7-BOT AI NEURAL NETWORK</h3>
               <Network className="w-8 h-8 text-purple-400" />
-            </div>
-            
+        </div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-7 gap-4 max-w-7xl mx-auto">
               {currentStakeholder.aiEcosystem.map((bot, index) => (
-                <motion.div
+          <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.1 }}
                   className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 p-5 rounded-xl border border-purple-500/40 
@@ -256,9 +256,9 @@ function HeroSection() {
                   <p className="text-white text-sm font-medium group-hover:text-purple-200 transition-colors leading-relaxed">
                     {bot}
                   </p>
-                </motion.div>
+          </motion.div>
               ))}
-            </div>
+              </div>
           </motion.div>
 
           {/* Digital Immortality Engine */}
@@ -272,13 +272,13 @@ function HeroSection() {
               <Crown className="w-8 h-8 text-[#F59E0B]" />
               <h3 className="text-3xl font-black text-white">DIGITAL IMMORTALITY ENGINE</h3>
               <Flame className="w-8 h-8 text-[#F59E0B]" />
-            </div>
-            
+        </div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {currentStakeholder.digitalImmortality.map((feature, index) => (
-                <motion.div
+        <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.9 + index * 0.05 }}
                   className="bg-gradient-to-br from-[#F59E0B]/10 to-[#F97316]/10 p-6 rounded-xl border border-[#F59E0B]/30 
@@ -287,10 +287,10 @@ function HeroSection() {
                   <Crown className="w-6 h-6 text-[#F59E0B] mb-3 group-hover:scale-110 transition-transform" />
                   <p className="text-white text-sm font-medium group-hover:text-[#F59E0B] transition-colors leading-relaxed">
                     {feature}
-                  </p>
-                </motion.div>
+          </p>
+        </motion.div>
               ))}
-            </div>
+        </div>
           </motion.div>
 
           {/* HYPE Fuel Economy */}
@@ -304,13 +304,13 @@ function HeroSection() {
               <Zap className="w-8 h-8 text-yellow-400" />
               <h3 className="text-3xl font-black text-white">HYPE FUEL ECONOMY</h3>
               <DollarSign className="w-8 h-8 text-green-400" />
-            </div>
+        </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {currentStakeholder.hypeEconomy.map((economic, index) => (
-                <motion.div
+      <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.1 + index * 0.1 }}
                   className="bg-gradient-to-br from-yellow-900/20 to-green-900/20 p-6 rounded-xl border border-yellow-500/40 
@@ -326,7 +326,7 @@ function HeroSection() {
           </motion.div>
 
           {/* Opportunity Metrics */}
-          <motion.div
+        <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.2 }}
@@ -336,11 +336,11 @@ function HeroSection() {
               <TrendingUp className="w-8 h-8 text-green-400" />
               <h3 className="text-3xl font-black text-white">BILLION-DOLLAR OPPORTUNITY</h3>
               <BarChart3 className="w-8 h-8 text-green-400" />
-            </div>
-            
+      </div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {currentStakeholder.opportunityMetrics.map((metric, index) => (
-                <motion.div
+      <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -352,7 +352,7 @@ function HeroSection() {
                   <p className="text-green-300 text-lg font-black group-hover:text-green-200 transition-colors leading-tight">
                     {metric}
                   </p>
-                </motion.div>
+          </motion.div>
               ))}
             </div>
           </motion.div>
@@ -385,8 +385,8 @@ function HeroSection() {
           </motion.div>
 
           {/* VIRAL HYPE SHARING BONUS */}
-          <motion.div
-            initial={{ opacity: 0 }}
+      <motion.div
+        initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
             className="mt-12"
@@ -399,9 +399,9 @@ function HeroSection() {
               <span className="text-white/80 font-bold">per share!</span>
             </div>
           </motion.div>
-        </motion.div>
+          </motion.div>
         </AnimatePresence>
-      </div>
+              </div>
     </section>
   );
 }
@@ -438,13 +438,13 @@ export default function UltraPrepsPlatform() {
             <span className="text-xs">Community</span>
           </Link>
           
-          <Link
+                    <Link
             href="/feed"
             className="flex flex-col items-center justify-center gap-1 text-white/90 hover:text-[#F59E0B] transition-colors"
-          >
+                    >
             <Calendar className="w-5 h-5" />
             <span className="text-xs">Feed</span>
-          </Link>
+                    </Link>
           
           <Link
             href="/dashboard"
@@ -452,9 +452,9 @@ export default function UltraPrepsPlatform() {
           >
             <User className="w-5 h-5" />
             <span className="text-xs">Dashboard</span>
-          </Link>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
   );
 }
