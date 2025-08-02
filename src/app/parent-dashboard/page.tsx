@@ -6,7 +6,9 @@ import Link from 'next/link';
 import { 
   Users, Trophy, MessageCircle, Calendar, Clock, 
   ArrowLeft, Star, TrendingUp, Heart,
-  BarChart3, Crown, Zap
+  BarChart3, Crown, Zap, Brain, Camera, Target,
+  DollarSign, GraduationCap, Shield, Award, Gift,
+  Briefcase, Network, Eye, CheckCircle, Book
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
@@ -67,11 +69,13 @@ interface ParentTab {
 
 const PARENT_TABS: ParentTab[] = [
   { id: 'overview', label: 'Family Command Center', icon: BarChart3 },
-  { id: 'multi_child_monitor', label: 'Multi-Child Monitor', icon: Users },
-  { id: 'communication_hub', label: 'Communication Hub', icon: MessageCircle },
-  { id: 'logistics_manager', label: 'Smart Logistics', icon: Calendar },
-  { id: 'achievements', label: 'Family Achievements', icon: Trophy },
-  { id: 'health_wellness', label: 'Health & Wellness', icon: Heart }
+  { id: 'multi_generational', label: 'Multi-Generational Hub', icon: Users },
+  { id: 'hype_boost_center', label: 'HYPE Boost Center', icon: Zap },
+  { id: 'family_legacy_builder', label: 'Family Legacy Builder', icon: Crown },
+  { id: 'health_wellness_360', label: 'Health & Wellness 360°', icon: Heart },
+  { id: 'college_financial_planning', label: 'College & Financial Planning', icon: TrendingUp },
+  { id: 'educational_partnership', label: 'Educational Partnership', icon: MessageCircle },
+  { id: 'family_achievements', label: 'Family Achievement Gallery', icon: Trophy }
 ];
 
 // Mock data for parent's children
@@ -419,203 +423,487 @@ export default function ParentDashboard() {
               </motion.div>
                           )}
 
-            {/* MULTI-CHILD MONITOR */}
-            {activeTab === 'multi_child_monitor' && (
+            {/* MULTI-GENERATIONAL HUB - GRANDPA JIM'S DIGITAL STADIUM */}
+            {activeTab === 'multi_generational' && (
               <motion.div
-                key="multi_child_monitor"
+                key="multi_generational"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-6"
               >
-                <div className="text-center mb-6">
+                <div className="text-center mb-8">
                   <div className="flex items-center justify-center gap-3 mb-4">
                     <Users className="w-8 h-8 text-[#F59E0B]" />
-                    <h2 className="text-3xl font-black text-white">MULTI-CHILD COMMAND CENTER</h2>
-                    <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-bold rounded-full">FAMILY OVERVIEW</span>
+                    <h2 className="text-3xl font-black text-white">MULTI-GENERATIONAL FAMILY HUB</h2>
+                    <span className="px-3 py-1 bg-purple-500/20 text-purple-400 text-sm font-bold rounded-full">3 GENERATIONS</span>
                   </div>
-                  <p className="text-white/70 text-lg">Monitor all your children&apos;s activities, grades, and achievements in one place</p>
+                  <p className="text-white/70 text-lg">Connect grandparents, parents, and children in one unified family legacy system</p>
                 </div>
 
-                {/* All Children Overview */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {MOCK_CHILDREN.map((child) => (
-                    <div key={child.id} className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                          <Users className="w-8 h-8 text-white/60" />
-                        </div>
-                        <div>
-                          <h3 className="text-white font-bold text-xl">{child.name}</h3>
-                          <p className="text-white/60 text-sm">{child.school}</p>
-                        </div>
-                      </div>
-
-                      {/* Quick Stats */}
-                      <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="text-center">
-                          <div className={`text-xl font-black ${getGPAColor(child.gpa)}`}>{child.gpa}</div>
-                          <div className="text-white/60 text-xs">GPA</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-[#F59E0B] text-xl font-black">{child.hypeScore}</div>
-                          <div className="text-white/60 text-xs">HYPE</div>
-                        </div>
-                      </div>
-
-                      {/* Sports */}
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {child.sports.map((sport, index) => (
-                          <span key={index} className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">
-                            {sport}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Recent Activity */}
-                      <div className="text-sm">
-                        <p className="text-white/70">Recent:</p>
-                        <p className="text-white">{child.recentActivities[0]?.title || 'No recent activity'}</p>
-                      </div>
+                {/* Family Tree Dashboard */}
+                <div className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/30">
+                  <h3 className="text-white font-bold text-xl mb-6">👨‍👩‍👧‍👦 Complete Family Ecosystem</h3>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    {/* Grandparents Generation */}
+                    <div className="space-y-4">
+                      <h4 className="text-purple-400 font-bold text-center">👴👵 Grandparents Generation</h4>
+                      {[
+                        { 
+                          name: "Grandpa Jim", 
+                          role: "Family Historian", 
+                          engagement: "High",
+                          features: ["Memory Palace", "Wisdom Sharing", "Legacy Builder"],
+                          stats: { storiesShared: 12, photosUploaded: 47, grandkidsConnected: 3 }
+                        },
+                        { 
+                          name: "Grandma Sue", 
+                          role: "Family Cheerleader", 
+                          engagement: "Very High",
+                          features: ["HYPE Booster", "Achievement Tracker", "Recipe Sharing"],
+                          stats: { hypeGiven: 250, achievementsCelebrated: 8, recipesShared: 15 }
+                        }
+                      ].map((grandparent, index) => (
+                        <motion.div 
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="bg-white/10 rounded-xl p-4 border border-white/20"
+                        >
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
+                              <Crown className="w-5 h-5 text-purple-400" />
+                            </div>
+                            <div>
+                              <h5 className="text-white font-bold">{grandparent.name}</h5>
+                              <p className="text-white/60 text-xs">{grandparent.role}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-2 mb-3">
+                            {grandparent.features.map((feature, fIndex) => (
+                              <div key={fIndex} className="text-white/70 text-xs flex items-center gap-1">
+                                <CheckCircle className="w-3 h-3 text-green-400" />
+                                {feature}
+                              </div>
+                            ))}
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            {Object.entries(grandparent.stats).map(([key, value]) => (
+                              <div key={key} className="text-center">
+                                <div className="text-purple-400 font-bold">{value}</div>
+                                <div className="text-white/60 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
                     </div>
-                  ))}
+
+                    {/* Parents Generation */}
+                    <div className="space-y-4">
+                      <h4 className="text-blue-400 font-bold text-center">👫 Parents Generation</h4>
+                      {[
+                        { 
+                          name: "Mom (Sarah)", 
+                          role: "Family Coordinator", 
+                          engagement: "Very High",
+                          features: ["Logistics Manager", "Communication Hub", "Health Monitor"],
+                          stats: { eventsManaged: 23, teachersContacted: 8, healthCheckIns: 31 }
+                        },
+                        { 
+                          name: "Dad (Mike)", 
+                          role: "Career Mentor", 
+                          engagement: "High",
+                          features: ["College Planning", "Financial Guide", "Skills Coach"],
+                          stats: { collegesTours: 5, scholarshipsFound: 12, mentoringSessions: 18 }
+                        }
+                      ].map((parent, index) => (
+                        <motion.div 
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 + 0.2 }}
+                          className="bg-white/10 rounded-xl p-4 border border-white/20"
+                        >
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
+                              <Heart className="w-5 h-5 text-blue-400" />
+                            </div>
+                            <div>
+                              <h5 className="text-white font-bold">{parent.name}</h5>
+                              <p className="text-white/60 text-xs">{parent.role}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-2 mb-3">
+                            {parent.features.map((feature, fIndex) => (
+                              <div key={fIndex} className="text-white/70 text-xs flex items-center gap-1">
+                                <CheckCircle className="w-3 h-3 text-green-400" />
+                                {feature}
+                              </div>
+                            ))}
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            {Object.entries(parent.stats).map(([key, value]) => (
+                              <div key={key} className="text-center">
+                                <div className="text-blue-400 font-bold">{value}</div>
+                                <div className="text-white/60 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Children Generation */}
+                    <div className="space-y-4">
+                      <h4 className="text-green-400 font-bold text-center">👦👧 Children Generation</h4>
+                      {MOCK_CHILDREN.map((child, index) => (
+                        <motion.div 
+                          key={child.id}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 + 0.4 }}
+                          className="bg-white/10 rounded-xl p-4 border border-white/20"
+                        >
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                              <Trophy className="w-5 h-5 text-green-400" />
+                            </div>
+                            <div>
+                              <h5 className="text-white font-bold">{child.name}</h5>
+                              <p className="text-white/60 text-xs">{child.school}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-2 mb-3">
+                            <div className="text-center">
+                              <div className="text-green-400 font-bold">{child.gpa}</div>
+                              <div className="text-white/60 text-xs">GPA</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-[#F59E0B] font-bold">{child.hypeScore}</div>
+                              <div className="text-white/60 text-xs">HYPE</div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-wrap gap-1">
+                            {child.sports.map((sport, sportIndex) => (
+                              <span key={sportIndex} className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
+                                {sport}
+                              </span>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Family Analytics */}
+                {/* Family Communication Network */}
                 <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                  <h3 className="text-white font-bold text-xl mb-6">Family Performance Analytics</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center">
-                      <div className="text-3xl font-black text-green-400">3.6</div>
-                      <div className="text-white/60 text-sm">Family Avg GPA</div>
-                    </div>
-                    <div className="text-center">
-                                                <div className="text-3xl font-black text-[#F59E0B]">2,847</div>
-                          <div className="text-white/60 text-sm">Total HYPE</div>
+                  <h3 className="text-white font-bold text-xl mb-6">🌐 Family Communication Network</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="text-cyan-400 font-bold">💬 Active Family Conversations</h4>
+                      {[
+                        { 
+                          thread: "Alex's Championship Game", 
+                          participants: ["Grandpa Jim", "Mom", "Dad", "Alex"],
+                          lastMessage: "Grandpa Jim: So proud of you champ! Remember what we practiced...",
+                          unread: 2,
+                          priority: "high"
+                        },
+                        { 
+                          thread: "Emma's Science Fair Project", 
+                          participants: ["Grandma Sue", "Mom", "Emma"],
+                          lastMessage: "Grandma Sue: Your volcano experiment reminds me of when your dad...",
+                          unread: 0,
+                          priority: "normal"
+                        },
+                        { 
+                          thread: "Family Vacation Planning", 
+                          participants: ["All Family Members"],
+                          lastMessage: "Dad: Found great deals on Disney World tickets for spring break...",
+                          unread: 5,
+                          priority: "medium"
+                        }
+                      ].map((conversation, index) => (
+                        <div key={index} className="p-3 bg-white/5 rounded-xl">
+                          <div className="flex justify-between items-start mb-2">
+                            <h5 className="text-white font-bold text-sm">{conversation.thread}</h5>
+                            {conversation.unread > 0 && (
+                              <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
+                                {conversation.unread}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-white/70 text-xs mb-2">{conversation.lastMessage}</p>
+                          <p className="text-white/50 text-xs">
+                            Participants: {Array.isArray(conversation.participants) ? conversation.participants.join(', ') : conversation.participants}
+                          </p>
                         </div>
-                        <div className="text-center">
-                          <div className="text-3xl font-black text-blue-400">12</div>
-                          <div className="text-white/60 text-sm">This Month&apos;s Achievements</div>
+                      ))}
                     </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-black text-purple-400">95%</div>
-                      <div className="text-white/60 text-sm">Attendance Rate</div>
+                    
+                    <div className="bg-white/5 rounded-xl p-4">
+                      <h4 className="text-white font-bold mb-4">🤖 AI Family Insights</h4>
+                      <div className="space-y-3 text-sm">
+                        <div className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                          <strong className="text-green-400">👴 Grandpa Engagement:</strong>
+                          <p className="text-white/80 text-xs mt-1">Grandpa Jim has shared 3 new family stories this week, boosting family connection by 45%.</p>
+                        </div>
+                        <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                          <strong className="text-blue-400">💰 Financial Planning:</strong>
+                          <p className="text-white/80 text-xs mt-1">College savings on track. Recommend increasing contributions by $200/month for optimal timeline.</p>
+                        </div>
+                        <div className="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+                          <strong className="text-purple-400">🏆 Achievement Momentum:</strong>
+                          <p className="text-white/80 text-xs mt-1">Family achievement rate up 23% this quarter. All children exceeding their personal bests.</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </motion.div>
             )}
 
-            {/* COMMUNICATION HUB */}
-            {activeTab === 'communication_hub' && (
+            {/* HYPE BOOST CENTER */}
+            {activeTab === 'hype_boost_center' && (
               <motion.div
-                key="communication_hub"
+                key="hype_boost_center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-6"
               >
-                <div className="text-center mb-6">
+                <div className="text-center mb-8">
                   <div className="flex items-center justify-center gap-3 mb-4">
-                    <MessageCircle className="w-8 h-8 text-[#F59E0B]" />
-                    <h2 className="text-3xl font-black text-white">ALL-TEACHER COMMUNICATION HUB</h2>
-                    <span className="px-3 py-1 bg-red-500/20 text-red-400 text-sm font-bold rounded-full">UNIFIED MESSAGING</span>
+                    <Zap className="w-8 h-8 text-[#F59E0B]" />
+                    <h2 className="text-3xl font-black text-white">FAMILY HYPE BOOST CENTER</h2>
+                    <span className="px-3 py-1 bg-electric-500/20 text-yellow-400 text-sm font-bold rounded-full">ENGAGEMENT ENGINE</span>
                   </div>
-                  <p className="text-white/70 text-lg">Communicate with all teachers and coaches in one powerful interface</p>
+                  <p className="text-white/70 text-lg">Boost your children's achievements, celebrate milestones, and fuel family engagement through the HYPE economy</p>
                 </div>
 
-                {/* Active Conversations */}
+                {/* HYPE Balance & Family Economy */}
+                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 backdrop-blur-lg rounded-2xl p-6 border border-yellow-500/30">
+                  <h3 className="text-white font-bold text-xl mb-6">⚡ Family HYPE Economy</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="text-center">
+                      <div className="w-20 h-20 bg-[#F59E0B]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Zap className="w-10 h-10 text-[#F59E0B]" />
+                      </div>
+                      <h4 className="text-white font-bold text-lg mb-2">Family HYPE Balance</h4>
+                      <div className="text-4xl font-black text-[#F59E0B] mb-2">3,847</div>
+                      <p className="text-white/60 text-sm">Available to boost your children</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Gift className="w-10 h-10 text-green-400" />
+                      </div>
+                      <h4 className="text-white font-bold text-lg mb-2">This Month Given</h4>
+                      <div className="text-4xl font-black text-green-400 mb-2">1,250</div>
+                      <p className="text-white/60 text-sm">HYPE Points distributed</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <TrendingUp className="w-10 h-10 text-purple-400" />
+                      </div>
+                      <h4 className="text-white font-bold text-lg mb-2">Engagement Level</h4>
+                      <div className="text-4xl font-black text-purple-400 mb-2">92%</div>
+                      <p className="text-white/60 text-sm">Family participation rate</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick HYPE Boost Actions */}
                 <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                  <h3 className="text-white font-bold text-xl mb-6">Active Conversations</h3>
-                  <div className="space-y-4">
+                  <h3 className="text-white font-bold text-xl mb-6">🚀 Quick HYPE Boost Actions</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                       { 
-                        teacher: "Ms. Sarah Johnson", 
-                        subject: "English Literature", 
-                        child: "Alex Johnson",
-                        lastMessage: "Alex's essay showed remarkable improvement this week...", 
-                        time: "2 hours ago",
-                        unread: 1,
-                        priority: "high"
+                        action: "Celebrate Achievement", 
+                        hype: "+100", 
+                        description: "Boost for great grades, goals, or milestones",
+                        color: "from-green-400 to-emerald-600",
+                        icon: Trophy
                       },
                       { 
-                        teacher: "Coach Martinez", 
-                        subject: "Football Team", 
-                        child: "Alex Johnson",
-                        lastMessage: "Great practice today! Alex's speed work is paying off...", 
-                        time: "5 hours ago",
-                        unread: 0,
-                        priority: "normal"
+                        action: "Good Behavior Reward", 
+                        hype: "+50", 
+                        description: "Positive reinforcement for character growth",
+                        color: "from-blue-400 to-cyan-600",
+                        icon: Heart
                       },
                       { 
-                        teacher: "Mr. Thompson", 
-                        subject: "AP Chemistry", 
-                        child: "Emma Johnson",
-                        lastMessage: "Emma needs to schedule lab makeup time...", 
-                        time: "1 day ago",
-                        unread: 2,
-                        priority: "medium"
+                        action: "Effort Recognition", 
+                        hype: "+75", 
+                        description: "Acknowledge hard work and dedication",
+                        color: "from-purple-400 to-pink-600",
+                        icon: Target
+                      },
+                      { 
+                        action: "Family Contribution", 
+                        hype: "+25", 
+                        description: "Helping family, chores, kindness",
+                        color: "from-orange-400 to-red-600",
+                        icon: Users
                       }
-                    ].map((conversation, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all cursor-pointer">
+                    ].map((boost, index) => (
+                      <motion.button 
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="p-4 bg-white/5 rounded-xl border border-white/20 hover:border-white/40 transition-all text-left"
+                      >
+                        <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${boost.color} flex items-center justify-center mb-3`}>
+                          <boost.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="text-white font-bold text-sm mb-1">{boost.action}</h4>
+                        <div className="text-[#F59E0B] font-bold text-lg mb-2">{boost.hype} HYPE</div>
+                        <p className="text-white/60 text-xs">{boost.description}</p>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recent HYPE Boosts Given */}
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+                  <h3 className="text-white font-bold text-xl mb-6">📊 Recent HYPE Boosts Given</h3>
+                  <div className="space-y-4">
+                    {[
+                      {
+                        child: "Alex Johnson",
+                        achievement: "Made All-Conference Team",
+                        hypeGiven: 150,
+                        giver: "Dad",
+                        time: "2 hours ago",
+                        impact: "Alex reached Level 8!"
+                      },
+                      {
+                        child: "Emma Johnson", 
+                        achievement: "Helped with dishes without being asked",
+                        hypeGiven: 25,
+                        giver: "Mom",
+                        time: "Yesterday",
+                        impact: "Character building"
+                      },
+                      {
+                        child: "Alex Johnson",
+                        achievement: "Studied 3 hours for AP Chemistry test",
+                        hypeGiven: 75,
+                        giver: "Grandpa Jim",
+                        time: "2 days ago",
+                        impact: "Work ethic development"
+                      },
+                      {
+                        child: "Emma Johnson",
+                        achievement: "Volunteered at animal shelter",
+                        hypeGiven: 100,
+                        giver: "Grandma Sue",
+                        time: "3 days ago",
+                        impact: "Community impact milestone"
+                      }
+                    ].map((boost, index) => (
+                      <div key={index} className="flex items-center justify-between p-4 bg-white/5 rounded-xl">
                         <div className="flex items-center gap-4 flex-1">
-                          <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
-                            <span className="text-blue-400 font-bold text-sm">{conversation.teacher.split(' ')[0][0]}{conversation.teacher.split(' ')[1][0]}</span>
+                          <div className="w-12 h-12 bg-[#F59E0B]/20 rounded-full flex items-center justify-center">
+                            <Zap className="w-6 h-6 text-[#F59E0B]" />
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <h4 className="text-white font-bold">{conversation.teacher}</h4>
-                              <span className="text-white/60 text-sm">• {conversation.subject}</span>
-                              <span className="text-[#F59E0B] text-xs">({conversation.child})</span>
+                              <h4 className="text-white font-bold">{boost.child}</h4>
+                              <span className="text-[#F59E0B] font-bold">+{boost.hypeGiven} HYPE</span>
                             </div>
-                            <p className="text-white/70 text-sm">{conversation.lastMessage}</p>
-                            <p className="text-white/50 text-xs mt-1">{conversation.time}</p>
+                            <p className="text-white/80 text-sm">{boost.achievement}</p>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-white/50 text-xs">Given by {boost.giver} • {boost.time}</span>
+                              <span className="text-green-400 text-xs">• {boost.impact}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {conversation.unread > 0 && (
-                            <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
-                              {conversation.unread}
-                            </span>
-                          )}
-                          <span className={`px-2 py-1 text-xs font-bold rounded-full ${
-                            conversation.priority === 'high' ? 'bg-red-500/20 text-red-400' :
-                            conversation.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                            'bg-green-500/20 text-green-400'
-                          }`}>
-                            {conversation.priority}
-                          </span>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Quick Actions */}
+                {/* Family HYPE Goals & Challenges */}
                 <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                  <h3 className="text-white font-bold text-xl mb-6">Quick Actions</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <button className="flex items-center gap-3 p-4 bg-[#F59E0B]/20 text-[#F59E0B] rounded-xl hover:bg-[#F59E0B]/30 transition-all">
-                      <MessageCircle className="w-6 h-6" />
-                      <div>
-                        <div className="font-bold">Message All Teachers</div>
-                        <div className="text-sm opacity-80">Send update to entire team</div>
+                  <h3 className="text-white font-bold text-xl mb-6">🎯 Family HYPE Goals & Challenges</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="text-cyan-400 font-bold">Monthly Family Goals</h4>
+                      {[
+                        {
+                          goal: "Family Reading Challenge",
+                          description: "Each family member reads 2 books this month",
+                          progress: 6,
+                          target: 8,
+                          reward: "+500 Family HYPE"
+                        },
+                        {
+                          goal: "Community Service Hours",
+                          description: "Complete 20 total volunteer hours as a family",
+                          progress: 14,
+                          target: 20,
+                          reward: "+300 Family HYPE"
+                        },
+                        {
+                          goal: "Academic Excellence",
+                          description: "Maintain family GPA above 3.5",
+                          progress: 3.7,
+                          target: 3.5,
+                          reward: "+750 Family HYPE"
+                        }
+                      ].map((goal, index) => (
+                        <div key={index} className="p-4 bg-white/5 rounded-xl">
+                          <div className="flex justify-between items-start mb-2">
+                            <h5 className="text-white font-bold text-sm">{goal.goal}</h5>
+                            <span className="text-[#F59E0B] text-xs font-bold">{goal.reward}</span>
+                          </div>
+                          <p className="text-white/70 text-xs mb-3">{goal.description}</p>
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-cyan-400 rounded-full"
+                                style={{ width: `${Math.min((goal.progress / goal.target) * 100, 100)}%` }}
+                              />
+                            </div>
+                            <span className="text-white/60 text-xs">{goal.progress}/{goal.target}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="bg-white/5 rounded-xl p-4">
+                      <h4 className="text-white font-bold mb-4">🏆 Family Achievement Unlocks</h4>
+                      <div className="space-y-3 text-sm">
+                        <div className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                          <strong className="text-green-400">🥇 Family Legacy Status:</strong>
+                          <p className="text-white/80 text-xs mt-1">Unlock exclusive family features when you reach 10,000 total family HYPE.</p>
+                          <div className="text-green-400 text-xs mt-1">Progress: 3,847/10,000 (38%)</div>
+                        </div>
+                        <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                          <strong className="text-blue-400">🎯 Multi-Gen Connection:</strong>
+                          <p className="text-white/80 text-xs mt-1">Special grandparent features activate when all generations are active weekly.</p>
+                          <div className="text-blue-400 text-xs mt-1">Status: 3/3 generations active ✅</div>
+                        </div>
+                        <div className="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+                          <strong className="text-purple-400">⚡ HYPE Multiplier:</strong>
+                          <p className="text-white/80 text-xs mt-1">2x HYPE boost weekends unlock when family goals are consistently met.</p>
+                          <div className="text-purple-400 text-xs mt-1">Next unlock: 2 goals away</div>
+                        </div>
                       </div>
-                    </button>
-                    <button className="flex items-center gap-3 p-4 bg-blue-500/20 text-blue-400 rounded-xl hover:bg-blue-500/30 transition-all">
-                      <Calendar className="w-6 h-6" />
-                      <div>
-                        <div className="font-bold">Schedule Conferences</div>
-                        <div className="text-sm opacity-80">Parent-teacher meetings</div>
-                      </div>
-                    </button>
-                    <button className="flex items-center gap-3 p-4 bg-green-500/20 text-green-400 rounded-xl hover:bg-green-500/30 transition-all">
-                      <Trophy className="w-6 h-6" />
-                      <div>
-                        <div className="font-bold">Share Good News</div>
-                        <div className="text-sm opacity-80">Celebrate achievements</div>
-                      </div>
-                    </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
