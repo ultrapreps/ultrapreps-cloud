@@ -18,7 +18,7 @@ export default function CoachDashboard() {
   if (!sessionResult.data?.user?.id) {
     return <div className="flex items-center justify-center min-h-screen text-red-500 text-xl font-bold">Error: You must be signed in to view this dashboard.</div>;
   }
-  const coachId = session.user.id;
+  const coachId = sessionResult.data.user.id;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white p-8">

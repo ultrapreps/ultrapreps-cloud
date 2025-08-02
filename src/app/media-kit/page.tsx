@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 export default function MediaKit() {
   const sessionResult = useSession();
   
-  if (sessionResult.status === 'loading') {
+  if (!sessionResult || sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
   
