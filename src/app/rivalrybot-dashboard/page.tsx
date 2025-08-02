@@ -22,7 +22,11 @@ export default function RivalryBotDashboard() {
   const [conference, setConference] = useState<string>('');
   const [leaderboard, setLeaderboard] = useState<RivalryEntry[]>([]);
   const [loading, setLoading] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
 
   useEffect(() => {
     async function fetchLeaderboard() {

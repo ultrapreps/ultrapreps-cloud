@@ -14,7 +14,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
   const roles = session?.user?.roles || [];
   return (
     <html lang="en">

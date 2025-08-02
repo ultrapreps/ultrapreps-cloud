@@ -30,7 +30,11 @@ interface StadiumData {
 }
 
 export default function StadiumCreatePage() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
   const userId = session?.user?.id || '';
   const [schoolName, setSchoolName] = useState('');
   const [mascot, setMascot] = useState('');

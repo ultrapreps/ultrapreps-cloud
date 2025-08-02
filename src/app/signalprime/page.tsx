@@ -1,3 +1,5 @@
+'use client';
+
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 
@@ -9,7 +11,11 @@ const shareTemplates = [
 ];
 
 export default function SignalPrimeViralityCenter() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
   const userId = session?.user?.id || '';
   const [selectedTemplate, setSelectedTemplate] = useState(shareTemplates[0]);
   const [showBrag, setShowBrag] = useState(false);

@@ -9,8 +9,12 @@ import Link from 'next/link';
 
 export default function CreatePosterPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [isCreating, setIsCreating] = useState(false);
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
 
   const handlePosterCreated = (poster: any) => {
     // Show success message

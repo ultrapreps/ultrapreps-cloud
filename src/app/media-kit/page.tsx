@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import PressKitGenerator from '@/components/PressKitGenerator';
 import AnimatedInfographics from '@/components/AnimatedInfographics';
@@ -5,7 +7,11 @@ import SignalPrimeIntegration from '@/components/SignalPrimeIntegration';
 import { useSession } from 'next-auth/react';
 
 export default function MediaKit() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
   const adminId = session?.user?.id || '';
 
   return (

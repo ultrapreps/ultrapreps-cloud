@@ -38,7 +38,11 @@ interface StudentInfo {
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
   const userId = session?.user?.id || '';
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);

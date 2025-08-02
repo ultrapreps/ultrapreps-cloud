@@ -5,7 +5,11 @@ import HeroCard from '@/components/HeroCard';
 import { useState } from 'react';
 
 export default function YouthOnboarding() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
+  }
   const userId = session?.user?.id || '';
   const [teamName, setTeamName] = useState('');
   const [league, setLeague] = useState('');
