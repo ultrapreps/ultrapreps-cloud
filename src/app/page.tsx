@@ -37,7 +37,9 @@ import {
   Sparkles,
   Flame,
   Database,
-  Network
+  Network,
+  Home,
+  User
 } from "lucide-react";
 import clsx from "clsx";
 import Link from 'next/link';
@@ -382,6 +384,51 @@ export default function UltraPrepsPlatform() {
   return (
     <div className="min-h-screen bg-black">
       <HeroSection />
+      
+      {/* AMAZING BOTTOM NAVIGATION - RESTORED! */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-black border-t border-[#F59E0B]/30 md:hidden">
+        <div className="grid grid-cols-5 h-16">
+          <Link
+            href="/"
+            className="flex flex-col items-center justify-center gap-1 text-[#F59E0B] transition-colors"
+          >
+            <Home className="w-5 h-5" />
+            <span className="text-xs">Home</span>
+          </Link>
+          
+          <Link
+            href="/stadium/create"
+            className="flex flex-col items-center justify-center gap-1 text-white/90 hover:text-[#F59E0B] transition-colors"
+          >
+            <Trophy className="w-5 h-5" />
+            <span className="text-xs">Stadium</span>
+          </Link>
+          
+          <Link
+            href="/community"
+            className="flex flex-col items-center justify-center gap-1 text-white/90 hover:text-[#F59E0B] transition-colors"
+          >
+            <Users className="w-5 h-5" />
+            <span className="text-xs">Community</span>
+          </Link>
+          
+          <Link
+            href="/feed"
+            className="flex flex-col items-center justify-center gap-1 text-white/90 hover:text-[#F59E0B] transition-colors"
+          >
+            <Calendar className="w-5 h-5" />
+            <span className="text-xs">Feed</span>
+          </Link>
+          
+          <Link
+            href="/dashboard"
+            className="flex flex-col items-center justify-center gap-1 text-white/90 hover:text-[#F59E0B] transition-colors"
+          >
+            <User className="w-5 h-5" />
+            <span className="text-xs">Dashboard</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
