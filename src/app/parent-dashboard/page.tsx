@@ -12,8 +12,14 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
+import FamilyLifebook from '@/components/FamilyLifebook';
 import { useTheme, getThemeColors, getThemeGradients } from '../../components/ThemeContext';
 import ThemeToggle from '../../components/ThemeToggle';
+import NILApprovals from '../../components/NILApprovals';
+import AlumniMemorial from '@/components/AlumniMemorial';
+import TeamChat from '@/components/TeamChat';
+import { useSession } from 'next-auth/react';
+import { Spinner } from '@/components/Spinner'; // Assume a Spinner component exists
 
 
 interface StudentChild {
@@ -153,6 +159,14 @@ const MOCK_CHILDREN: StudentChild[] = [
 ];
 
 export default function ParentDashboard() {
+  const { data: session, status } = useSession();
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center min-h-screen"><Spinner /> Loading...</div>;
+  }
+  if (!session?.user?.id) {
+    return <div className="flex items-center justify-center min-h-screen text-red-500 text-xl font-bold">Error: You must be signed in to view this dashboard.</div>;
+  }
+  const parentId = session.user.id;
   const [selectedChild, setSelectedChild] = useState<StudentChild>(MOCK_CHILDREN[0]);
   const [activeTab, setActiveTab] = useState('overview');
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -1158,6 +1172,48 @@ export default function ParentDashboard() {
                 <button className="px-8 py-3 bg-[#F59E0B] text-white font-bold rounded-xl hover:bg-[#F97316] transition-colors">
                   Start Conversation
                 </button>
+              </motion.div>
+            )}
+
+            {/* NIL Approvals */}
+            {activeTab === 'nil_approvals' && (
+              <motion.div
+                key="nil_approvals"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-gray-900/80 rounded-xl shadow-2xl p-6"
+              >
+                <div className="text-2xl font-bold mb-2 text-green-400">NIL Approvals</div>
+                <NILApprovals parentId={parentId} />
+              </motion.div>
+            )}
+
+            {/* Alumni Memorial */}
+            {activeTab === 'alumni_memorial' && (
+              <motion.div
+                key="alumni_memorial"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-gray-900/80 rounded-xl shadow-2xl p-6"
+              >
+                <div className="text-2xl font-bold mb-2 text-blue-400">Alumni/Memorial Mode</div>
+                <AlumniMemorial parentId={parentId} />
+              </motion.div>
+            )}
+
+            {/* Team Chat */}
+            {activeTab === 'team_chat' && (
+              <motion.div
+                key="team_chat"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-gray-900/80 rounded-xl shadow-2xl p-6 mt-8"
+              >
+                <div className="text-2xl font-bold mb-2 text-blue-400">Team Chat</div>
+                <TeamChat userId={parentId} />
               </motion.div>
             )}
           </AnimatePresence>

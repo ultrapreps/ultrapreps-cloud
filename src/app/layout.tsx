@@ -1,18 +1,21 @@
 'use client';
 import './globals.css';
 import React from 'react';
-// Placeholder for DNA theme engine
 import { ThemeProvider } from '../components/ThemeContext';
 import UltraLayout from '../components/layout/UltraLayout';
 import MobileOptimizations from '../components/MobileOptimizations';
 import SessionProvider from '../components/providers/SessionProvider';
 import { WebSocketProvider } from '../lib/websocket/client';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data: session } = useSession();
+  const roles = session?.user?.roles || [];
   return (
     <html lang="en">
       <head>
@@ -45,7 +48,30 @@ export default function RootLayout({
         
         <title>UltraPreps - Every Student Deserves a Stage</title>
       </head>
-      <body style={{ margin: 0, padding: 0, backgroundColor: '#000000' }}>
+      <body className="bg-black text-white">
+        <nav className="w-full bg-gray-900 py-4 px-8 flex gap-8 items-center shadow-xl z-50">
+          <Link href="/">Home</Link>
+          <Link href="/dashboard">Dashboard</Link>
+          {roles.includes('student') && <Link href="/student-dashboard">Student</Link>}
+          {roles.includes('coach') && <Link href="/coach-dashboard">Coach</Link>}
+          {roles.includes('parent') && <Link href="/parent-dashboard">Parent</Link>}
+          {roles.includes('admin') && <Link href="/superintendent-dashboard">Admin</Link>}
+          <Link href="/rivalrybot-dashboard" className="font-bold text-yellow-400">RivalryBot</Link>
+          <Link href="/signalprime" className="font-bold text-pink-400">SignalPrime</Link>
+          <Link href="/lifebook">Lifebook</Link>
+          <Link href="/nil-marketplace">NIL</Link>
+          <Link href="/media-kit">Media Kit</Link>
+          <Link href="/event-mode">Event Mode</Link>
+          <Link href="/grandpa-jim-demo">Demo</Link>
+          <div className="flex gap-4 items-center ml-8">
+            <span className="text-yellow-400 font-bold">Demo/Onboarding:</span>
+            <Link href="/test-hud">HUD Demo</Link>
+            <Link href="/test-school">School Demo</Link>
+            <Link href="/test-mascot">Mascot Demo</Link>
+            <Link href="/test-hype">HYPE Demo</Link>
+            <Link href="/test-poster">Poster Demo</Link>
+          </div>
+        </nav>
         <SessionProvider>
           <WebSocketProvider>
             <ThemeProvider>

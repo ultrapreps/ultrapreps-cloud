@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Trophy, TrendingUp, Gift, Target, Star, Activity, RefreshCw } from 'lucide-react';
+import { Zap, Trophy, TrendingUp, Gift, Target, Star, Activity, RefreshCw, Image as ImageIcon } from 'lucide-react';
 import HypeLeaderboard from '@/components/HypeLeaderboard';
 import { useWebSocket } from '@/lib/websocket/client';
+import Link from 'next/link';
 
 // Mock users for testing
 const mockUsers = [
@@ -31,7 +32,26 @@ export default function TestHypePage() {
   const [recentTransactions, setRecentTransactions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [leaderboardType, setLeaderboardType] = useState<'global' | 'school' | 'sport'>('global');
+  const [economyStats, setEconomyStats] = useState({
+    totalHype: '2.4M',
+    activeUsers: '1,247',
+    transactions: '8,934',
+    avgHype: '1,923',
+  });
   const { isConnected, sendHype } = useWebSocket();
+
+  const resetDemo = () => {
+    setSelectedUser(mockUsers[0]);
+    setUserBalance(0);
+    setRecentTransactions([]);
+    setLeaderboardType('global');
+    setEconomyStats({
+      totalHype: '2.4M',
+      activeUsers: '1,247',
+      transactions: '8,934',
+      avgHype: '1,923',
+    });
+  };
 
   // Fetch user balance
   const fetchUserBalance = async () => {
@@ -50,6 +70,12 @@ export default function TestHypePage() {
 
   useEffect(() => {
     fetchUserBalance();
+    // Optionally fetch real economy stats from backend
+    fetch('/api/hype/economy-stats')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data) setEconomyStats(data);
+      });
   }, [selectedUser]);
 
   // Award HYPE to selected user
@@ -124,30 +150,30 @@ export default function TestHypePage() {
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-7xl mx-auto">
+        {/* Onboarding Banner */}
+        <div className="mb-8 bg-gradient-to-r from-[#F59E0B]/80 to-[#F97316]/80 rounded-xl p-6 text-black text-center font-bold text-2xl shadow-xl">
+          UltraPreps Onboarding Demo: Experience the HYPE economy in real time. Try awarding HYPE, view the leaderboard, and see live engagement!
+        </div>
+        {/* Onboarding Tips */}
+        <div className="mb-8 bg-blue-900/20 border border-blue-500 rounded-xl p-4 text-blue-200 text-lg shadow">
+          <ul className="list-disc pl-6 space-y-2 text-left">
+            <li>Select a <span className="font-bold">Demo User</span> to see their HYPE balance and recent activity.</li>
+            <li>Use the <span className="font-bold">Award HYPE</span> buttons to simulate real-time transactions and see the leaderboard update.</li>
+            <li>Try the <span className="font-bold">Leaderboard Type</span> selector to view global, school, or sport leaderboards.</li>
+            <li>Use the <span className="font-bold">Reset Demo</span> button to start over and try different scenarios.</li>
+          </ul>
+        </div>
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4 flex items-center gap-3">
-            <Zap className="w-10 h-10 text-[#F59E0B]" />
-            HYPE Economy Test Suite
-          </h1>
-          <p className="text-gray-400">
-            Real-time HYPE transactions and leaderboard system
-          </p>
-          
-          {/* Connection Status */}
-          <div className="mt-4 flex items-center gap-4">
-            <div className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              isConnected ? 'bg-green-900/50 text-green-400' : 'bg-red-900/50 text-red-400'
-            }`}>
-              WebSocket: {isConnected ? 'Connected' : 'Disconnected'}
-            </div>
-            <button
-              onClick={simulateRandomEvent}
-              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm font-medium transition-all"
-            >
-              Simulate Random Event
-            </button>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
+              <Zap className="w-10 h-10 text-[#F59E0B]" /> HYPE Economy Onboarding Demo
+            </h1>
+            <p className="text-gray-400">Real-time HYPE transactions and leaderboard system. All data is for demo purposes only.</p>
           </div>
+          <button onClick={resetDemo} className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-bold transition-all">
+            <RefreshCw className="w-5 h-5" /> Reset Demo
+          </button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -155,7 +181,7 @@ export default function TestHypePage() {
           <div className="space-y-6">
             {/* User Selection */}
             <div className="bg-gray-900 rounded-lg p-6">
-              <h2 className="text-xl font-bold mb-4">Select User</h2>
+              <h2 className="text-xl font-bold mb-4">Select Demo User</h2>
               <div className="grid grid-cols-1 gap-3">
                 {mockUsers.map(user => (
                   <button
@@ -282,25 +308,24 @@ export default function TestHypePage() {
             {/* HYPE Economy Stats */}
             <div className="bg-gray-900 rounded-lg p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <TrendingUp className="w-6 h-6 text-green-500" />
-                Economy Stats
+                <TrendingUp className="w-6 h-6 text-green-500" /> Demo Economy Stats
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-800 rounded-lg p-4">
                   <div className="text-sm text-gray-400 mb-1">Total HYPE in Circulation</div>
-                  <div className="text-2xl font-bold text-[#F59E0B]">2.4M</div>
+                  <div className="text-2xl font-bold text-[#F59E0B]">{economyStats.totalHype}</div>
                 </div>
                 <div className="bg-gray-800 rounded-lg p-4">
                   <div className="text-sm text-gray-400 mb-1">Active Users Today</div>
-                  <div className="text-2xl font-bold text-green-500">1,247</div>
+                  <div className="text-2xl font-bold text-green-500">{economyStats.activeUsers}</div>
                 </div>
                 <div className="bg-gray-800 rounded-lg p-4">
                   <div className="text-sm text-gray-400 mb-1">Transactions (24h)</div>
-                  <div className="text-2xl font-bold text-blue-500">8,934</div>
+                  <div className="text-2xl font-bold text-blue-500">{economyStats.transactions}</div>
                 </div>
                 <div className="bg-gray-800 rounded-lg p-4">
                   <div className="text-sm text-gray-400 mb-1">Avg HYPE per User</div>
-                  <div className="text-2xl font-bold text-purple-500">1,923</div>
+                  <div className="text-2xl font-bold text-purple-500">{economyStats.avgHype}</div>
                 </div>
               </div>
             </div>
@@ -311,6 +336,13 @@ export default function TestHypePage() {
         <div className="mt-12 text-center text-gray-500">
           <p>HYPE Economy v1.0 - Real-time engagement rewards</p>
           <p className="text-sm mt-2">Every action counts. Every moment matters.</p>
+        </div>
+        {/* Next Step CTA */}
+        <div className="mt-8 text-center">
+          <Link href="/test-poster" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold text-xl rounded-xl shadow-lg hover:scale-105 transition-all">
+            <ImageIcon className="w-6 h-6 text-purple-400" /> Next: Poster Demo
+          </Link>
+          <div className="mt-2 text-gray-400 text-sm">Create and share ESPN-quality posters with AI!</div>
         </div>
       </div>
     </div>

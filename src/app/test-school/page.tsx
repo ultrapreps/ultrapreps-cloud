@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { School, MapPin, Palette, Users, Building2, Trophy, BookOpen, Heart } from 'lucide-react';
+import { School, MapPin, Palette, Users, Building2, Trophy, BookOpen, Heart, RefreshCw, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 interface SchoolData {
   id: string;
@@ -91,6 +92,15 @@ export default function TestSchoolPage() {
     }
   };
 
+  const resetDemo = () => {
+    setSchoolName('');
+    setCity('');
+    setState('');
+    setDistrict('');
+    setResult(null);
+    setError('');
+  };
+
   // Test data for quick testing
   const testSchools = [
     { name: 'Marble Falls High School', city: 'Marble Falls', state: 'Texas', district: 'Marble Falls ISD' },
@@ -103,12 +113,27 @@ export default function TestSchoolPage() {
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
+        {/* Onboarding Banner */}
+        <div className="mb-8 bg-gradient-to-r from-[#F59E0B]/80 to-[#F97316]/80 rounded-xl p-6 text-black text-center font-bold text-2xl shadow-xl">
+          UltraPreps Onboarding Demo: Instantly create a digital school universe. Try the quick test buttons or enter your own school!
+        </div>
+        {/* Onboarding Tips */}
+        <div className="mb-8 bg-blue-900/20 border border-blue-500 rounded-xl p-4 text-blue-200 text-lg shadow">
+          <ul className="list-disc pl-6 space-y-2 text-left">
+            <li>Use the <span className="font-bold">Quick Demo Schools</span> to instantly see a school universe, or enter your own school details.</li>
+            <li>After creation, explore the <span className="font-bold">Athletics</span>, <span className="font-bold">Academics</span>, <span className="font-bold">Community</span>, and <span className="font-bold">Staff</span> sections.</li>
+            <li>Use the <span className="font-bold">Reset Demo</span> button to start over and try different schools or scenarios.</li>
+          </ul>
+        </div>
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">SchoolUniverseBot Test</h1>
-          <p className="text-gray-400">
-            Create a complete digital campus with automatic metadata resolution, spaces, and staff
-          </p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">SchoolUniverseBot Onboarding Demo</h1>
+            <p className="text-gray-400">Create a complete digital campus with automatic metadata, spaces, and staff. All data is for demo purposes only.</p>
+          </div>
+          <button onClick={resetDemo} className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-bold transition-all">
+            <RefreshCw className="w-5 h-5" /> Reset Demo
+          </button>
         </div>
 
         {/* Input Form */}
@@ -166,7 +191,7 @@ export default function TestSchoolPage() {
 
           {/* Quick Test Buttons */}
           <div className="mb-4">
-            <p className="text-sm text-gray-400 mb-2">Quick test:</p>
+            <p className="text-sm text-yellow-400 mb-2 font-bold">Quick Demo Schools:</p>
             <div className="flex flex-wrap gap-2">
               {testSchools.map((school, idx) => (
                 <button
@@ -177,7 +202,7 @@ export default function TestSchoolPage() {
                     setState(school.state);
                     setDistrict(school.district);
                   }}
-                  className="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-all"
+                  className="px-3 py-1 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold rounded text-sm transition-all shadow"
                 >
                   {school.name}
                 </button>
@@ -335,10 +360,10 @@ export default function TestSchoolPage() {
             <div className="bg-gray-900 rounded-lg p-6">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-8 h-8 text-[#F59E0B]" />
-                <h3 className="text-xl font-bold">Staff Placeholders ({result.staff.length})</h3>
+                <h3 className="text-xl font-bold">Demo Staff Placeholders ({result.staff.length})</h3>
               </div>
-              <p className="text-sm text-gray-400 mb-4">
-                Pre-created staff accounts ready to be claimed by actual staff members
+              <p className="text-sm text-yellow-400 mb-4 font-bold">
+                These are demo staff accounts, ready to be claimed by real staff during onboarding.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {result.staff.map((member, idx) => (
@@ -366,6 +391,13 @@ export default function TestSchoolPage() {
                 <p className="text-gray-400">Staff Placeholders: <span className="text-white">{result.staff.length} accounts</span></p>
                 <p className="text-gray-400">Total Setup Time: <span className="text-white">&lt; 2 seconds</span></p>
               </div>
+            </div>
+            {/* Next Step CTA */}
+            <div className="mt-8 text-center">
+              <Link href="/test-mascot" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold text-xl rounded-xl shadow-lg hover:scale-105 transition-all">
+                <Sparkles className="w-6 h-6 text-pink-500" /> Next: Mascot Demo
+              </Link>
+              <div className="mt-2 text-gray-400 text-sm">Bring your school to life with a living mascot identity!</div>
             </div>
           </motion.div>
         )}

@@ -2,38 +2,48 @@
 
 import { useState } from 'react';
 import PosterManager from '@/components/PosterManager';
-import { Image as ImageIcon, Sparkles, Zap, Trophy, Calendar, Users } from 'lucide-react';
+import { Image as ImageIcon, Sparkles, Zap, Trophy, Calendar, Users, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 
 export default function TestPosterPage() {
   const [notification, setNotification] = useState<string | null>(null);
-
+  const [resetKey, setResetKey] = useState(0);
   const handlePosterCreated = (poster: any) => {
     setNotification(`Poster created successfully! Type: ${poster.type}`);
     setTimeout(() => setNotification(null), 5000);
   };
+  const resetDemo = () => {
+    setNotification(null);
+    setResetKey(prev => prev + 1);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* Onboarding Banner */}
+      <div className="mb-8 bg-gradient-to-r from-[#F59E0B]/80 to-[#F97316]/80 rounded-xl p-6 text-black text-center font-bold text-2xl shadow-xl">
+        UltraPreps Onboarding Demo: Instantly create ESPN-quality posters with AI. Try different templates and share your creations!
+      </div>
+      {/* Onboarding Tips */}
+      <div className="mb-8 bg-blue-900/20 border border-blue-500 rounded-xl p-4 text-blue-200 text-lg shadow">
+        <ul className="list-disc pl-6 space-y-2 text-left">
+          <li>Use the <span className="font-bold">Poster Studio</span> to create ESPN-quality posters with AI-powered design.</li>
+          <li>Try different templates and poster types to see the full range of options.</li>
+          <li>Share your creations using the export options or download them directly.</li>
+          <li>Use the <span className="font-bold">Reset Demo</span> button to start over and try different scenarios.</li>
+        </ul>
+      </div>
       {/* Header */}
       <div className="bg-gradient-to-r from-black via-gray-900 to-black border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold flex items-center gap-3">
-                <ImageIcon className="w-8 h-8 text-white" />
-                AI Poster Studio
-              </h1>
-              <p className="text-gray-400 mt-1">
-                Create ESPN-quality posters with AI-powered design
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <p className="text-sm text-gray-400">Powered by</p>
-                <p className="font-bold">DALL-E 3 + VisionQA</p>
-              </div>
-            </div>
+        <div className="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold flex items-center gap-3">
+              <ImageIcon className="w-8 h-8 text-white" /> AI Poster Studio Onboarding Demo
+            </h1>
+            <p className="text-gray-400 mt-1">Create ESPN-quality posters with AI-powered design. All data is for demo purposes only.</p>
           </div>
+          <button onClick={resetDemo} className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-bold transition-all">
+            <RefreshCw className="w-5 h-5" /> Reset Demo
+          </button>
         </div>
       </div>
 
@@ -89,7 +99,7 @@ export default function TestPosterPage() {
 
       {/* Main Content */}
       <div className="py-8">
-        <PosterManager onPosterCreated={handlePosterCreated} />
+        <PosterManager key={resetKey} onPosterCreated={handlePosterCreated} />
       </div>
 
       {/* Footer */}
@@ -127,6 +137,13 @@ export default function TestPosterPage() {
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500">
             <p>UltraPreps AI Poster Studio v2.0</p>
             <p className="text-xs mt-2">Every moment deserves a professional poster</p>
+          </div>
+          {/* Next Step CTA */}
+          <div className="mt-8 text-center">
+            <Link href="/onboarding" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold text-xl rounded-xl shadow-lg hover:scale-105 transition-all">
+              <Sparkles className="w-6 h-6 text-pink-500" /> Finish Onboarding
+            </Link>
+            <div className="mt-2 text-gray-400 text-sm">You’ve completed the demo journey! Start your real UltraPreps experience.</div>
           </div>
         </div>
       </div>

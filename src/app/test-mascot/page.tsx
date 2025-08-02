@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Palette, MessageCircle, Image as ImageIcon, Zap, RefreshCw } from 'lucide-react';
 import type { MascotIdentity } from '@/lib/bots/MascotEngine';
+import Link from 'next/link';
 
 interface SampleDialogue {
   welcome: string;
@@ -75,25 +76,45 @@ export default function TestMascotPage() {
     }
   };
 
+  const resetDemo = () => {
+    setSelectedSchoolId(schools[0]?.id || '');
+    setMascotData(null);
+    setError('');
+  };
+
   const selectedSchool = schools.find(s => s.id === selectedSchoolId);
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-7xl mx-auto">
+        {/* Onboarding Banner */}
+        <div className="mb-8 bg-gradient-to-r from-[#F59E0B]/80 to-[#F97316]/80 rounded-xl p-6 text-black text-center font-bold text-2xl shadow-xl">
+          UltraPreps Onboarding Demo: Instantly generate a living mascot for your school. Try the demo schools or select your own!
+        </div>
+        {/* Onboarding Tips */}
+        <div className="mb-8 bg-blue-900/20 border border-blue-500 rounded-xl p-4 text-blue-200 text-lg shadow">
+          <ul className="list-disc pl-6 space-y-2 text-left">
+            <li>Select a <span className="font-bold">Demo School</span> or enter your own to generate a mascot.</li>
+            <li>Explore the <span className="font-bold">Personality</span>, <span className="font-bold">Visual</span>, <span className="font-bold">Assets</span>, and <span className="font-bold">Dialogue</span> tabs to see the full mascot profile.</li>
+            <li>Use the <span className="font-bold">Reset Demo</span> button to start over and try different schools or scenarios.</li>
+          </ul>
+        </div>
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4 flex items-center gap-3">
-            <Sparkles className="w-10 h-10 text-[#F59E0B]" />
-            Mascot Engine Test
-          </h1>
-          <p className="text-gray-400">
-            Create living mascot identities with personality, visual profiles, and style-locked assets
-          </p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
+              <Sparkles className="w-10 h-10 text-[#F59E0B]" /> Mascot Engine Onboarding Demo
+            </h1>
+            <p className="text-gray-400">Create living mascot identities with personality, visual profiles, and style-locked assets. All data is for demo purposes only.</p>
+          </div>
+          <button onClick={resetDemo} className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-bold transition-all">
+            <RefreshCw className="w-5 h-5" /> Reset Demo
+          </button>
         </div>
 
         {/* School Selection */}
         <div className="bg-gray-900 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-4">Select School</h2>
+          <h2 className="text-2xl font-bold mb-4">Select Demo School</h2>
           
           <div className="flex gap-4 items-end">
             <div className="flex-1">
@@ -412,9 +433,9 @@ export default function TestMascotPage() {
               </div>
             </div>
             
-            {/* Technical Info */}
+            {/* Brand technical details as demo */}
             <div className="bg-gray-900 rounded-lg p-6">
-              <h3 className="text-xl font-bold mb-4">Technical Details</h3>
+              <h3 className="text-xl font-bold mb-4">Demo Technical Details</h3>
               <div className="bg-black/50 rounded-lg p-4 font-mono text-sm space-y-2">
                 <p className="text-green-400">// Mascot Identity Generated</p>
                 <p className="text-gray-400">Mascot ID: <span className="text-white">{mascotData.mascot.id}</span></p>
@@ -431,6 +452,13 @@ export default function TestMascotPage() {
                   Training time: ~2 hours. Cost: ~$1.50 per school.
                 </p>
               </div>
+            </div>
+            {/* Next Step CTA */}
+            <div className="mt-8 text-center">
+              <Link href="/test-hud" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold text-xl rounded-xl shadow-lg hover:scale-105 transition-all">
+                <Zap className="w-6 h-6 text-yellow-400" /> Next: HUD Demo
+              </Link>
+              <div className="mt-2 text-gray-400 text-sm">See your mascot in action with the real-time HUD overlay!</div>
             </div>
           </motion.div>
         )}
