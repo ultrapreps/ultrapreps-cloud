@@ -35,7 +35,11 @@ interface PosterManagerProps {
 }
 
 export default function PosterManager({ onPosterCreated }: PosterManagerProps) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  
+  if (status === 'loading') {
+    return <div className="flex items-center justify-center p-8 text-white">Loading...</div>;
+  }
   const [activeTab, setActiveTab] = useState<'create' | 'gallery' | 'analytics'>('create');
   const [templates, setTemplates] = useState<PosterTemplate[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
