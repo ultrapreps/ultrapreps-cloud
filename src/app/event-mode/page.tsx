@@ -1,3 +1,6 @@
+'use client';
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import InteractiveStream from '@/components/InteractiveStream'; // To be created
 import Stickers from '@/components/Stickers';
