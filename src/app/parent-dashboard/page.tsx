@@ -292,7 +292,7 @@ export default function ParentDashboard() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Student Overview Card */}

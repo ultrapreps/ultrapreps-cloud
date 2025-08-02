@@ -632,7 +632,7 @@ export default function CoachDashboard() {
               <div className={`font-black text-3xl mb-1 ${getAttendanceColor(MOCK_TEAM_STATS.practiceAttendance)}`}>{MOCK_TEAM_STATS.practiceAttendance}%</div>
               <div className="text-orange-200 text-sm font-bold">Attendance</div>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* Tab Navigation */}
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20 mb-8">
