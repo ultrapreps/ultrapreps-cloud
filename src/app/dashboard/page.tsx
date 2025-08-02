@@ -1887,4 +1887,6 @@ export default function StudentDashboard() {
   {showWelcomePopup && (
     <GageWelcomePopup onClose={handleWelcomeClose} />
   )}
+</div>
+  );
 }
