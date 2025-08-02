@@ -8,13 +8,13 @@ import SignalPrimeIntegration from '@/components/SignalPrimeIntegration';
 import { useSession } from 'next-auth/react';
 
 export default function MediaKit() {
-  const { data: session, status } = useSession();
+  const sessionResult = useSession();
   
-  if (status === 'loading') {
+  if (sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
   
-  const adminId = session?.user?.id || '';
+  const adminId = sessionResult.data?.user?.id || '';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white p-8">
