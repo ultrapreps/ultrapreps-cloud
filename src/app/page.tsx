@@ -65,97 +65,64 @@ import { useInView } from "react-intersection-observer";
 import clsx from "clsx";
 import Link from 'next/link';
 
-// Enhanced Hero Section with User Type Selection
+// MVP-Focused Hero Section - Phase 1 Priority with Dual Theme Support
 function HeroSection() {
   const [activeUserType, setActiveUserType] = useState('student');
+  const [isLegacyMode, setIsLegacyMode] = useState(false);
 
+  // SIMPLIFIED: Only 3 primary MVP paths to eliminate decision paralysis
   const userTypes = [
-    { id: 'student', label: 'Student', icon: GraduationCap, color: 'from-[#F59E0B] to-[#F97316]' },
-    { id: 'parent', label: 'Parent', icon: Home, color: 'from-[#3B82F6] to-[#1E3A8A]' },
-    { id: 'teacher', label: 'Teacher', icon: BookOpen, color: 'from-[#059669] to-[#10B981]' },
-    { id: 'coach', label: 'Coach', icon: Trophy, color: 'from-[#DC2626] to-[#EF4444]' },
-    { id: 'admin', label: 'Administrator', icon: Building, color: 'from-[#7C3AED] to-[#5B21B6]' },
-    { id: 'scout', label: 'Scout', icon: Eye, color: 'from-[#EC4899] to-[#BE185D]' }
+    { id: 'student', label: 'Student Athlete', icon: Trophy, color: 'from-[#F59E0B] to-[#F97316]' },
+    { id: 'parent', label: 'Parent & Family', icon: Heart, color: 'from-[#3B82F6] to-[#1E3A8A]' },
+    { id: 'coach', label: 'Coach & Educator', icon: Users, color: 'from-[#059669] to-[#10B981]' }
   ];
 
+  // MVP PHASE 1 FOCUS: HeroCard Engine + Mascot Engine + HUD + HYPE Loop
+  // DUAL THEME: Pro Mode vs Legacy Mode (Family-Friendly)
   const userContent = {
     student: {
-      title: "Your Digital Stadium Awaits",
-      subtitle: "Build your legacy from youth sports to college recruitment",
-      features: [
-        "AI-powered highlight reels every week",
-        "College recruiting dashboard",
-        "Academic & athletic tracking",
-        "HYPE rewards system"
+      title: isLegacyMode ? "Create Your Digital Profile in 30 Seconds" : "Create Your Digital Stadium in 30 Seconds",
+      subtitle: isLegacyMode ? "Digital portfolio with achievements and progress tracking" : "Phase 1 MVP: HeroCard Engine + Live HUD + HYPE Economy",
+      features: isLegacyMode ? [
+        "📸 Personal Achievement Cards",
+        "🎨 Custom School Spirit Design", 
+        "📈 Progress Tracking Dashboard",
+        "⭐ Earn Recognition Points"
+      ] : [
+        "🏆 AI HeroCard Generation (Instant)",
+        "🎭 Custom School Mascot Engine", 
+        "📊 Live Performance HUD Overlay",
+        "⚡ Earn HYPE Points & Share Rewards"
       ],
-      cta: "Create Your Stadium",
+      cta: isLegacyMode ? "Create Your Profile" : "Create Your HeroCard Now",
       href: "/stadium/create",
-      demo: "/dashboard"
+      demo: "/test-poster"
     },
     parent: {
-      title: "Track Every Achievement",
-      subtitle: "Monitor your children's academic and athletic journey in one place",
+      title: "Your Child's Digital Legacy",
+      subtitle: "Simple family tracking with Legacy Mode experience", 
       features: [
-        "Multi-child dashboard",
-        "Real-time notifications",
-        "Direct teacher/coach messaging",
-        "Schedule management"
+        "👨‍👩‍👧‍👦 Multi-Child Progress Tracking",
+        "🏆 Achievement Milestone Timeline",
+        "💬 Direct Coach Communication", 
+        "📚 Academic & Athletic Balance"
       ],
-      cta: "Get Parent Access",
-      href: "/parent-signup",
+      cta: "Start Family Dashboard",
+      href: "/parent-dashboard",
       demo: "/parent-dashboard"
     },
-    teacher: {
-      title: "Revolutionize Your Classroom",
-      subtitle: "AI-powered tools to enhance learning and communication",
-      features: [
-        "AI lesson planning assistant",
-        "Smart gradebook integration",
-        "Parent communication hub",
-        "Student analytics dashboard"
-      ],
-      cta: "Join as Teacher",
-      href: "/teacher-signup",
-      demo: "/teacher-dashboard"
-    },
     coach: {
-      title: "Build Championship Programs",
-      subtitle: "Professional tools for team management and player development",
+      title: "Team Management Made Simple",
+      subtitle: "Focus on what matters: developing young athletes",
       features: [
-        "AI film room & analysis",
-        "Team communication platform",
-        "Player development tracking",
-        "Recruiting pipeline manager"
+        "🎯 Player Development Tracking",
+        "📱 Team Communication Hub",
+        "📊 Performance Analytics HUD",
+        "🏆 Achievement Recognition System"
       ],
-      cta: "Start Coaching",
-      href: "/coach-signup",
+      cta: "Manage Your Team",
+      href: "/coach-dashboard", 
       demo: "/coach-dashboard"
-    },
-    admin: {
-      title: "District-Wide Excellence",
-      subtitle: "Comprehensive oversight and analytics for school leadership",
-      features: [
-        "District performance metrics",
-        "Resource allocation tools",
-        "Community engagement platform",
-        "Strategic planning dashboard"
-      ],
-      cta: "Request Admin Demo",
-      href: "/admin-demo",
-      demo: "/superintendent-dashboard"
-    },
-    scout: {
-      title: "Discover Tomorrow's Stars",
-      subtitle: "AI-powered talent discovery and recruitment platform",
-      features: [
-        "Advanced search filters",
-        "AI talent matching",
-        "Video analysis tools",
-        "Direct communication system"
-      ],
-      cta: "Scout Platform",
-      href: "/scout-signup",
-      demo: "/college-scout-dashboard"
     }
   };
 
@@ -183,15 +150,41 @@ function HeroSection() {
 
 
 
+      {/* Theme Toggle - Legacy Mode for Family-Friendly Experience */}
+      <div className="absolute top-4 right-4 z-20">
+        <motion.button
+          onClick={() => setIsLegacyMode(!isLegacyMode)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={clsx(
+            "flex items-center gap-2 px-4 py-2 rounded-full font-bold transition-all duration-300",
+            isLegacyMode 
+              ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white" 
+              : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/30"
+          )}
+        >
+          <Heart className="w-4 h-4" />
+          <span className="text-sm">{isLegacyMode ? 'Legacy Mode' : 'Family Mode'}</span>
+        </motion.button>
+      </div>
+
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
+      <div className={clsx(
+        "relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24",
+        isLegacyMode && "font-serif"
+      )}>
         {/* User Type Selector */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h2 className="text-xl md:text-2xl font-bold text-white/80 mb-6">I am a...</h2>
+          <h2 className={clsx(
+            "text-xl md:text-2xl font-bold mb-6",
+            isLegacyMode ? "text-amber-200" : "text-white/80"
+          )}>
+            {isLegacyMode ? "Welcome to Your Family's Digital Journey" : "Choose Your Path to Greatness"}
+          </h2>
           <div className="flex flex-wrap justify-center gap-3">
             {userTypes.map((type) => {
               const TypeIcon = type.icon;
@@ -337,12 +330,27 @@ function HeroSection() {
               </Link>
             </motion.div>
 
-            {/* UltraAI Badge */}
+            {/* VIRAL HYPE SHARING BONUS */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
-              className="mt-12"
+              className="mt-8"
+            >
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 backdrop-blur-sm rounded-full border border-[#F59E0B]/50">
+                <Zap className="w-5 h-5 text-[#F59E0B]" />
+                <span className="text-white font-bold">Share & Earn:</span>
+                <span className="text-[#F59E0B] font-black">+100 HYPE</span>
+                <span className="text-white/80">per share!</span>
+              </div>
+            </motion.div>
+
+            {/* UltraAI Badge */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className="mt-6"
             >
               <div className="inline-flex items-center gap-2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full border border-[#F59E0B]/30">
                 <Bot className="w-5 h-5 text-[#F59E0B]" />
