@@ -158,8 +158,11 @@ export default function UltraPrepsHomepage() {
               
               <Link
                 href="/beta"
-                className="inline-flex items-center gap-4 px-12 py-6 text-white bg-white/10 border-2 border-white/30 
-                         rounded-2xl font-black text-xl hover:bg-white/20 hover:border-white/50 transition-all"
+                className={`inline-flex items-center gap-4 px-12 py-6 border-2 rounded-2xl font-black text-xl transition-all ${
+                  isDark 
+                    ? 'text-white bg-white/10 border-white/30 hover:bg-white/20 hover:border-white/50' 
+                    : 'text-gray-900 bg-black/10 border-gray-300 hover:bg-black/20 hover:border-gray-400'
+                }`}
               >
                 <Crown className="w-7 h-7" />
                 Join Beta Program
@@ -170,7 +173,11 @@ export default function UltraPrepsHomepage() {
       </section>
 
       {/* STAKEHOLDER DEMOS SECTION */}
-      <section className="py-24 bg-gradient-to-r from-gray-900 to-black">
+      <section className={`py-24 ${
+        isDark 
+          ? 'bg-gradient-to-r from-gray-900 to-black' 
+          : 'bg-gradient-to-r from-gray-100 to-gray-200'
+      }`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
