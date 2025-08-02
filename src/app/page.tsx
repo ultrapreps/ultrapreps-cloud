@@ -49,14 +49,37 @@ import { stakeholderVisions } from '../data/stakeholderVisions';
 function HeroSection() {
   const [activeUserType, setActiveUserType] = useState('student');
 
-  // COMPLETE ATHLETICS ECOSYSTEM - PRIMARY STAKEHOLDERS
+  // COMPLETE ATHLETIC LIFECYCLE ECOSYSTEM - T-BALL TO MLB RETIREMENT
   const userTypes = [
+    // YOUTH SPORTS FOUNDATION
     { id: 'student', label: 'Student Athlete', icon: Trophy, color: 'from-[#F59E0B] to-[#F97316]' },
     { id: 'parent', label: 'Parent & Family', icon: Heart, color: 'from-[#3B82F6] to-[#1E3A8A]' },
-    { id: 'coach', label: 'Coach', icon: Users, color: 'from-[#059669] to-[#10B981]' },
+    { id: 'youthCoach', label: 'Youth Coach', icon: Star, color: 'from-[#10B981] to-[#059669]' },
+    { id: 'campAdmin', label: 'Camp Admin', icon: Calendar, color: 'from-[#0891B2] to-[#0E7490]' },
+    
+    // SCHOOL SPORTS ECOSYSTEM  
+    { id: 'coach', label: 'School Coach', icon: Users, color: 'from-[#059669] to-[#10B981]' },
     { id: 'educator', label: 'Educator', icon: GraduationCap, color: 'from-[#7C3AED] to-[#5B21B6]' },
+    { id: 'athleticDirector', label: 'Athletic Director', icon: Building, color: 'from-[#374151] to-[#1F2937]' },
+    { id: 'schoolAdmin', label: 'School Admin', icon: Shield, color: 'from-[#92400E] to-[#7C2D12]' },
+    
+    // SELECT/ELITE LEVEL
+    { id: 'selectCoach', label: 'Select Coach', icon: Target, color: 'from-[#7C2D12] to-[#92400E]' },
+    { id: 'selectAthlete', label: 'Elite Athlete', icon: Award, color: 'from-[#DC2626] to-[#991B1B]' },
+    { id: 'travelTeam', label: 'Travel Team', icon: Globe, color: 'from-[#059669] to-[#047857]' },
+    
+    // COLLEGE/RECRUITING
     { id: 'recruiter', label: 'Recruiter', icon: Search, color: 'from-[#DC2626] to-[#B91C1C]' },
-    { id: 'scout', label: 'College Scout', icon: Eye, color: 'from-[#059669] to-[#047857]' }
+    { id: 'scout', label: 'College Scout', icon: Eye, color: 'from-[#059669] to-[#047857]' },
+    { id: 'collegeCoach', label: 'College Coach', icon: Crown, color: 'from-[#F59E0B] to-[#D97706]' },
+    
+    // BUSINESS/PROFESSIONAL
+    { id: 'nilBrand', label: 'NIL Brand', icon: Briefcase, color: 'from-[#7C3AED] to-[#6D28D9]' },
+    { id: 'agent', label: 'Sports Agent', icon: DollarSign, color: 'from-[#16A34A] to-[#15803D]' },
+    
+    // ADMINISTRATIVE
+    { id: 'districtAdmin', label: 'District Admin', icon: Network, color: 'from-[#6B7280] to-[#4B5563]' },
+    { id: 'boosterClub', label: 'Booster Club', icon: Megaphone, color: 'from-[#EAB308] to-[#CA8A04]' }
   ];
 
   const currentStakeholder = stakeholderVisions[activeUserType as keyof typeof stakeholderVisions] || stakeholderVisions.student;
@@ -92,10 +115,13 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h2 className="text-2xl md:text-3xl font-black text-white/90 mb-8 tracking-wide">
-            Choose Your Path to Athletic Greatness
+          <h2 className="text-2xl md:text-3xl font-black text-white/90 mb-4 tracking-wide">
+            COMPLETE ATHLETIC LIFECYCLE ECOSYSTEM
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+          <p className="text-lg text-[#F59E0B] font-bold mb-8">
+            From First T-Ball Practice to MLB Retirement - Every Stakeholder, Every Stage
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-9 gap-3 max-w-full mx-auto">
             {userTypes.map((type) => {
               const TypeIcon = type.icon;
               return (
@@ -105,14 +131,14 @@ function HeroSection() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={clsx(
-                    "px-4 py-5 rounded-xl font-bold transition-all duration-300 flex flex-col items-center gap-3 text-center min-h-[110px] border-2",
+                    "px-3 py-4 rounded-xl font-bold transition-all duration-300 flex flex-col items-center gap-2 text-center min-h-[100px] border-2",
                     activeUserType === type.id
                       ? `bg-gradient-to-r ${type.color} text-white shadow-2xl border-white/50 shadow-current/25`
                       : "bg-white/5 text-white/70 hover:bg-white/15 border-white/20 hover:border-white/40"
                   )}
                 >
-                  <TypeIcon className="w-8 h-8" />
-                  <span className="text-sm font-black leading-tight">{type.label}</span>
+                  <TypeIcon className="w-6 h-6" />
+                  <span className="text-xs font-black leading-tight">{type.label}</span>
                 </motion.button>
               );
             })}
