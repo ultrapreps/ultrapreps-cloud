@@ -30,7 +30,7 @@ import {
   Eye,
   Share2
 } from 'lucide-react';
-import MegaNavigation from '../../components/MegaNavigation';
+
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 
@@ -194,7 +194,7 @@ export default function BoosterClubDashboard() {
       <div className="absolute bottom-1/3 left-1/4 w-[480px] h-[480px] bg-[#F97316]/7 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2.5s' }} />
 
       {/* Mega Navigation */}
-      <MegaNavigation currentPage="booster-club-dashboard" userRole="admin" userName="Michael Thompson" />
+      
 
       {/* Content */}
       <div className="relative z-10 pt-20">

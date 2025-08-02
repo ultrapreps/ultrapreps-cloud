@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
-import MegaNavigation from '../../components/MegaNavigation';
+
 
 interface ActivityItem {
   id: string;
@@ -249,7 +249,7 @@ export default function ActivityFeedPage() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Navigation */}
-      <MegaNavigation currentPage="feed" userRole="student" userName="Activity Feed" />
+
 
       <div className="relative z-10">
         {/* Header */}

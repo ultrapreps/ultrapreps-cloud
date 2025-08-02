@@ -38,7 +38,7 @@ import {
   Settings,
   Sparkles
 } from 'lucide-react';
-import MegaNavigation from '../../components/MegaNavigation';
+
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 
@@ -274,7 +274,7 @@ export default function YouthCoachDashboard() {
       <div className="absolute bottom-1/3 right-1/3 w-[450px] h-[450px] bg-[#F97316]/6 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2.5s' }} />
 
       {/* Mega Navigation */}
-      <MegaNavigation currentPage="youth-coach-dashboard" userRole="coach" userName="Coach Sarah Martinez" />
+      
 
       {/* Content */}
       <div className="relative z-10 pt-20">

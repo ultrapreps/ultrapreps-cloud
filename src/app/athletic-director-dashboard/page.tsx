@@ -33,7 +33,7 @@ import {
   FileText,
   MessageSquare
 } from 'lucide-react';
-import MegaNavigation from '../../components/MegaNavigation';
+
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 
@@ -206,7 +206,7 @@ export default function AthleticDirectorDashboard() {
       <div className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-[#F97316]/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2.5s' }} />
 
       {/* Global Navigation */}
-      <MegaNavigation currentPage="athletic-director-dashboard" userRole="athletic_director" userName="Athletic Director" />
+      
 
       {/* Content */}
       <div className="relative z-10 pt-20">

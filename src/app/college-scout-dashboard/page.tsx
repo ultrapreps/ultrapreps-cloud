@@ -38,7 +38,7 @@ import {
   Telescope,
   Activity
 } from 'lucide-react';
-import MegaNavigation from '../../components/MegaNavigation';
+
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 
@@ -273,7 +273,7 @@ export default function CollegeScoutDashboard() {
       <div className="absolute bottom-1/3 left-1/3 w-96 h-96 bg-[#F97316]/9 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
 
       {/* Mega Navigation */}
-      <MegaNavigation currentPage="college-scout-dashboard" userRole="recruiter" userName="Coach Mike Rodriguez" />
+      
 
       {/* Content */}
       <div className="relative z-10 pt-20">

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import UltraNavigation from '../navigation/UltraNavigation';
+import SimpleNavigation from '../navigation/SimpleNavigation';
 
 interface UltraLayoutProps {
   children: React.ReactNode;
@@ -11,11 +11,11 @@ export default function UltraLayout({ children }: UltraLayoutProps) {
 
   return (
     <>
-      <UltraNavigation />
+      <SimpleNavigation />
       
       {/* Main Content with Navigation Offset */}
       <main className="min-h-screen">
-        <div className="lg:pt-16 pt-14 pb-16 lg:pb-0">
+        <div className="pt-16">
           {children}
         </div>
       </main>

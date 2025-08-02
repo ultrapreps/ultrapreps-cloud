@@ -33,7 +33,7 @@ import {
   Plus,
   Settings
 } from 'lucide-react';
-import MegaNavigation from '../../components/MegaNavigation';
+
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 
@@ -248,7 +248,7 @@ export default function SuperintendentDashboard() {
       <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-[#F97316]/4 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }} />
 
       {/* Mega Navigation */}
-      <MegaNavigation currentPage="superintendent-dashboard" userRole="superintendent" userName="Dr. Sarah Washington" />
+      
 
       {/* Content */}
       <div className="relative z-10 pt-20">

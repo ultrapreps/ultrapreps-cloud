@@ -548,9 +548,6 @@ export default function MegaNavigation({
                 className="relative p-2 rounded-lg hover:bg-white/10 transition-colors"
               >
                 <Bell className="w-5 h-5 text-white" />
-                {currentPage === 'home' && (
-                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#F59E0B] rounded-full animate-pulse" />
-                )}
               </motion.button>
             )}
 

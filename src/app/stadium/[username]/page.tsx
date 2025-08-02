@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { Zap, Users, Trophy, Star, ArrowRight, Heart, MessageCircle, Share2, Crown, Target, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import GageAIChat from '../../../components/GageAIChat';
-import MegaNavigation from '../../../components/MegaNavigation';
+
 
 interface StadiumData {
   username: string;
@@ -127,7 +127,7 @@ export default function CinematicStadiumPage() {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#F97316]/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
       {/* Navigation */}
-      <MegaNavigation currentPage="stadium" userRole="guest" userName={stadium?.username || 'Guest'} />
+
 
       {/* Content */}
       <div className="relative z-10 min-h-screen px-4 py-12">

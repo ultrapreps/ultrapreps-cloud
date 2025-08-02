@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../../components/GageAIChat';
 import HypeWidget from '../../../components/HypeWidget';
-import MegaNavigation from '../../../components/MegaNavigation';
+
 
 interface HeroCardData {
   // Student Info
@@ -168,7 +168,7 @@ export default function HeroCardCreatePage() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Navigation */}
-      <MegaNavigation currentPage="herocard-create" userRole="student" userName="Create HeroCard" />
+
 
       <div className="relative z-10">
         {/* Header */}

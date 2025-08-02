@@ -63,16 +63,11 @@ import {
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import clsx from "clsx";
-import GageAIChat from '../components/GageAIChat';
 import Link from 'next/link';
-
-import { useLiveActivities } from '@/lib/hooks/useLiveActivities';
 
 // Enhanced Hero Section with User Type Selection
 function HeroSection() {
   const [activeUserType, setActiveUserType] = useState('student');
-  const [showNotification, setShowNotification] = useState(false);
-  const { activities, isConnected } = useLiveActivities(7000); // New activity every 7 seconds
 
   const userTypes = [
     { id: 'student', label: 'Student', icon: GraduationCap, color: 'from-[#F59E0B] to-[#F97316]' },
@@ -168,13 +163,6 @@ function HeroSection() {
   const IconComponent = userTypes.find(u => u.id === activeUserType)?.icon || GraduationCap;
   const gradient = userTypes.find(u => u.id === activeUserType)?.color || 'from-[#F59E0B] to-[#F97316]';
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNotification(true);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Dynamic Background */}
@@ -193,82 +181,10 @@ function HeroSection() {
         />
       </div>
 
-      {/* Live Activity Ticker with Real Data */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="absolute top-20 md:top-24 left-0 right-0 bg-black/90 border-y border-[#F59E0B]/30 py-2 md:py-4 overflow-hidden z-10 shadow-lg"
-      >
-        <motion.div
-          animate={{ x: [0, -2000] }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex items-center gap-6 md:gap-12 whitespace-nowrap"
-        >
-          {/* Live Connection Indicator */}
-          {isConnected && (
-            <>
-              <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 bg-[#F59E0B]/10 rounded-full">
-                <motion.span 
-                  animate={{ opacity: [1, 0.5, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="text-[#F59E0B] font-bold text-xs md:text-sm flex items-center gap-1"
-                >
-                  <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#F59E0B] rounded-full"></span>
-                  LIVE
-                </motion.span>
-                <span className="text-white text-sm md:text-base font-medium">Platform Active</span>
-              </div>
-              <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-            </>
-          )}
-          
-          {/* Dynamic Activities */}
-          {activities.slice(0, 6).map((activity, index) => (
-            <React.Fragment key={activity.id}>
-              <div className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 ${
-                activity.priority === 'high' ? 'bg-[#F97316]/20' : 'bg-[#F59E0B]/10'
-              } rounded-full`}>
-                <span className="text-[#F59E0B] font-bold text-xs md:text-sm uppercase">
-                  {activity.type === 'trending' ? 'TRENDING' :
-                   activity.type === 'hype' ? 'HYPE' :
-                   activity.type === 'achievement' ? 'ACHIEVEMENT' :
-                   activity.type === 'milestone' ? 'MILESTONE' :
-                   activity.type === 'event' ? 'EVENT' : 'UPDATE'}
-                </span>
-                <span className="text-white text-sm md:text-base font-medium">
-                  {activity.emoji} {activity.message}
-                </span>
-              </div>
-              {index < 5 && <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>}
-            </React.Fragment>
-          ))}
-          
-          {/* Duplicate first few for seamless loop */}
-          <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>
-          {activities.slice(0, 3).map((activity, index) => (
-            <React.Fragment key={`dup-${activity.id}`}>
-              <div className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 ${
-                activity.priority === 'high' ? 'bg-[#F97316]/20' : 'bg-[#F59E0B]/10'
-              } rounded-full`}>
-                <span className="text-[#F59E0B] font-bold text-xs md:text-sm uppercase">
-                  {activity.type === 'trending' ? 'TRENDING' :
-                   activity.type === 'hype' ? 'HYPE' :
-                   activity.type === 'achievement' ? 'ACHIEVEMENT' :
-                   activity.type === 'milestone' ? 'MILESTONE' :
-                   activity.type === 'event' ? 'EVENT' : 'UPDATE'}
-                </span>
-                <span className="text-white text-sm md:text-base font-medium">
-                  {activity.emoji} {activity.message}
-                </span>
-              </div>
-              {index < 2 && <span className="text-[#F59E0B] text-lg md:text-2xl">•</span>}
-            </React.Fragment>
-          ))}
-        </motion.div>
-      </motion.div>
+
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
         {/* User Type Selector */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -351,8 +267,9 @@ function HeroSection() {
               transition={{ delay: 0.5 }}
               className="max-w-3xl mx-auto mb-12"
             >
-              {/* Feature List with Checkmarks */}
-              <div className="bg-black/30 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                              {/* Feature List with Checkmarks */}
+                <div className="ultra-card"
+                     style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '2rem' }}>
                 <div className="space-y-4">
                   {currentContent.features.map((feature, index) => (
                     <motion.div
@@ -404,7 +321,8 @@ function HeroSection() {
             >
               <Link
                 href={currentContent.href}
-                className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${gradient} text-white font-bold rounded-full shadow-lg hover:scale-105 transition-all duration-300`}
+                className="ultra-btn-primary px-8 py-4 text-white"
+                style={{ background: `linear-gradient(to right, ${gradient.includes('F59E0B') ? '#F59E0B, #F97316' : gradient.split(' ')[1] + ', ' + gradient.split(' ')[3]})` }}
               >
                 <Rocket className="w-5 h-5" />
                 {currentContent.cta}
@@ -412,7 +330,7 @@ function HeroSection() {
               </Link>
               <Link
                 href={currentContent.demo}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-bold rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
+                className="ultra-btn-secondary px-8 py-4"
               >
                 <Play className="w-5 h-5" />
                 View Demo
@@ -436,54 +354,9 @@ function HeroSection() {
         </AnimatePresence>
       </div>
 
-      {/* Floating Elements */}
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="absolute bottom-10 left-10 hidden lg:block"
-      >
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-          <div className="flex items-center gap-3">
-            <Trophy className="w-8 h-8 text-[#F59E0B]" />
-            <div>
-              <p className="text-white font-bold">500+ Schools</p>
-              <p className="text-white/60 text-sm">Already on UltraPreps</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
 
-      {/* Sample Notification */}
-      <AnimatePresence>
-        {showNotification && (
-          <motion.div
-            initial={{ x: 400, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 400, opacity: 0 }}
-            className="fixed top-28 right-4 bg-black rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-40 max-w-sm"
-          >
-            <div className="flex items-start gap-3">
-              <Bell className="w-5 h-5 text-[#F59E0B] mt-1" />
-              <div className="flex-1">
-                <p className="text-white font-bold">New Message from Coach</p>
-                <p className="text-white/70 text-sm mt-1">Great practice today! Your highlight reel is ready.</p>
-                <div className="flex gap-2 mt-3">
-                  <Link href="/messages" className="text-[#F59E0B] text-sm font-bold hover:underline">View</Link>
-                  <button 
-                    onClick={() => setShowNotification(false)}
-                    className="text-white/50 text-sm hover:text-white"
-                  >
-                    Dismiss
-                  </button>
-                </div>
-              </div>
-              <button onClick={() => setShowNotification(false)}>
-                <X className="w-4 h-4 text-white/50 hover:text-white" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+
     </section>
   );
 }
@@ -597,7 +470,7 @@ function QuickAccessPortal() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+            className="ultra-hero-text mb-6"
           >
             Who Are You?
           </motion.h2>
@@ -624,10 +497,9 @@ function QuickAccessPortal() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.1 * index }}
                 whileHover={{ scale: 1.05, y: -10 }}
-                className="group relative bg-black/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden hover:border-[#F59E0B]/50 transition-all duration-300"
+                className="group ultra-card"
               >
-                {/* Gradient Background on Hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${stakeholder.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+
                 
                 {/* Icon */}
                 <div className={`w-16 h-16 mb-4 rounded-xl bg-gradient-to-r ${stakeholder.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
@@ -660,8 +532,7 @@ function QuickAccessPortal() {
                   <ArrowRight className="w-5 h-5" />
                 </div>
 
-                {/* Hover Effect Border */}
-                <div className="absolute inset-0 border-2 border-[#F59E0B] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
               </motion.a>
             );
           })}
@@ -705,10 +576,7 @@ function QuickAccessPortal() {
             href="/stadium/create"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-full text-lg uppercase tracking-wider hover:shadow-2xl transition-all duration-300"
-            style={{
-              boxShadow: '0 10px 40px rgba(245, 158, 11, 0.3)'
-            }}
+            className="ultra-btn-primary px-8 py-4 text-lg uppercase tracking-wider"
           >
             <Rocket className="w-6 h-6" />
             Get Started Now
@@ -922,7 +790,7 @@ function PlatformOverview() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+          <h2 className="ultra-hero-text mb-6">
             The Future of Student Achievement
           </h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
@@ -954,10 +822,10 @@ function PlatformOverview() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#F59E0B]/50 transition-all"
+            className="ultra-card"
           >
             <Video className="w-10 h-10 text-[#F59E0B] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">UltraAI Video Engine</h3>
+            <h3 className="ultra-card-title text-xl mb-2">UltraAI Video Engine</h3>
             <p className="text-white/70">Weekly highlight reels with AI voiceover and professional editing</p>
           </motion.div>
 
@@ -965,10 +833,10 @@ function PlatformOverview() {
             initial={{ opacity: 0, y: 50 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#F59E0B]/50 transition-all"
+            className="ultra-card"
           >
             <MessageSquare className="w-10 h-10 text-[#F59E0B] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Universal Communication</h3>
+            <h3 className="ultra-card-title text-xl mb-2">Universal Communication</h3>
             <p className="text-white/70">Real-time messaging between all stakeholders with AI translation</p>
           </motion.div>
 
@@ -976,10 +844,10 @@ function PlatformOverview() {
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.2 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#F59E0B]/50 transition-all"
+            className="ultra-card"
           >
             <Shield className="w-10 h-10 text-[#F59E0B] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Digital Legacy Vault</h3>
+            <h3 className="ultra-card-title text-xl mb-2">Digital Legacy Vault</h3>
             <p className="text-white/70">Preserve every achievement and memory forever in the cloud</p>
           </motion.div>
         </div>
@@ -1104,7 +972,7 @@ function FeaturesShowcase() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+            className="ultra-hero-text mb-6"
           >
             Everything You Need
           </motion.h2>
@@ -1183,7 +1051,7 @@ function FeaturesShowcase() {
                 href={features[activeFeature].link}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold rounded-xl hover:shadow-2xl transition-all duration-300"
+                className="ultra-btn-primary px-6 py-3 !rounded-xl"
               >
                 Explore {features[activeFeature].title}
                 <ArrowRight className="w-5 h-5" />
@@ -1227,7 +1095,7 @@ function FeaturesShowcase() {
                 key={quickLink.title}
                 href={quickLink.link}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:border-[#F59E0B]/50 transition-all duration-300"
+                className="group ultra-card text-center"
               >
                 <Icon className="w-12 h-12 text-[#F59E0B] mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 <h4 className="font-bold text-white group-hover:text-[#F59E0B] transition-colors">
@@ -1276,7 +1144,7 @@ function MeetTheFounder() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+            className="ultra-hero-text mb-6"
           >
             Gage Coleman
           </motion.h2>
@@ -1400,10 +1268,7 @@ function MeetTheFounder() {
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full mt-8 inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-xl text-lg uppercase tracking-wider hover:shadow-2xl transition-all duration-300"
-              style={{
-                boxShadow: '0 10px 40px rgba(245, 158, 11, 0.3)'
-              }}
+              className="w-full mt-8 ultra-btn-primary px-8 py-4 !rounded-xl text-lg uppercase tracking-wider justify-center"
             >
               <MessageSquare className="w-6 h-6" />
               Chat with Gage Now
@@ -1490,7 +1355,7 @@ function StudentSpotlight() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase"
+            className="ultra-hero-text mb-6"
           >
             Champions in the Making
           </motion.h2>
@@ -1590,7 +1455,7 @@ function StudentSpotlight() {
                 href="/stadium/create"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-bold rounded-xl hover:shadow-2xl transition-all duration-300"
+                className="ultra-btn-primary px-6 py-3 !rounded-xl"
               >
                 Create Your Success Story
                 <ArrowRight className="w-5 h-5" />
@@ -1664,7 +1529,7 @@ function CallToAction() {
           className="mb-8"
         >
           <Crown className="w-20 h-20 text-[#F59E0B] mx-auto mb-6" />
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+          <h2 className="ultra-hero-text text-5xl md:text-7xl mb-6">
             Your Stadium Awaits
           </h2>
           <p className="text-2xl text-white/80 mb-12">
@@ -1681,7 +1546,7 @@ function CallToAction() {
         >
           <Link
             href="/stadium/create"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-full text-xl shadow-2xl hover:scale-105 transition-all duration-300"
+            className="ultra-btn-primary px-10 py-5 text-xl"
           >
             <Rocket className="w-6 h-6" />
             Create Your Stadium Now
@@ -1689,7 +1554,7 @@ function CallToAction() {
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-5 bg-white/10 text-white font-bold rounded-full text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
+            className="ultra-btn-secondary px-8 py-5 text-lg"
           >
             <MessageSquare className="w-5 h-5" />
             Questions? Let&apos;s Talk
@@ -1868,9 +1733,6 @@ function EnhancedFooter() {
 
 // Main Homepage Component
 export default function HomePage() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [activeUserType, setActiveUserType] = useState('student');
-  const [showWelcomeNotification, setShowWelcomeNotification] = useState(false);
 
   // Register service worker for PWA functionality
   useEffect(() => {
@@ -1884,12 +1746,6 @@ export default function HomePage() {
           console.log('❌ SW registration failed:', error);
         });
     }
-
-    // Show welcome notification after 2 seconds
-    const timer = setTimeout(() => {
-      setShowWelcomeNotification(true);
-    }, 2000);
-    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -1899,6 +1755,9 @@ export default function HomePage() {
         {/* Hero Section */}
         <HeroSection />
         
+        {/* Platform Features - Moved to Top */}
+        <FeaturesShowcase />
+        
         {/* Quick Access Portal */}
         <QuickAccessPortal />
         
@@ -1907,9 +1766,6 @@ export default function HomePage() {
         
         {/* MVP Test Suite */}
         <MVPTestSuite />
-        
-        {/* Features Showcase */}
-        <FeaturesShowcase />
         
         {/* Meet the Founder */}
         <MeetTheFounder />
@@ -1923,45 +1779,8 @@ export default function HomePage() {
         {/* Enhanced Footer */}
         <EnhancedFooter />
       </div>
-      
-      {/* Gage AI Chat */}
-      <GageAIChat
-        userId="guest"
-        isOpen={isChatOpen}
-        onToggle={() => setIsChatOpen(!isChatOpen)}
-      />
-      
-      {/* Welcome Notification */}
-      <AnimatePresence>
-        {showWelcomeNotification && (
-          <motion.div
-            initial={{ x: 400, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 400, opacity: 0 }}
-            className="fixed top-28 right-4 bg-black rounded-xl p-4 border border-[#F59E0B]/30 shadow-2xl z-40 max-w-sm"
-          >
-            <div className="flex items-start gap-3">
-              <Bell className="w-5 h-5 text-[#F59E0B] mt-1" />
-              <div className="flex-1">
-                <p className="text-white font-bold">Welcome to UltraPreps!</p>
-                <p className="text-white/70 text-sm mt-1">Your journey to greatness starts here. Create your stadium now!</p>
-                <div className="flex gap-2 mt-3">
-                  <Link href="/stadium/create" className="text-[#F59E0B] text-sm font-bold hover:underline">Get Started</Link>
-                  <button 
-                    onClick={() => setShowWelcomeNotification(false)}
-                    className="text-white/50 text-sm hover:text-white"
-                  >
-                    Dismiss
-                  </button>
-                </div>
-              </div>
-              <button onClick={() => setShowWelcomeNotification(false)}>
-                <X className="w-4 h-4 text-white/50 hover:text-white" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+
     </main>
   );
 }

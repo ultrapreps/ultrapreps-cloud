@@ -33,7 +33,7 @@ import {
   Pencil,
   Plus
 } from 'lucide-react';
-import MegaNavigation from '../../components/MegaNavigation';
+
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 
@@ -234,7 +234,7 @@ export default function TeacherDashboard() {
       <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-[#F97316]/6 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
 
       {/* Mega Navigation */}
-      <MegaNavigation currentPage="teacher-dashboard" userRole="teacher" userName="Ms. Sarah Johnson" />
+      
 
       {/* Content */}
       <div className="relative z-10 pt-20">

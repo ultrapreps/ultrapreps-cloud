@@ -16,28 +16,20 @@ export default function LiveLaunchRedirect() {
 
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Stadium Background */}
-      <div
-        className="absolute inset-0 bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/stadium-crowd-energy.jpg')`,
-          backgroundAttachment: 'scroll',
-          backgroundPosition: 'center top',
-          backgroundSize: '120% auto',
-          filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
-          WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
-        }}
-      />
+    <div className="ultra-page-layout flex flex-col items-center justify-center">
+      {/* Standardized Stadium Background */}
+      <div className="absolute inset-0 ultra-stadium-bg" />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Standardized Overlays */}
+      <div className="absolute inset-0 ultra-overlay-primary" />
+      <div className="absolute inset-0 ultra-overlay-secondary" />
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative z-10 w-full max-w-2xl bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl text-center"
+        className="relative z-10 w-full max-w-2xl ultra-card text-center"
+        style={{ padding: '2rem' }}
       >
         <motion.div
           animate={{ 

@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
-import MegaNavigation from '../../components/MegaNavigation';
+
 
 interface StudentTalent {
   id: string;
@@ -250,7 +250,7 @@ export default function RecruitingDashboard() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Navigation */}
-      <MegaNavigation currentPage="recruiting" userRole="recruiter" userName="Recruiting Dashboard" />
+
 
       <div className="relative z-10">
         {/* Header */}

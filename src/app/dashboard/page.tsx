@@ -8,10 +8,8 @@ import {
   Calendar, Target, TrendingUp, Award,
   Camera, Edit3, Plus, ArrowRight, Crown, Gift
 } from 'lucide-react';
-import HypeWidget from '../../components/HypeWidget';
-import GageAIChat from '../../components/GageAIChat';
-import GageWelcomePopup from '../../components/GageWelcomePopup';
-import MegaNavigation from '../../components/MegaNavigation';
+
+
 
 interface StudentData {
   username: string;
@@ -86,22 +84,13 @@ export default function StudentDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black relative overflow-hidden">
-        {/* Cinematic Stadium Background */}
-        <div
-          className="absolute inset-0 bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/stadium-crowd-energy.jpg')`,
-            backgroundAttachment: 'fixed',
-            backgroundPosition: 'center center',
-            backgroundSize: 'cover',
-            filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
-            WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
-          }}
-        />
+      <div className="ultra-page-layout">
+        {/* Standardized Stadium Background */}
+        <div className="absolute inset-0 ultra-stadium-bg" />
         
-        {/* Enhanced dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
+        {/* Standardized Overlays */}
+        <div className="absolute inset-0 ultra-overlay-primary" />
+        <div className="absolute inset-0 ultra-overlay-secondary" />
         
         {/* Animated gradient orbs */}
         <motion.div
@@ -207,22 +196,13 @@ export default function StudentDashboard() {
 
   if (!student) {
     return (
-      <div className="min-h-screen bg-black relative overflow-hidden">
-        {/* Cinematic Stadium Background */}
-        <div
-          className="absolute inset-0 bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/stadium-crowd-energy.jpg')`,
-            backgroundAttachment: 'fixed',
-            backgroundPosition: 'center center',
-            backgroundSize: 'cover',
-            filter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)',
-            WebkitFilter: 'grayscale(100%) contrast(1.2) brightness(0.3) blur(3px)'
-          }}
-        />
+      <div className="ultra-page-layout">
+        {/* Standardized Stadium Background */}
+        <div className="absolute inset-0 ultra-stadium-bg" />
         
-        {/* Enhanced dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90" />
+        {/* Standardized Overlays */}
+        <div className="absolute inset-0 ultra-overlay-primary" />
+        <div className="absolute inset-0 ultra-overlay-secondary" />
         
         {/* Animated gradient orbs */}
         <motion.div
@@ -327,30 +307,19 @@ export default function StudentDashboard() {
   }
 
           return (
-        <div className="min-h-screen bg-[#111827] relative overflow-hidden">
-          {/* Cinematic Stadium Background */}
-          <div
-            className="absolute inset-0 bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('/stadium-crowd-energy.jpg')`,
-              backgroundAttachment: 'fixed',
-              backgroundPosition: 'center center',
-              backgroundSize: 'cover',
-              filter: 'grayscale(30%) contrast(1.3) brightness(0.4) saturate(1.1)',
-              WebkitFilter: 'grayscale(30%) contrast(1.3) brightness(0.4) saturate(1.1)'
-            }}
-          />
-
-          {/* Professional Cinematic Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/85 via-[#111827]/80 to-black/90" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-[#1E3A8A]/20" />
+        <div className="ultra-page-layout">
+          {/* Standardized Stadium Background */}
+          <div className="absolute inset-0 ultra-stadium-bg" />
+          
+          {/* Standardized Overlays */}
+          <div className="absolute inset-0 ultra-overlay-primary" />
+          <div className="absolute inset-0 ultra-overlay-secondary" />
 
           {/* Dynamic Light Effects */}
           <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-[#F59E0B]/8 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-[#F97316]/6 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
 
-                {/* Mega Navigation */}
-      <MegaNavigation currentPage="dashboard" userRole="student" userName="Demo Student" />
+
 
           {/* Content */}
           <div className="relative z-10 pt-20">
@@ -381,14 +350,14 @@ export default function StudentDashboard() {
             </header>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main className="ultra-container py-8">
           {/* Stats Overview */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 mb-8">
+          <div className="ultra-stats-grid mb-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl p-3 sm:p-4 border border-white/20"
+              className="ultra-card"
             >
               <div className="flex items-center gap-2 sm:gap-3">
                 <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-[#F59E0B]" />
@@ -403,7 +372,7 @@ export default function StudentDashboard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl p-3 sm:p-4 border border-white/20"
+              className="ultra-card"
             >
               <div className="flex items-center gap-2 sm:gap-3">
                 <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-[#F97316]" />
@@ -418,7 +387,7 @@ export default function StudentDashboard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl p-3 sm:p-4 border border-white/20"
+              className="ultra-card"
             >
               <div className="flex items-center gap-2 sm:gap-3">
                 <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-[#F59E0B]" />
@@ -433,7 +402,7 @@ export default function StudentDashboard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl p-3 sm:p-4 border border-white/20"
+              className="ultra-card"
             >
               <div className="flex items-center gap-2 sm:gap-3">
                 <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-[#F97316]" />
@@ -486,9 +455,9 @@ export default function StudentDashboard() {
                   className="space-y-6"
                 >
                   {/* Profile Section */}
-                  <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+                  <div className="ultra-card">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-white font-bold text-lg">Your Profile</h3>
+                      <h3 className="ultra-card-title">Your Profile</h3>
                       <button className="text-[#F59E0B] hover:text-[#F97316] transition-colors">
                         <Edit3 className="w-5 h-5" />
                       </button>
@@ -513,18 +482,16 @@ export default function StudentDashboard() {
                   </div>
 
                   {/* Quick Actions */}
-                  <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                    <h3 className="text-white font-bold text-lg mb-4">Quick Actions</h3>
+                  <div className="ultra-card">
+                    <h3 className="ultra-card-title mb-4">Quick Actions</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <Link
                         href="/poster/create"
-                        className="flex items-center gap-3 p-4 bg-[#F59E0B]/20 hover:bg-[#F59E0B]/30 rounded-xl transition-all duration-200 group"
+                        className="ultra-btn-secondary flex-col !p-4 !rounded-xl text-left group"
                       >
-                        <Camera className="w-6 h-6 text-[#F59E0B]" />
-                        <div>
-                          <div className="text-white font-medium">Create Poster</div>
-                          <div className="text-white/60 text-sm">Share your achievements</div>
-                        </div>
+                        <Camera className="w-6 h-6 text-[#F59E0B] mb-2" />
+                        <div className="text-white font-medium">Create Poster</div>
+                        <div className="text-white/60 text-sm">Share your achievements</div>
                       </Link>
                       
                       <button 
@@ -532,13 +499,11 @@ export default function StudentDashboard() {
                           console.log('Chat with Gage button clicked! Setting chat open...');
                           setIsChatOpen(true);
                         }}
-                        className="flex items-center gap-3 p-4 bg-[#F97316]/20 hover:bg-[#F97316]/30 rounded-xl transition-all duration-200 group cursor-pointer"
+                        className="ultra-btn-secondary flex-col !p-4 !rounded-xl text-left group"
                       >
-                        <MessageCircle className="w-6 h-6 text-[#F97316]" />
-                        <div>
-                          <div className="text-white font-medium">Chat with Gage</div>
-                          <div className="text-white/60 text-sm">Your first friend on UltraPreps</div>
-                        </div>
+                        <MessageCircle className="w-6 h-6 text-[#F97316] mb-2" />
+                        <div className="text-white font-medium">Chat with Gage</div>
+                        <div className="text-white/60 text-sm">Your first friend on UltraPreps</div>
                       </button>
                     </div>
                   </div>
@@ -562,8 +527,8 @@ export default function StudentDashboard() {
                   </div>
 
                   {/* Live Grade Tracking */}
-                  <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                    <h3 className="text-white font-bold text-xl mb-6">Live Grade Tracking</h3>
+                  <div className="ultra-card">
+                    <h3 className="ultra-card-title text-xl mb-6">Live Grade Tracking</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-4">
                         {[
