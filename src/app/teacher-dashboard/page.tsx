@@ -271,28 +271,63 @@ export default function TeacherDashboard() {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           
-          {/* Tab Navigation */}
-          <div className="flex flex-wrap gap-2 mb-8 bg-black/30 backdrop-blur-lg rounded-2xl p-2 border border-white/10">
+          {/* Enhanced Header Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <div className="relative inline-block">
+              <h2 className="text-5xl md:text-6xl font-black text-white mb-6 relative z-10">
+                <span className="text-[#F59E0B] drop-shadow-[0_0_30px_rgba(245,158,11,0.5)]">ULTRA</span> 
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent"> EDUCATOR</span>
+              </h2>
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 rounded-2xl blur-2xl opacity-50" />
+            </div>
+            <div className="bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 backdrop-blur-sm rounded-2xl border border-[#F59E0B]/30 p-6 max-w-4xl mx-auto">
+              <p className="text-white/90 text-xl font-medium leading-relaxed">
+                🎓 <span className="text-[#F59E0B] font-bold">Academic Excellence Engine</span> - AI lesson planning, smart gradebook, parent communication, and student insights
+              </p>
+              <p className="text-white/70 text-lg mt-2">
+                The complete teaching ecosystem to inspire learning and drive student success
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Enhanced Tab Navigation */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-[#F59E0B]/30 mb-8 shadow-[0_0_50px_rgba(245,158,11,0.1)]"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <GraduationCap className="w-6 h-6 text-[#F59E0B]" />
+              <h3 className="text-xl font-black text-white">Teaching Command Center</h3>
+            </div>
+            <div className="flex flex-wrap gap-3">
             {tabs.map((tab) => {
               const IconComponent = tab.icon;
               return (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 ${
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`flex items-center gap-3 px-6 py-4 rounded-xl transition-all duration-300 font-bold border-2 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black shadow-lg'
-                      : 'text-white/70 hover:text-white hover:bg-white/5'
+                      ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white shadow-2xl border-white/50 shadow-[#F59E0B]/25'
+                      : 'bg-white/5 text-white/70 hover:bg-white/15 border-white/20 hover:border-[#F59E0B]/50 hover:text-white'
                   }`}
                 >
-                  <IconComponent className="w-4 h-4" />
-                  {tab.label}
+                  <IconComponent className="w-5 h-5" />
+                  <span className="text-sm font-black">{tab.label}</span>
                 </motion.button>
               );
             })}
-          </div>
+            </div>
+          </motion.div>
 
           {/* Tab Content */}
           <AnimatePresence mode="wait">

@@ -553,48 +553,85 @@ export default function CoachDashboard() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           
-          {/* Header Section */}
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-black text-white mb-4">
-              <span className="text-[#F59E0B]">ULTRA</span> Coach Hub
-            </h2>
-            <p className="text-white/70 text-lg">
-              Manage your team, track player performance, and drive success with data-driven insights.
-            </p>
-          </div>
+          {/* Enhanced Header Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <div className="relative inline-block">
+              <h2 className="text-5xl md:text-6xl font-black text-white mb-6 relative z-10">
+                <span className="text-[#F59E0B] drop-shadow-[0_0_30px_rgba(245,158,11,0.5)]">ULTRA</span> 
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent"> COACH</span>
+              </h2>
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 rounded-2xl blur-2xl opacity-50" />
+            </div>
+            <div className="bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 backdrop-blur-sm rounded-2xl border border-[#F59E0B]/30 p-6 max-w-4xl mx-auto">
+              <p className="text-white/90 text-xl font-medium leading-relaxed">
+                🏈 <span className="text-[#F59E0B] font-bold">Championship Command Center</span> - Film room, AI analytics, player development, and recruiting tools
+              </p>
+              <p className="text-white/70 text-lg mt-2">
+                The complete coaching ecosystem to build championship teams and develop future stars
+              </p>
+            </div>
+          </motion.div>
 
-          {/* Team Overview Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 text-center">
-              <Users className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-              <div className="text-white font-bold text-2xl">{MOCK_TEAM_STATS.totalPlayers}</div>
-              <div className="text-white/60 text-sm">Total Players</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 text-center">
-              <UserCheck className="w-8 h-8 text-green-400 mx-auto mb-2" />
-              <div className="text-white font-bold text-2xl">{MOCK_TEAM_STATS.activeToday}</div>
-              <div className="text-white/60 text-sm">Active Today</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 text-center">
-              <Trophy className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
-              <div className={`font-bold text-2xl ${getGPAColor(MOCK_TEAM_STATS.averageGPA)}`}>{MOCK_TEAM_STATS.averageGPA}</div>
-              <div className="text-white/60 text-sm">Avg GPA</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 text-center">
-              <Zap className="w-8 h-8 text-[#F59E0B] mx-auto mb-2" />
-              <div className="text-white font-bold text-2xl">{MOCK_TEAM_STATS.totalHypeEarned.toLocaleString()}</div>
-              <div className="text-white/60 text-sm">Team HYPE</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 text-center">
-              <Calendar className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-              <div className="text-white font-bold text-2xl">{MOCK_TEAM_STATS.upcomingGames}</div>
-              <div className="text-white/60 text-sm">Next Games</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 text-center">
-              <Clipboard className="w-8 h-8 text-orange-400 mx-auto mb-2" />
-              <div className={`font-bold text-2xl ${getAttendanceColor(MOCK_TEAM_STATS.practiceAttendance)}`}>{MOCK_TEAM_STATS.practiceAttendance}%</div>
-              <div className="text-white/60 text-sm">Attendance</div>
-            </div>
+          {/* Enhanced Team Overview Cards */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-2 md:grid-cols-6 gap-6 mb-12"
+          >
+            <motion.div 
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 backdrop-blur-lg rounded-2xl p-6 border border-blue-400/30 text-center shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:shadow-[0_0_50px_rgba(59,130,246,0.2)] transition-all duration-300"
+            >
+              <Users className="w-10 h-10 text-blue-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+              <div className="text-white font-black text-3xl mb-1">{MOCK_TEAM_STATS.totalPlayers}</div>
+              <div className="text-blue-200 text-sm font-bold">Total Players</div>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-gradient-to-br from-green-500/20 to-green-600/10 backdrop-blur-lg rounded-2xl p-6 border border-green-400/30 text-center shadow-[0_0_30px_rgba(34,197,94,0.1)] hover:shadow-[0_0_50px_rgba(34,197,94,0.2)] transition-all duration-300"
+            >
+              <UserCheck className="w-10 h-10 text-green-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+              <div className="text-white font-black text-3xl mb-1">{MOCK_TEAM_STATS.activeToday}</div>
+              <div className="text-green-200 text-sm font-bold">Active Today</div>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 backdrop-blur-lg rounded-2xl p-6 border border-yellow-400/30 text-center shadow-[0_0_30px_rgba(234,179,8,0.1)] hover:shadow-[0_0_50px_rgba(234,179,8,0.2)] transition-all duration-300"
+            >
+              <Trophy className="w-10 h-10 text-yellow-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]" />
+              <div className={`font-black text-3xl mb-1 ${getGPAColor(MOCK_TEAM_STATS.averageGPA)}`}>{MOCK_TEAM_STATS.averageGPA}</div>
+              <div className="text-yellow-200 text-sm font-bold">Avg GPA</div>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-gradient-to-br from-[#F59E0B]/20 to-[#F97316]/10 backdrop-blur-lg rounded-2xl p-6 border border-[#F59E0B]/30 text-center shadow-[0_0_30px_rgba(245,158,11,0.1)] hover:shadow-[0_0_50px_rgba(245,158,11,0.2)] transition-all duration-300"
+            >
+              <Zap className="w-10 h-10 text-[#F59E0B] mx-auto mb-3 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
+              <div className="text-white font-black text-3xl mb-1">{MOCK_TEAM_STATS.totalHypeEarned.toLocaleString()}</div>
+              <div className="text-orange-200 text-sm font-bold">Team HYPE</div>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 backdrop-blur-lg rounded-2xl p-6 border border-purple-400/30 text-center shadow-[0_0_30px_rgba(168,85,247,0.1)] hover:shadow-[0_0_50px_rgba(168,85,247,0.2)] transition-all duration-300"
+            >
+              <Calendar className="w-10 h-10 text-purple-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+              <div className="text-white font-black text-3xl mb-1">{MOCK_TEAM_STATS.upcomingGames}</div>
+              <div className="text-purple-200 text-sm font-bold">Next Games</div>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-gradient-to-br from-orange-500/20 to-orange-600/10 backdrop-blur-lg rounded-2xl p-6 border border-orange-400/30 text-center shadow-[0_0_30px_rgba(249,115,22,0.1)] hover:shadow-[0_0_50px_rgba(249,115,22,0.2)] transition-all duration-300"
+            >
+              <Clipboard className="w-10 h-10 text-orange-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]" />
+              <div className={`font-black text-3xl mb-1 ${getAttendanceColor(MOCK_TEAM_STATS.practiceAttendance)}`}>{MOCK_TEAM_STATS.practiceAttendance}%</div>
+              <div className="text-orange-200 text-sm font-bold">Attendance</div>
+            </motion.div>
           </div>
 
           {/* Tab Navigation */}

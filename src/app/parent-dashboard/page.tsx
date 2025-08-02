@@ -238,19 +238,42 @@ export default function ParentDashboard() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           
-          {/* Header Section */}
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-black text-white mb-4">
-              <span className="text-[#F59E0B]">ULTRA</span> Parent Hub
-            </h2>
-            <p className="text-white/70 text-lg">
-              Monitor your student-athlete&apos;s progress, achievements, and activities in real-time.
-            </p>
-          </div>
+          {/* Enhanced Header Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <div className="relative inline-block">
+              <h2 className="text-5xl md:text-6xl font-black text-white mb-6 relative z-10">
+                <span className="text-[#F59E0B] drop-shadow-[0_0_30px_rgba(245,158,11,0.5)]">ULTRA</span> 
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent"> FAMILY</span>
+              </h2>
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 rounded-2xl blur-2xl opacity-50" />
+            </div>
+            <div className="bg-gradient-to-r from-[#F59E0B]/20 to-[#F97316]/20 backdrop-blur-sm rounded-2xl border border-[#F59E0B]/30 p-6 max-w-4xl mx-auto">
+              <p className="text-white/90 text-xl font-medium leading-relaxed">
+                🏆 <span className="text-[#F59E0B] font-bold">Command Center</span> for monitoring your student-athletes&apos; complete development journey
+              </p>
+              <p className="text-white/70 text-lg mt-2">
+                From academic excellence to athletic achievements - track every milestone, celebrate every victory
+              </p>
+            </div>
+          </motion.div>
 
-          {/* Child Selector */}
+          {/* Enhanced Child Selector */}
           {MOCK_CHILDREN.length > 1 && (
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20 mb-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-[#F59E0B]/30 mb-8 shadow-[0_0_50px_rgba(245,158,11,0.1)]"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <Users className="w-6 h-6 text-[#F59E0B]" />
+                <h3 className="text-xl font-black text-white">Select Your Athlete</h3>
+              </div>
               <div className="flex items-center gap-4">
                 <span className="text-white font-medium">Select Student:</span>
                 <div className="flex gap-2">
@@ -319,28 +342,39 @@ export default function ParentDashboard() {
             </div>
           </div>
 
-          {/* Tab Navigation */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20 mb-8">
-            <div className="flex flex-wrap gap-2">
+          {/* Enhanced Tab Navigation */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-[#F59E0B]/30 mb-8 shadow-[0_0_50px_rgba(245,158,11,0.1)]"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <BarChart3 className="w-6 h-6 text-[#F59E0B]" />
+              <h3 className="text-xl font-black text-white">Family Dashboard Controls</h3>
+            </div>
+            <div className="flex flex-wrap gap-3">
               {PARENT_TABS.map((tab) => {
                 const IconComponent = tab.icon;
                 return (
-                  <button
+                  <motion.button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200 font-medium ${
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex items-center gap-3 px-6 py-4 rounded-xl transition-all duration-300 font-bold border-2 ${
                       activeTab === tab.id
-                        ? 'bg-[#F59E0B] text-white shadow-lg'
-                        : 'bg-white/10 text-white/70 hover:bg-white/20'
+                        ? 'bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-white shadow-2xl border-white/50 shadow-[#F59E0B]/25'
+                        : 'bg-white/5 text-white/70 hover:bg-white/15 border-white/20 hover:border-[#F59E0B]/50 hover:text-white'
                     }`}
                   >
                     <IconComponent className="w-5 h-5" />
-                    <span>{tab.label}</span>
-                  </button>
+                    <span className="text-sm font-black">{tab.label}</span>
+                  </motion.button>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
           {/* Tab Content */}
           <AnimatePresence mode="wait">
