@@ -43,6 +43,40 @@ html, body {
   min-height: 100vh;
 }
 
+/* Light Mode Professional Typography */
+.light-mode {
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F9FAFB;
+  --border-color: #E5E7EB;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Typography */
+.dark-mode {
+  --text-primary: #FFFFFF;
+  --text-secondary: #D1D5DB;
+  --bg-primary: #111827;
+  --bg-secondary: #1F2937;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Improved contrast for light mode readability */
+.light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4, .light-mode h5, .light-mode h6 {
+  color: #111827 !important;
+  font-weight: 700;
+}
+
+.light-mode p, .light-mode span, .light-mode div {
+  color: #374151;
+}
+
+.light-mode .text-secondary {
+  color: #6B7280 !important;
+}
+
 /* Collegiate Multi-Color Animation - Represents Every School */
 @keyframes collegiateGlow {
   0% {

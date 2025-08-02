@@ -3,13 +3,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Trophy, Heart, Users, Crown, Play, ArrowRight, Rocket, Zap, Star, Camera, BarChart3, Bot, Sun, Moon
+  Trophy, Heart, Users, Crown, Play, ArrowRight, Rocket, Zap, Star, Camera, BarChart3, Bot, Sun, Moon, UserCheck
 } from "lucide-react";
 import Link from 'next/link';
 import { useTheme } from '@/components/ThemeContext';
+import StakeholderRoleSelector from '@/components/StakeholderRoleSelector';
 
 export default function UltraPrepsHomepage() {
   const [activeDemo, setActiveDemo] = useState('student');
+  const [isRoleSelectorOpen, setIsRoleSelectorOpen] = useState(false);
   const { theme, toggleTheme, isDark } = useTheme();
 
   const coreFeatures = [
@@ -156,17 +158,18 @@ export default function UltraPrepsHomepage() {
                 <ArrowRight className="w-7 h-7" />
               </Link>
               
-              <Link
-                href="/beta"
-                className={`inline-flex items-center gap-4 px-12 py-6 border-2 rounded-2xl font-black text-xl transition-all ${
+              <button
+                onClick={() => setIsRoleSelectorOpen(true)}
+                className={`inline-flex items-center gap-4 px-12 py-6 border-2 rounded-2xl font-black text-xl transition-all hover:scale-105 ${
                   isDark 
                     ? 'text-white bg-white/10 border-white/30 hover:bg-white/20 hover:border-white/50' 
                     : 'text-gray-900 bg-black/10 border-gray-300 hover:bg-black/20 hover:border-gray-400'
                 }`}
               >
-                <Crown className="w-7 h-7" />
-                Join Beta Program
-              </Link>
+                <UserCheck className="w-7 h-7" />
+                Choose Your Role
+                <ArrowRight className="w-7 h-7" />
+              </button>
             </motion.div>
           </motion.div>
         </div>
@@ -256,6 +259,11 @@ export default function UltraPrepsHomepage() {
           </Link>
         </div>
       </div>
+      {/* STAKEHOLDER ROLE SELECTOR MODAL */}
+      <StakeholderRoleSelector 
+        isOpen={isRoleSelectorOpen} 
+        onClose={() => setIsRoleSelectorOpen(false)} 
+      />
     </div>
   );
 }
