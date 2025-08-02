@@ -122,12 +122,6 @@ export default function MobileOptimizations() {
         </div>
       )}
 
-      {/* Connection Status Indicator */}
-      <div className="fixed top-4 right-4 z-50 md:hidden">
-        <div className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-          isOnline ? 'bg-green-400' : 'bg-red-400'
-        }`} />
-      </div>
     </>
   );
 }
