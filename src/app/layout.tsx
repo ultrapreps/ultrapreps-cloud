@@ -2,7 +2,7 @@
 import './globals.css';
 import React from 'react';
 // Placeholder for DNA theme engine
-import { ThemeProvider } from '../components/ThemeProvider';
+import { ThemeProvider } from '../components/ThemeContext';
 import UltraLayout from '../components/layout/UltraLayout';
 import MobileOptimizations from '../components/MobileOptimizations';
 import SessionProvider from '../components/providers/SessionProvider';

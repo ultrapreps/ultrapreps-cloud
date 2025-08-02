@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { 
@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
+import { useTheme, getThemeColors, getThemeGradients } from '../../components/ThemeContext';
+import ThemeToggle from '../../components/ThemeToggle';
 
 
 interface StudentChild {
@@ -154,6 +156,18 @@ export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState<StudentChild>(MOCK_CHILDREN[0]);
   const [activeTab, setActiveTab] = useState('overview');
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle client-side mounting for theme
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Only use theme hook after mounting
+  const theme = mounted ? useTheme() : { isDark: true, isLight: false };
+  const { isDark, isLight } = theme;
+  const themeColors = getThemeColors(isDark);
+  const themeGradients = getThemeGradients(isDark);
 
   const formatTimeAgo = (date: Date) => {
     const now = new Date();

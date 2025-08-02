@@ -44,10 +44,24 @@ import {
 import clsx from "clsx";
 import Link from 'next/link';
 import { stakeholderVisions } from '../data/stakeholderVisions';
+import { useTheme, getThemeColors, getThemeGradients } from '../components/ThemeContext';
+import ThemeToggle from '../components/ThemeToggle';
 
 // ULTRAPREPS BILLION-DOLLAR VISION SHOWCASE
 function HeroSection() {
   const [activeUserType, setActiveUserType] = useState('student');
+  const [mounted, setMounted] = useState(false);
+  
+  // Handle client-side mounting
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Only use theme hook after mounting
+  const theme = mounted ? useTheme() : { isDark: true, isLight: false };
+  const { isDark, isLight } = theme;
+  const themeColors = getThemeColors(isDark);
+  const themeGradients = getThemeGradients(isDark);
 
   // COMPLETE ATHLETIC LIFECYCLE ECOSYSTEM - T-BALL TO MLB RETIREMENT
   const userTypes = [
@@ -89,11 +103,18 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Dynamic Background */}
+      {/* Theme Toggle - Only render after mounting */}
+      {mounted && (
+        <div className="absolute top-4 right-4 z-50">
+          <ThemeToggle />
+        </div>
+      )}
+
+      {/* Dynamic Theme-Aware Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
-        <div className="absolute inset-0 bg-[url('/stadium-crowd-energy.jpg')] bg-cover bg-center opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+        <div className={`absolute inset-0 bg-gradient-to-br ${themeGradients.hero}`} />
+        <div className={`absolute inset-0 bg-[url('/stadium-crowd-energy.jpg')] bg-cover bg-center ${isDark ? 'opacity-20' : 'opacity-10'}`} />
+        <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black/80 via-transparent to-black/40' : 'from-white/60 via-transparent to-gray-100/40'}`} />
       </div>
 
       {/* ULTRAPREPS Crown Logo */}
@@ -101,7 +122,7 @@ function HeroSection() {
         <div className="flex items-center gap-3">
           <Crown className="w-12 h-12 text-[#F59E0B]" />
           <div className="text-center">
-            <h1 className="text-3xl font-black text-white tracking-wider">ULTRAPREPS</h1>
+            <h1 className={`text-3xl font-black tracking-wider ${themeColors.text.primary}`}>ULTRAPREPS</h1>
             <p className="text-xs text-[#F59E0B] font-bold tracking-widest">BILLION-DOLLAR ATHLETICS AI</p>
           </div>
         </div>
@@ -115,7 +136,7 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h2 className="text-2xl md:text-3xl font-black text-white/90 mb-4 tracking-wide">
+          <h2 className={`text-2xl md:text-3xl font-black mb-4 tracking-wide ${themeColors.text.primary}`}>
             COMPLETE ATHLETIC LIFECYCLE ECOSYSTEM
           </h2>
           <p className="text-lg text-[#F59E0B] font-bold mb-8">
@@ -134,7 +155,9 @@ function HeroSection() {
                     "px-3 py-4 rounded-xl font-bold transition-all duration-300 flex flex-col items-center gap-2 text-center min-h-[100px] border-2",
                     activeUserType === type.id
                       ? `bg-gradient-to-r ${type.color} text-white shadow-2xl border-white/50 shadow-current/25`
-                      : "bg-white/5 text-white/70 hover:bg-white/15 border-white/20 hover:border-white/40"
+                      : isDark 
+                        ? "bg-white/5 text-white/70 hover:bg-white/15 border-white/20 hover:border-white/40"
+                        : "bg-black/5 text-gray-700 hover:bg-black/10 border-gray-300 hover:border-gray-400"
                   )}
                 >
                   <TypeIcon className="w-6 h-6" />
@@ -163,16 +186,16 @@ function HeroSection() {
             className="mb-12"
             >
             <div className={`w-32 h-32 mx-auto rounded-full bg-gradient-to-r ${gradient} p-2 shadow-2xl mb-8`}>
-                <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
-                <IconComponent className="w-16 h-16 text-white" />
+                <div className={`w-full h-full rounded-full ${isDark ? 'bg-black' : 'bg-white'} flex items-center justify-center`}>
+                <IconComponent className={`w-16 h-16 ${isDark ? 'text-white' : 'text-gray-900'}`} />
                 </div>
               </div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight">
+            <h1 className={`text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight ${themeColors.text.primary}`}>
               {currentStakeholder.title}
             </h1>
             
-            <p className="text-2xl md:text-3xl text-white/80 mb-4 max-w-5xl mx-auto leading-relaxed">
+            <p className={`text-2xl md:text-3xl mb-4 max-w-5xl mx-auto leading-relaxed ${themeColors.text.secondary}`}>
               {currentStakeholder.subtitle}
             </p>
             
@@ -190,7 +213,7 @@ function HeroSection() {
           >
             <div className="flex items-center justify-center gap-4 mb-8">
               <Play className="w-8 h-8 text-[#F59E0B]" />
-              <h3 className="text-3xl font-black text-white">LIVE DEMO EXPERIENCES</h3>
+              <h3 className={`text-3xl font-black ${themeColors.text.primary}`}>LIVE DEMO EXPERIENCES</h3>
               <Sparkles className="w-8 h-8 text-[#F59E0B]" />
         </div>
 
@@ -199,16 +222,16 @@ function HeroSection() {
                 <Link
                   key={index}
                   href={demo.href}
-                  className="group bg-gradient-to-br from-white/10 to-white/5 hover:from-[#F59E0B]/20 hover:to-[#F97316]/20 
-                           border border-white/20 hover:border-[#F59E0B]/60 rounded-xl p-6 transition-all duration-300 
-                           hover:scale-105 hover:shadow-2xl hover:shadow-[#F59E0B]/20"
+                  className={`group ${themeGradients.card} hover:from-[#F59E0B]/20 hover:to-[#F97316]/20 
+                           ${themeColors.border} hover:border-[#F59E0B]/60 rounded-xl p-6 transition-all duration-300 
+                           hover:scale-105 hover:shadow-2xl hover:shadow-[#F59E0B]/20`}
                 >
                   <div className="flex flex-col items-center gap-3 text-center">
-                    <demo.icon className="w-10 h-10 text-white group-hover:text-[#F59E0B] transition-colors" />
-                    <span className="text-sm font-black text-white group-hover:text-[#F59E0B] transition-colors">
+                    <demo.icon className={`w-10 h-10 ${themeColors.text.primary} group-hover:text-[#F59E0B] transition-colors`} />
+                    <span className={`text-sm font-black ${themeColors.text.primary} group-hover:text-[#F59E0B] transition-colors`}>
                       {demo.label}
                     </span>
-                    <span className="text-xs text-white/60 group-hover:text-white/80 leading-tight">
+                    <span className={`text-xs ${themeColors.text.muted} group-hover:${themeColors.text.secondary} leading-tight`}>
                       {demo.description}
                     </span>
                 </div>

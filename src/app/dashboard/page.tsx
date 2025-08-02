@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
@@ -11,6 +11,8 @@ import {
 import HypeWidget from '../../components/HypeWidget';
 import GageAIChat from '../../components/GageAIChat';
 import GageWelcomePopup from '../../components/GageWelcomePopup';
+import { useTheme, getThemeColors, getThemeGradients } from '../../components/ThemeContext';
+import ThemeToggle from '../../components/ThemeToggle';
 
 
 
@@ -36,6 +38,18 @@ export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle client-side mounting for theme
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Only use theme hook after mounting
+  const theme = mounted ? useTheme() : { isDark: true, isLight: false };
+  const { isDark, isLight } = theme;
+  const themeColors = getThemeColors(isDark);
+  const themeGradients = getThemeGradients(isDark);
 
   // Check if user is new (show welcome popup)
   useEffect(() => {
@@ -310,13 +324,20 @@ export default function StudentDashboard() {
   }
 
           return (
-        <div className="ultra-page-layout">
-          {/* Standardized Stadium Background */}
-          <div className="absolute inset-0 ultra-stadium-bg" />
+        <div className={`min-h-screen relative overflow-hidden ${isDark ? 'bg-gradient-to-br from-black via-gray-900 to-black' : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'}`}>
+          {/* Theme Toggle */}
+          {mounted && (
+            <div className="absolute top-4 right-4 z-50">
+              <ThemeToggle />
+            </div>
+          )}
+
+          {/* Theme-Aware Stadium Background */}
+          <div className={`absolute inset-0 bg-[url('/stadium-crowd-energy.jpg')] bg-cover bg-center ${isDark ? 'opacity-20' : 'opacity-10'}`} />
           
-          {/* Standardized Overlays */}
-          <div className="absolute inset-0 ultra-overlay-primary" />
-          <div className="absolute inset-0 ultra-overlay-secondary" />
+          {/* Theme-Aware Overlays */}
+          <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-b from-black/85 via-black/75 to-black/90' : 'bg-gradient-to-b from-white/85 via-white/75 to-white/90'}`} />
+          <div className={`absolute inset-0 ${isDark ? 'bg-black/40' : 'bg-white/40'}`} />
 
           {/* Dynamic Light Effects */}
           <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-[#F59E0B]/8 rounded-full blur-3xl animate-pulse" />
@@ -327,11 +348,11 @@ export default function StudentDashboard() {
           {/* Content */}
           <div className="relative z-10 pt-20">
             {/* Welcome Header */}
-            <header className="border-b border-white/10 bg-black/20 backdrop-blur-lg">
+            <header className={`${themeColors.border} ${isDark ? 'bg-black/20' : 'bg-white/20'} backdrop-blur-lg border-b`}>
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center gap-4">
-                    <h1 className="text-white font-bold text-xl">
+                    <h1 className={`font-bold text-xl ${themeColors.text.primary}`}>
                       Welcome back, {student.fullName}!
                     </h1>
                   </div>
@@ -344,7 +365,7 @@ export default function StudentDashboard() {
                     >
                       Test Gage Popup
                     </button>
-                    <button className="p-2 text-white/70 hover:text-white transition-colors">
+                    <button className={`p-2 ${themeColors.text.secondary} hover:${themeColors.text.primary} transition-colors`}>
                       <Settings className="w-5 h-5" />
                     </button>
                   </div>
