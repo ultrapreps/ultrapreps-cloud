@@ -1,20 +1,14 @@
+'use client';
+
 import React from 'react';
 import FamilyLifebook from '@/components/FamilyLifebook';
 import AnimatedHeroCards from '@/components/AnimatedHeroCards';
 import LegacySection from '@/components/LegacySection';
 import TeamChat from '@/components/TeamChat';
-import { useSession } from 'next-auth/react';
-import { Spinner } from '@/components/Spinner'; // Assume a Spinner component exists
 
 export default function GrandpaJimDemo() {
-  const { data: session, status } = useSession();
-  if (status === 'loading') {
-    return <div className="flex items-center justify-center min-h-screen"><Spinner /> Loading...</div>;
-  }
-  if (!session?.user?.id) {
-    return <div className="flex items-center justify-center min-h-screen text-red-500 text-xl font-bold">Error: You must be signed in to view this page.</div>;
-  }
-  const userId = session.user.id;
+  // PUBLIC DEMO - NO LOGIN REQUIRED
+  const userId = 'demo-user';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white p-8">

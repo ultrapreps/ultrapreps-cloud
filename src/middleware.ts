@@ -29,6 +29,19 @@ const publicRoutes = [
   '/community',
   '/feed',
   '/api/auth',
+  // STAKEHOLDER DEMOS - NO LOGIN REQUIRED
+  '/grandpa-jim-demo',
+  '/test-hud',
+  '/test-hype', 
+  '/test-mascot',
+  '/test-poster',
+  '/test-school',
+  '/poster/create',
+  '/poster/gallery',
+  '/stadium/create',
+  '/media-kit',
+  '/recruiting',
+  '/discover',
 ];
 
 export default withAuth(
