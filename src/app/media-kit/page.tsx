@@ -13,6 +13,7 @@ export default function MediaKit() {
   if (status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
+  
   const adminId = session?.user?.id || '';
 
   return (
