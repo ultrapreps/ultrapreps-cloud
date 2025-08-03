@@ -14,8 +14,19 @@ export default function UltraPrepsHomepage() {
   const [isRoleSelectorOpen, setIsRoleSelectorOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   
-  // Always call useTheme hook at top level (React rules)
-  const { theme, toggleTheme, isDark } = useTheme();
+  // Safe theme usage
+  let theme, toggleTheme, isDark;
+  try {
+    const themeContext = useTheme();
+    theme = themeContext.theme;
+    toggleTheme = themeContext.toggleTheme;
+    isDark = themeContext.isDark;
+  } catch (error) {
+    // Fallback if theme context not available
+    theme = 'dark';
+    toggleTheme = () => {};
+    isDark = true;
+  }
   
   useEffect(() => {
     setMounted(true);
