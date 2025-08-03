@@ -9,7 +9,7 @@ import {
   Calendar, Briefcase, Globe, X
 } from 'lucide-react';
 import Link from 'next/link';
-import { useTheme } from './ThemeContext';
+// import { useTheme } from './ThemeContext'; // Removed to prevent SSR issues
 
 // SOPHISTICATED INFORMATION ARCHITECTURE
 // Based on User Journey & Cognitive Load Theory
@@ -164,7 +164,8 @@ interface StakeholderRoleSelectorProps {
 export default function StakeholderRoleSelector({ isOpen, onClose }: StakeholderRoleSelectorProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [step, setStep] = useState<'categories' | 'roles'>('categories');
-  const { isDark } = useTheme();
+  // Fixed: Use default dark theme to prevent SSR mismatch
+  const isDark = true; // Default to dark theme
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);

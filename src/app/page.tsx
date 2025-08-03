@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Trophy, Heart, Users, Crown, Play, ArrowRight, Rocket, Zap, Star, Camera, BarChart3, Bot, Sun, Moon, UserCheck
@@ -12,7 +12,15 @@ import StakeholderRoleSelector from '@/components/StakeholderRoleSelector';
 export default function UltraPrepsHomepage() {
   const [activeDemo, setActiveDemo] = useState('student');
   const [isRoleSelectorOpen, setIsRoleSelectorOpen] = useState(false);
-  const { theme, toggleTheme, isDark } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // Handle theme safely with mounting check
+  const themeResult = typeof window !== 'undefined' && mounted ? useTheme() : null;
+  const { theme, toggleTheme, isDark } = themeResult || { theme: 'dark', toggleTheme: () => {}, isDark: true };
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const coreFeatures = [
     { icon: Trophy, title: "HeroCards", description: "Professional athletic trading cards", href: "/stadium/create" },
