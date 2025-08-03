@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   const sessionResult = useSession();
   
-  if (sessionResult.status === 'loading') {
+  if (!sessionResult || sessionResult.status === 'loading') {
     return (
       <html lang="en">
         <head>

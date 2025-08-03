@@ -8,7 +8,7 @@ import { useState } from 'react';
 export default function YouthOnboarding() {
   const sessionResult = useSession();
   
-  if (sessionResult.status === 'loading') {
+  if (!sessionResult || sessionResult.status === 'loading') {
     return <div className="flex items-center justify-center min-h-screen text-white">Loading...</div>;
   }
   const userId = sessionResult.data?.user?.id || '';
