@@ -14,13 +14,21 @@ export default function UltraPrepsHomepage() {
   const [isRoleSelectorOpen, setIsRoleSelectorOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   
-  // Handle theme safely with mounting check
-  const themeResult = typeof window !== 'undefined' && mounted ? useTheme() : null;
-  const { theme, toggleTheme, isDark } = themeResult || { theme: 'dark', toggleTheme: () => {}, isDark: true };
+  // Always call useTheme hook at top level (React rules)
+  const { theme, toggleTheme, isDark } = useTheme();
   
   useEffect(() => {
     setMounted(true);
   }, []);
+  
+  // Don't render theme-dependent content until mounted
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
 
   const coreFeatures = [
     { icon: Trophy, title: "HeroCards", description: "Professional athletic trading cards", href: "/stadium/create" },

@@ -8,7 +8,7 @@ import UltraLayout from '../components/layout/UltraLayout';
 import MobileOptimizations from '../components/MobileOptimizations';
 import SessionProvider from '../components/providers/SessionProvider';
 import { WebSocketProvider } from '../lib/websocket/client';
-import { useSession } from 'next-auth/react';
+// Removed unused useSession import
 import Link from 'next/link';
 
 export default function RootLayout({
