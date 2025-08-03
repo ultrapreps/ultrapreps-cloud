@@ -18,20 +18,9 @@ export default function RootLayout({
 }) {
   const sessionResult = useSession();
   
-  if (!sessionResult || sessionResult.status === 'loading') {
-    return (
-      <html lang="en">
-        <head>
-          <title>UltraPreps - Loading...</title>
-        </head>
-        <body>
-          <div className="flex items-center justify-center min-h-screen text-white bg-black">Loading...</div>
-        </body>
-      </html>
-    );
-  }
-  
-  const roles = session?.user?.roles || [];
+  // Don't block layout rendering for session loading
+  // Individual pages will handle their own session requirements
+  const roles = sessionResult?.data?.user?.roles || [];
   
   return (
     <html lang="en">
