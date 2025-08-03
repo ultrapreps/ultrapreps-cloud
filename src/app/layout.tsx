@@ -16,11 +16,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const sessionResult = useSession();
-  
-  // Don't block layout rendering for session loading
-  // Individual pages will handle their own session requirements
-  const roles = sessionResult?.data?.user?.roles || [];
+  // Move useSession inside SessionProvider - can't call it here
   
   return (
     <html lang="en">
@@ -41,26 +37,18 @@ export default function RootLayout({
           <Link href="/dashboard" className="text-white/80 hover:text-white transition-colors">
             Dashboard
           </Link>
-          {roles.includes('student') && (
-            <Link href="/student-dashboard" className="text-white/80 hover:text-white transition-colors">
-              Student
-            </Link>
-          )}
-          {roles.includes('coach') && (
-            <Link href="/coach-dashboard" className="text-white/80 hover:text-white transition-colors">
-              Coach
-            </Link>
-          )}
-          {roles.includes('parent') && (
-            <Link href="/parent-dashboard" className="text-white/80 hover:text-white transition-colors">
-              Family
-            </Link>
-          )}
-          {roles.includes('admin') && (
-            <Link href="/superintendent-dashboard" className="text-white/80 hover:text-white transition-colors">
-              District
-            </Link>
-          )}
+          <Link href="/student-dashboard" className="text-white/80 hover:text-white transition-colors">
+            Student
+          </Link>
+          <Link href="/coach-dashboard" className="text-white/80 hover:text-white transition-colors">
+            Coach
+          </Link>
+          <Link href="/parent-dashboard" className="text-white/80 hover:text-white transition-colors">
+            Family
+          </Link>
+          <Link href="/superintendent-dashboard" className="text-white/80 hover:text-white transition-colors">
+            District
+          </Link>
           <Link href="/community" className="text-white/80 hover:text-white transition-colors">
             Community
           </Link>
