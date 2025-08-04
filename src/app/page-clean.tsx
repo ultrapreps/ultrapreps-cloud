@@ -118,7 +118,7 @@ function HeroSection() {
       school: "Central High",
       year: "2025",
       stats: { yards: "3,247", touchdowns: "28", completions: "156" },
-      image: "/placeholder-athlete.jpg"
+      image: "https://images.unsplash.com/photo-1571019613914-85f342c6a11e?w=400&h=600&fit=crop&crop=face"
     },
     {
       name: "Sarah Chen",
@@ -127,7 +127,7 @@ function HeroSection() {
       school: "West Valley",
       year: "2026",
       stats: { points: "24.5", assists: "8.2", rebounds: "6.1" },
-      image: "/placeholder-athlete.jpg"
+      image: "https://images.unsplash.com/photo-1571019613914-85f342c6a11e?w=400&h=600&fit=crop&crop=face"
     }
   ];
 

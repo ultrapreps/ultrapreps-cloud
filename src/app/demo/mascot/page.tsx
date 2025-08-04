@@ -295,19 +295,49 @@ export default function MascotDemo() {
                     </div>
                   </div>
 
-                  {/* Mascot Placeholder */}
+                  {/* Professional Mascot Display */}
                   <div className="absolute inset-8 flex items-center justify-center">
                     <div 
-                      className="w-48 h-48 rounded-full border-4 flex items-center justify-center"
+                      className="w-48 h-48 rounded-full border-4 overflow-hidden flex items-center justify-center bg-gradient-to-br from-white/20 to-black/20"
                       style={{ 
                         borderColor: currentSchool.colors.secondary,
                         backgroundColor: `${currentSchool.colors.primary}60`
                       }}
                     >
-                      {currentSchool.mascot.includes('Eagle') && <Bird className="w-24 h-24 text-white" />}
-                      {currentSchool.mascot.includes('Mustang') && <Bolt className="w-24 h-24 text-white" />}
-                      {currentSchool.mascot.includes('Wolves') && <Eye className="w-24 h-24 text-white" />}
-                      {currentSchool.mascot.includes('Lions') && <Crown className="w-24 h-24 text-white" />}
+                      {currentSchool.mascot.includes('Eagle') && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"
+                          alt="Eagle Mascot"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {currentSchool.mascot.includes('Mustang') && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1553284966-19b8815c7817?w=400&h=400&fit=crop"
+                          alt="Mustang Mascot"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {currentSchool.mascot.includes('Wolves') && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=400&h=400&fit=crop"
+                          alt="Wolf Mascot"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {currentSchool.mascot.includes('Lions') && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=400&h=400&fit=crop"
+                          alt="Lion Mascot"
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {!currentSchool.mascot.includes('Eagle') && 
+                       !currentSchool.mascot.includes('Mustang') && 
+                       !currentSchool.mascot.includes('Wolves') && 
+                       !currentSchool.mascot.includes('Lions') && (
+                        <Crown className="w-24 h-24 text-white" />
+                      )}
                     </div>
                   </div>
 
