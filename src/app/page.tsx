@@ -47,7 +47,7 @@ interface Feature {
   icon: React.ElementType;
   href: string;
   category: 'core' | 'ai' | 'social' | 'professional';
-  gradient: string;
+
 }
 
 const FEATURES: Feature[] = [
@@ -58,7 +58,7 @@ const FEATURES: Feature[] = [
     icon: Trophy,
     href: '/demo/herocard',
     category: 'core',
-    gradient: 'from-yellow-500 to-orange-500'
+
   },
   {
     id: 'stadium',
@@ -67,7 +67,7 @@ const FEATURES: Feature[] = [
     icon: Building,
     href: '/stadium/create',
     category: 'core',
-    gradient: 'from-blue-500 to-purple-500'
+
   },
   {
     id: 'ai-coach',
@@ -76,7 +76,7 @@ const FEATURES: Feature[] = [
     icon: Brain,
     href: '/demo/ai-coach',
     category: 'ai',
-    gradient: 'from-green-500 to-emerald-500'
+
   },
   {
     id: 'recruiting',
@@ -85,7 +85,7 @@ const FEATURES: Feature[] = [
     icon: Target,
     href: '/demo/recruiting',
     category: 'professional',
-    gradient: 'from-red-500 to-pink-500'
+
   },
   {
     id: 'nil',
@@ -94,7 +94,7 @@ const FEATURES: Feature[] = [
     icon: DollarSign,
     href: '/demo/nil',
     category: 'professional',
-    gradient: 'from-purple-500 to-indigo-500'
+
   },
   {
     id: 'community',
@@ -103,7 +103,7 @@ const FEATURES: Feature[] = [
     icon: Users,
     href: '/community',
     category: 'social',
-    gradient: 'from-cyan-500 to-blue-500'
+
   }
 ];
 
@@ -132,16 +132,16 @@ function HeroSection() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+    <section className="ultra-bg-primary relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Clean Black & White Fade Background */}
+      <div className="ultra-bg-fade-radial absolute inset-0"></div>
       
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="mb-8">
           <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
             THE FUTURE OF
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+            <span className="block text-white font-black">
               ATHLETIC EXCELLENCE
             </span>
           </h1>
@@ -176,7 +176,7 @@ function HeroSection() {
               href={feature.href}
               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all"
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
+              <div className="ultra-surface w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <feature.icon className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>

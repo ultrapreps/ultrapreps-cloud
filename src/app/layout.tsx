@@ -1,7 +1,8 @@
 'use client';
 import './globals.css';
+import '../styles/ultra-theme.css';
 import React from 'react';
-// Placeholder for DNA theme engine
+// ULTRAPREPS ELITE MOBILE-NATIVE DESIGN SYSTEM
 import { ThemeProvider } from '../components/ThemeProvider';
 import UltraLayout from '../components/layout/UltraLayout';
 import MobileOptimizations from '../components/MobileOptimizations';

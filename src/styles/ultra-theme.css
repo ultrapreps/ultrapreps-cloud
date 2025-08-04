@@ -1,0 +1,356 @@
+/* ULTRAPREPS ELITE MOBILE-NATIVE DESIGN SYSTEM */
+/* Based on cutting-edge 2024 mobile design patterns */
+
+:root {
+  /* ELITE COLOR SYSTEM - BLACK & WHITE FADE GRADIENTS */
+  --ultra-black: #000000;
+  --ultra-white: #ffffff;
+  --ultra-gray-50: #fafafa;
+  --ultra-gray-100: #f5f5f5;
+  --ultra-gray-200: #e5e5e5;
+  --ultra-gray-300: #d4d4d4;
+  --ultra-gray-400: #a3a3a3;
+  --ultra-gray-500: #737373;
+  --ultra-gray-600: #525252;
+  --ultra-gray-700: #404040;
+  --ultra-gray-800: #262626;
+  --ultra-gray-900: #171717;
+  
+  /* ACCENT SYSTEM - MINIMAL STRATEGIC COLOR */
+  --ultra-accent: #F59E0B;
+  --ultra-accent-light: #FCD34D;
+  --ultra-accent-dark: #D97706;
+  
+  /* ELITE BACKGROUND GRADIENTS */
+  --ultra-bg-primary: linear-gradient(135deg, #000000 0%, #171717 40%, #262626 100%);
+  --ultra-bg-secondary: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+  --ultra-bg-card: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  --ultra-bg-surface: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  --ultra-bg-glass: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+  
+  /* ELITE TYPOGRAPHY SYSTEM */
+  --ultra-font-primary: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  --ultra-font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  
+  /* SPACING SYSTEM - MOBILE-FIRST */
+  --ultra-space-1: 0.25rem;
+  --ultra-space-2: 0.5rem;
+  --ultra-space-3: 0.75rem;
+  --ultra-space-4: 1rem;
+  --ultra-space-5: 1.25rem;
+  --ultra-space-6: 1.5rem;
+  --ultra-space-8: 2rem;
+  --ultra-space-10: 2.5rem;
+  --ultra-space-12: 3rem;
+  --ultra-space-16: 4rem;
+  --ultra-space-20: 5rem;
+  
+  /* BORDER RADIUS SYSTEM */
+  --ultra-radius-sm: 0.375rem;
+  --ultra-radius-md: 0.5rem;
+  --ultra-radius-lg: 0.75rem;
+  --ultra-radius-xl: 1rem;
+  --ultra-radius-2xl: 1.5rem;
+  --ultra-radius-full: 9999px;
+  
+  /* SHADOW SYSTEM - SUBTLE DEPTH */
+  --ultra-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  --ultra-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --ultra-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+  --ultra-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  
+  /* ANIMATION SYSTEM - MINIMAL & PURPOSEFUL */
+  --ultra-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ultra-transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ultra-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* GLOBAL RESET & BASE STYLES */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--ultra-font-primary);
+  background: var(--ultra-bg-primary);
+  color: var(--ultra-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ELITE BACKGROUND SYSTEM */
+.ultra-bg-primary {
+  background: var(--ultra-bg-primary);
+}
+
+.ultra-bg-secondary {
+  background: var(--ultra-bg-secondary);
+}
+
+.ultra-bg-fade-top {
+  background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.4) 60%, transparent 100%);
+}
+
+.ultra-bg-fade-bottom {
+  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.4) 60%, transparent 100%);
+}
+
+.ultra-bg-fade-radial {
+  background: radial-gradient(circle at center, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.3) 70%, transparent 100%);
+}
+
+/* CARD SYSTEM - MINIMAL GLASS MORPHISM */
+.ultra-card {
+  background: var(--ultra-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--ultra-radius-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--ultra-shadow-lg);
+  transition: all var(--ultra-transition-normal);
+}
+
+.ultra-card:hover {
+  background: var(--ultra-bg-glass);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--ultra-shadow-xl);
+}
+
+.ultra-surface {
+  background: var(--ultra-bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--ultra-radius-lg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* BUTTON SYSTEM - MINIMAL & PURPOSEFUL */
+.ultra-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ultra-space-2);
+  padding: var(--ultra-space-3) var(--ultra-space-6);
+  border: none;
+  border-radius: var(--ultra-radius-lg);
+  font-family: var(--ultra-font-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--ultra-transition-fast);
+  user-select: none;
+}
+
+.ultra-btn-primary {
+  background: var(--ultra-accent);
+  color: var(--ultra-black);
+}
+
+.ultra-btn-primary:hover {
+  background: var(--ultra-accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.ultra-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ultra-white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ultra-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ultra-btn-ghost {
+  background: transparent;
+  color: var(--ultra-white);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ultra-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* TYPOGRAPHY SYSTEM */
+.ultra-text-xs { font-size: 0.75rem; line-height: 1rem; }
+.ultra-text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.ultra-text-base { font-size: 1rem; line-height: 1.5rem; }
+.ultra-text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.ultra-text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.ultra-text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.ultra-text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.ultra-text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.ultra-text-5xl { font-size: 3rem; line-height: 1; }
+.ultra-text-6xl { font-size: 3.75rem; line-height: 1; }
+
+/* INPUT SYSTEM */
+.ultra-input {
+  width: 100%;
+  padding: var(--ultra-space-3) var(--ultra-space-4);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--ultra-radius-lg);
+  color: var(--ultra-white);
+  font-family: var(--ultra-font-primary);
+  font-size: 0.875rem;
+  transition: all var(--ultra-transition-fast);
+}
+
+.ultra-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ultra-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ultra-accent);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+/* NAVIGATION SYSTEM */
+.ultra-nav {
+  background: var(--ultra-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* MOBILE-FIRST RESPONSIVE SYSTEM */
+@media (max-width: 640px) {
+  .ultra-container {
+    padding-left: var(--ultra-space-4);
+    padding-right: var(--ultra-space-4);
+  }
+  
+  .ultra-text-responsive {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .ultra-container {
+    padding-left: var(--ultra-space-6);
+    padding-right: var(--ultra-space-6);
+  }
+  
+  .ultra-text-responsive {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .ultra-container {
+    padding-left: var(--ultra-space-8);
+    padding-right: var(--ultra-space-8);
+  }
+  
+  .ultra-text-responsive {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+}
+
+/* UTILITY CLASSES */
+.ultra-no-scroll { overflow: hidden; }
+.ultra-relative { position: relative; }
+.ultra-absolute { position: absolute; }
+.ultra-fixed { position: fixed; }
+.ultra-inset-0 { inset: 0; }
+.ultra-z-10 { z-index: 10; }
+.ultra-z-20 { z-index: 20; }
+.ultra-z-30 { z-index: 30; }
+.ultra-z-40 { z-index: 40; }
+.ultra-z-50 { z-index: 50; }
+
+/* LAYOUT UTILITIES */
+.ultra-flex { display: flex; }
+.ultra-grid { display: grid; }
+.ultra-hidden { display: none; }
+.ultra-block { display: block; }
+.ultra-inline-block { display: inline-block; }
+
+.ultra-items-center { align-items: center; }
+.ultra-items-start { align-items: flex-start; }
+.ultra-items-end { align-items: flex-end; }
+.ultra-justify-center { justify-content: center; }
+.ultra-justify-between { justify-content: space-between; }
+.ultra-justify-start { justify-content: flex-start; }
+.ultra-justify-end { justify-content: flex-end; }
+
+.ultra-gap-1 { gap: var(--ultra-space-1); }
+.ultra-gap-2 { gap: var(--ultra-space-2); }
+.ultra-gap-3 { gap: var(--ultra-space-3); }
+.ultra-gap-4 { gap: var(--ultra-space-4); }
+.ultra-gap-6 { gap: var(--ultra-space-6); }
+.ultra-gap-8 { gap: var(--ultra-space-8); }
+
+/* SPACING UTILITIES */
+.ultra-p-2 { padding: var(--ultra-space-2); }
+.ultra-p-4 { padding: var(--ultra-space-4); }
+.ultra-p-6 { padding: var(--ultra-space-6); }
+.ultra-p-8 { padding: var(--ultra-space-8); }
+
+.ultra-m-2 { margin: var(--ultra-space-2); }
+.ultra-m-4 { margin: var(--ultra-space-4); }
+.ultra-m-6 { margin: var(--ultra-space-6); }
+.ultra-m-8 { margin: var(--ultra-space-8); }
+
+.ultra-mt-4 { margin-top: var(--ultra-space-4); }
+.ultra-mt-8 { margin-top: var(--ultra-space-8); }
+.ultra-mb-4 { margin-bottom: var(--ultra-space-4); }
+.ultra-mb-8 { margin-bottom: var(--ultra-space-8); }
+
+/* REMOVE ALL CHEESY SPINNING TOKENS & ANIMATIONS */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin,
+.spin,
+.rotate,
+.loading-spinner,
+.spinner {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* DISABLE ALL CHEESY ANIMATIONS */
+* {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0.15s !important; /* Only allow minimal transitions */
+}
+
+/* HIGH-CONTRAST MODE FOR ACCESSIBILITY */
+@media (prefers-contrast: high) {
+  :root {
+    --ultra-bg-card: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    --ultra-bg-surface: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%);
+  }
+  
+  .ultra-card {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .ultra-input {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
