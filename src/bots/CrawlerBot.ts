@@ -103,8 +103,40 @@ export interface ActivityData {
 // CrawlerBot - Universal Student Research AI
 // Researches schools and ALL student activities, not just sports
 export class CrawlerBot {
+  private status: {
+    name: string;
+    status: 'active' | 'idle' | 'processing' | 'error';
+    lastAction: string;
+    uptime: number;
+    processedRequests: number;
+  };
+  private startTime: number;
+
+  constructor() {
+    this.status = {
+      name: 'CrawlerBot',
+      status: 'idle',
+      lastAction: 'System initialized',
+      uptime: 0,
+      processedRequests: 0
+    };
+    this.startTime = Date.now();
+  }
+
+  private updateStatus(action: string, status: 'active' | 'idle' | 'processing' | 'error' = 'active') {
+    this.status.status = status;
+    this.status.lastAction = action;
+    this.status.uptime = Date.now() - this.startTime;
+    this.status.processedRequests++;
+  }
+
+  getStatus() {
+    this.status.uptime = Date.now() - this.startTime;
+    return { ...this.status };
+  }
   
   async enrichSchoolData(schoolName: string): Promise<SchoolData> {
+    this.updateStatus(`Researching comprehensive data for ${schoolName}`, 'processing');
     console.log(`🤖 CrawlerBot researching ALL activities at: ${schoolName}`);
     
     // This would integrate with real web scraping and APIs
@@ -174,11 +206,13 @@ export class CrawlerBot {
       }
     };
     
+    this.updateStatus(`Completed research for ${schoolName}`, 'active');
     return schoolData;
   }
 
   // NEW: Research specific activity/competition data for ANY student type
   async enrichActivityData(activityType: string, schoolName: string): Promise<ActivityData> {
+    this.updateStatus(`Researching ${activityType} data at ${schoolName}`, 'processing');
     console.log(`🔍 CrawlerBot researching ${activityType} at ${schoolName}`);
     
     const activityDatabase: { [key: string]: ActivityData } = {
@@ -223,9 +257,12 @@ export class CrawlerBot {
       }
     };
     
-    return activityDatabase[activityType.toLowerCase()] || {
+    const result = activityDatabase[activityType.toLowerCase()] || {
       message: "Activity type not found, but we're always expanding our database!"
     };
+    
+    this.updateStatus(`Completed ${activityType} research for ${schoolName}`, 'active');
+    return result;
   }
 
   // Legacy function for backward compatibility
@@ -236,11 +273,12 @@ export class CrawlerBot {
 
   // NEW: Universal student profile lookup
   async fetchStudentProfile(name: string, activityType?: string): Promise<StudentProfile> {
+    this.updateStatus(`Fetching profile for ${name} (${activityType || 'all activities'})`, 'processing');
     console.log(`👤 Researching student profile: ${name} (${activityType || 'all activities'})`);
     
     // This would integrate with real APIs and databases
     // Mock comprehensive student data
-    return {
+    const profile = {
       name: name,
       activities: ["Football", "National Honor Society", "Student Council"],
       achievements: ["Team Captain", "Honor Roll", "Volunteer of the Year"],
@@ -251,5 +289,8 @@ export class CrawlerBot {
         leadershipPositions: 3
       }
     };
+    
+    this.updateStatus(`Completed profile research for ${name}`, 'active');
+    return profile;
   }
 }
