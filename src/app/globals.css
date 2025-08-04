@@ -1,28 +1,56 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
 @import "tailwindcss";
 
-/* Custom CSS variables for DNA theme */
+/* ULTRAPREPS NIKE-STYLE DESIGN SYSTEM */
 :root {
-  --dna-blue: #1E3A8A;
-  --dna-gold: #F59E0B;
-  --dna-orange: #F97316;
-  --dna-black: #111827;
-  --dna-white: #FFFFFF;
-  --vh: 1vh; /* Dynamic viewport height */
-  --vvh: 1vh; /* Visual viewport height */
+  /* Core Brand Colors - Nike Black/White with Gold Accent */
+  --ultra-black: #000000;
+  --ultra-white: #FFFFFF;
+  --ultra-gold: #F59E0B;
+  --ultra-gray-900: #0A0A0A;
+  --ultra-gray-800: #1A1A1A;
+  --ultra-gray-700: #2A2A2A;
+  --ultra-gray-600: #3A3A3A;
+  --ultra-gray-500: #5A5A5A;
+  --ultra-gray-400: #7A7A7A;
+  --ultra-gray-300: #9A9A9A;
+  --ultra-gray-200: #BABABA;
+  --ultra-gray-100: #DADADA;
   
-  /* ===== UNIFIED DESIGN SYSTEM ===== */
-  /* Consistent Component Styles */
-  --ultra-card-bg: rgba(255, 255, 255, 0.08);
-  --ultra-card-border: rgba(255, 255, 255, 0.15);
-  --ultra-card-hover-bg: rgba(255, 255, 255, 0.12);
-  --ultra-card-hover-border: rgba(245, 158, 11, 0.5);
-  --ultra-backdrop-blur: 16px;
+  /* Functional Colors - Minimal Usage */
+  --ultra-success: #10B981;
+  --ultra-danger: #DC2626;
+  --ultra-warning: #F59E0B;
   
-  /* Stadium Background System */
-  --ultra-bg-filter: grayscale(100%) contrast(1.2) brightness(0.3) blur(3px);
-  --ultra-overlay-primary: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(17, 24, 39, 0.80), rgba(0, 0, 0, 0.90));
-  --ultra-overlay-secondary: linear-gradient(to top, rgba(0, 0, 0, 0.60), transparent, rgba(30, 58, 138, 0.20));
+  /* Professional Component System */
+  --ultra-card-bg: rgba(26, 26, 26, 0.95);
+  --ultra-card-border: rgba(255, 255, 255, 0.08);
+  --ultra-card-hover-bg: rgba(42, 42, 42, 0.95);
+  --ultra-card-hover-border: rgba(245, 158, 11, 0.3);
+  --ultra-backdrop-blur: 20px;
+  
+  /* Professional Background System */
+  --ultra-bg-primary: linear-gradient(135deg, #000000 0%, #0A0A0A 50%, #000000 100%);
+  --ultra-bg-secondary: linear-gradient(180deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%);
+  --ultra-overlay-primary: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(10, 10, 10, 0.90), rgba(0, 0, 0, 0.95));
+  --ultra-overlay-secondary: linear-gradient(to top, rgba(0, 0, 0, 0.80), transparent);
+  
+  /* Typography Scale - Nike Bold Hierarchy */
+  --ultra-text-hero: clamp(3rem, 8vw, 6rem);
+  --ultra-text-h1: clamp(2.5rem, 6vw, 4rem);
+  --ultra-text-h2: clamp(2rem, 4vw, 3rem);
+  --ultra-text-h3: clamp(1.5rem, 3vw, 2rem);
+  --ultra-text-body: 1rem;
+  --ultra-text-small: 0.875rem;
+  
+  /* Professional Spacing */
+  --ultra-space-xs: 0.5rem;
+  --ultra-space-sm: 1rem;
+  --ultra-space-md: 1.5rem;
+  --ultra-space-lg: 2rem;
+  --ultra-space-xl: 3rem;
+  --ultra-space-2xl: 4rem;
+  --ultra-space-3xl: 6rem;
 }
 
 /* Ensure body has proper base styles */
@@ -32,29 +60,69 @@ html, body {
   font-family: 'Inter', sans-serif;
   height: auto;
   min-height: 100vh;
+  color: #ffffff; /* Force white text globally to prevent black text fallback */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23F59E0B" opacity="0.8"/><circle cx="10" cy="10" r="3" fill="%23FFFFFF"/></svg>'), auto;
 }
 
-/* Collegiate Multi-Color Animation - Represents Every School */
-@keyframes collegiateGlow {
-  0% {
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg) brightness(1.2) contrast(1.3);
-  }
-  25% {
-    background-position: 100% 50%;
-    filter: hue-rotate(90deg) brightness(1.4) contrast(1.5);
+/* NUCLEAR CURSOR EFFECTS */
+* {
+  cursor: inherit;
+}
+
+a, button, [role="button"], .cursor-pointer {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23F59E0B" opacity="0.9"/><circle cx="12" cy="12" r="4" fill="%23FFFFFF"/><circle cx="12" cy="12" r="2" fill="%23F59E0B"/></svg>'), pointer !important;
+}
+
+/* INSANE SCROLL BAR */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #000000, #1a1a1a, #000000);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #F59E0B, #F97316, #EA580C);
+  border-radius: 6px;
+  border: 2px solid #000000;
+  /* Removed animation for professional look */
+}
+
+@keyframes scrollGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
   }
   50% {
-    background-position: 100% 100%;
-    filter: hue-rotate(180deg) brightness(1.3) contrast(1.4);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 1), 0 0 30px rgba(245, 158, 11, 0.8);
   }
-  75% {
-    background-position: 0% 100%;
-    filter: hue-rotate(270deg) brightness(1.5) contrast(1.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FBBF24, #F59E0B, #F97316);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 1) !important;
+}
+
+/* Professional Animation - Subtle and Powerful */
+@keyframes ultraFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  100% {
-    background-position: 0% 50%;
-    filter: hue-rotate(360deg) brightness(1.2) contrast(1.3);
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ultraSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -189,22 +257,58 @@ html, body {
    Creating Visual Consistency Across All Pages
    ======================================== */
 
-/* Standardized Background System */
+/* NIKE-STYLE PROFESSIONAL BACKGROUNDS */
 .ultra-stadium-bg {
-  background-image: url('/stadium-crowd-energy.jpg');
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-  filter: var(--ultra-bg-filter);
-  -webkit-filter: var(--ultra-bg-filter);
+  background: var(--ultra-bg-primary);
+  backdrop-filter: blur(var(--ultra-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--ultra-backdrop-blur));
 }
 
 .ultra-overlay-primary {
   background: var(--ultra-overlay-primary);
 }
 
+@keyframes ultraSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .ultra-overlay-secondary {
   background: var(--ultra-overlay-secondary);
+  position: relative;
+}
+
+.ultra-overlay-secondary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+  /* Removed float animation */
+}
+
+@keyframes ultraFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(10px) translateX(-15px);
+    opacity: 0.4;
+  }
 }
 
 /* Standardized Container System */
@@ -251,7 +355,7 @@ html, body {
 /* Standardized Button System */
 .ultra-btn-primary {
   background: linear-gradient(to right, #F59E0B, #F97316);
-  color: #000000;
+  color: #000000 !important; /* Force black text on gold buttons */
   font-weight: 700;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px; /* rounded-full */
@@ -351,6 +455,11 @@ html, body {
   background-color: #000000;
   position: relative;
   overflow: hidden;
+  color: #ffffff; /* Ensure white text in all page layouts */
+}
+
+.ultra-page-layout * {
+  color: inherit; /* Force inheritance to prevent black text fallbacks */
 }
 
 .ultra-content-wrapper {
@@ -407,4 +516,60 @@ html, body {
 
 .ultra-glow:hover::before {
   opacity: 1;
+}
+
+/* NIKE-STYLE PROFESSIONAL BUTTONS */
+.ultra-button {
+  position: relative;
+  background: var(--ultra-gold);
+  color: var(--ultra-black);
+  border: none;
+  border-radius: 0;
+  padding: var(--ultra-space-md) var(--ultra-space-xl);
+  font-weight: 700;
+  font-size: var(--ultra-text-body);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.ultra-button:hover {
+  background: var(--ultra-white);
+  color: var(--ultra-black);
+  transform: translateY(-2px);
+}
+
+/* NIKE-STYLE BOLD TEXT */
+.ultra-text-hero {
+  font-size: var(--ultra-text-hero);
+  font-weight: 900;
+  color: var(--ultra-white);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.ultra-text-gold {
+  color: var(--ultra-gold);
+  font-weight: 700;
+}
+
+/* PROFESSIONAL CARD INTERACTIONS */
+.ultra-card:hover {
+  background: var(--ultra-card-hover-bg);
+  border-color: var(--ultra-card-hover-border);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* PROFESSIONAL SELECTION */
+::selection {
+  background: var(--ultra-gold);
+  color: var(--ultra-black);
+}
+
+::-moz-selection {
+  background: var(--ultra-gold);
+  color: var(--ultra-black);
 }

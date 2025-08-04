@@ -58,7 +58,7 @@ export default function QuickPosterButton({
       <button
         onClick={handleQuickGenerate}
         disabled={loading}
-        className={`flex items-center gap-2 px-4 py-2 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+        className={`flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       >
         <Zap className="w-4 h-4" />
         {loading ? 'Generating...' : (children || 'Quick Poster')}

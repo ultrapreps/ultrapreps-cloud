@@ -145,10 +145,12 @@ interface CoachTab {
 
 const COACH_TABS: CoachTab[] = [
   { id: 'overview', label: 'Command Center', icon: BarChart3 },
-      { id: 'filmroom', label: 'AI Film Room', icon: Video },
+  { id: 'filmroom', label: 'HUDL KILLER 🔥', icon: Video },
+  { id: 'maxpreps', label: 'MAXPREPS KILLER 📊', icon: TrendingUp },
+  { id: 'sportsyou', label: 'SPORTSYOU KILLER ⚡', icon: Users },
   { id: 'roster', label: 'Smart Roster', icon: Users },
   { id: 'playbook', label: 'AI Playbook', icon: Gamepad2 },
-      { id: 'communication', label: 'Team Communication', icon: Megaphone },
+  { id: 'communication', label: 'Team Communication', icon: Megaphone },
   { id: 'academics', label: 'Academic Command', icon: GraduationCap },
   { id: 'health', label: 'Health & Safety', icon: Shield },
   { id: 'analytics', label: 'Performance AI', icon: Brain },
@@ -348,7 +350,7 @@ const MOCK_PLAYBOOK_PLAYS: PlaybookPlay[] = [
   },
   {
     id: '2',
-    name: 'Blitz Crusher',
+            name: 'Blitz Defender',
     category: 'offense',
     formation: 'I-Formation',
     description: 'Hot route protection with quick release',
@@ -561,6 +563,24 @@ export default function CoachDashboard() {
             <p className="text-white/70 text-lg">
               Manage your team, track player performance, and drive success with data-driven insights.
             </p>
+            
+            {/* AI SYSTEMS STATUS */}
+            <div className="flex items-center justify-center gap-4 mt-6">
+              <div className="flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/30">
+                <Video className="w-4 h-4" />
+                <span className="text-sm font-medium">HUDL KILLER: ACTIVE</span>
+              </div>
+              
+              <div className="flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded border border-blue-500/30">
+                <Users className="w-4 h-4" />
+                <span className="text-sm font-medium">PREDATOR ENGINE: LOADED</span>
+              </div>
+              
+              <div className="flex items-center gap-2 px-3 py-1 bg-orange-500/20 text-orange-400 rounded border border-orange-500/30">
+                <Brain className="w-4 h-4" />
+                <span className="text-sm font-medium">MAXPREPS KILLER: ACTIVE</span>
+              </div>
+            </div>
           </div>
 
           {/* Team Overview Cards */}
@@ -683,33 +703,124 @@ export default function CoachDashboard() {
                     </div>
                   </div>
 
-                  {/* AI Recommendations */}
+                  {/* AI INTELLIGENCE CENTER */}
                   <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Brain className="w-6 h-6 text-[#F59E0B]" />
-                      <h4 className="text-white font-bold text-lg">AI Insights</h4>
+                    <div className="flex items-center gap-2 mb-6">
+                      <motion.div
+                        animate={{ 
+                          rotate: [0, 360],
+                          scale: [1, 1.2, 1]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <Brain className="w-8 h-8 text-green-400" />
+                      </motion.div>
+                      <h4 className="text-white font-bold text-xl">AI INTELLIGENCE CENTER</h4>
+                      <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded-full">LIVE PROCESSING</span>
                     </div>
-                    <div className="space-y-4">
-                      <div className="p-4 bg-[#F59E0B]/10 rounded-xl border border-[#F59E0B]/20">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Target className="w-4 h-4 text-[#F59E0B]" />
-                          <span className="text-[#F59E0B] font-bold">Game Strategy</span>
+                    
+                    {/* REAL-TIME DATA DISCOVERY */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                      <div className="space-y-3">
+                        <h5 className="text-green-400 font-bold text-sm">🤖 AI DATA ENGINE - LIVE DISCOVERIES</h5>
+                        <div className="space-y-2">
+                          <motion.div
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="p-3 bg-green-500/10 rounded-xl border border-green-500/20"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                              <span className="text-green-400 font-bold text-xs">MaxPreps • 2s ago</span>
+                            </div>
+                            <p className="text-white text-sm">Marcus Thompson: +127 passing yards vs Eagles (validated by 2 sources)</p>
+                          </motion.div>
+                          
+                          <motion.div
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 2.3, repeat: Infinity }}
+                            className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                              <span className="text-blue-400 font-bold text-xs">Hudl • 4s ago</span>
+                            </div>
+                            <p className="text-white text-sm">David Rodriguez: Leadership moment detected (clutch 4th down conversion)</p>
+                          </motion.div>
+                          
+                          <motion.div
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 1.8, repeat: Infinity }}
+                            className="p-3 bg-[#F59E0B]/10 rounded-xl border border-orange-500/20"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-2 h-2 bg-[#F59E0B] rounded-full animate-pulse" />
+                              <span className="text-[#F59E0B] font-bold text-xs">247Sports • 7s ago</span>
+                            </div>
+                            <p className="text-white text-sm">Isaiah Washington: Recruiting interest from State University (confidence: 87%)</p>
+                          </motion.div>
                         </div>
-                        <p className="text-white text-sm">Against Eagles: Use Thunder Strike play 40% more - their secondary struggles with quick slants.</p>
                       </div>
-                      <div className="p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Activity className="w-4 h-4 text-blue-400" />
-                          <span className="text-blue-400 font-bold">Player Development</span>
+                      
+                      <div className="space-y-3">
+                        <h5 className="text-blue-400 font-bold text-sm">👤 AI PROFILES - AUTO-GENERATION</h5>
+                        <div className="space-y-2">
+                          <motion.div
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 2.1, repeat: Infinity }}
+                            className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
+                              <span className="text-purple-400 font-bold text-xs">Profile Generation • 1s ago</span>
+                            </div>
+                            <p className="text-white text-sm">Digital Legacy created for Marcus (3-year performance timeline)</p>
+                          </motion.div>
+                          
+                          <motion.div
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 1.9, repeat: Infinity }}
+                            className="p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/20"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
+                              <span className="text-yellow-400 font-bold text-xs">Achievement Tracking • 3s ago</span>
+                            </div>
+                            <p className="text-white text-sm">David: Academic improvement detected (+0.4 GPA this semester)</p>
+                          </motion.div>
+                          
+                          <motion.div
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 2.4, repeat: Infinity }}
+                            className="p-3 bg-pink-500/10 rounded-xl border border-pink-500/20"
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
+                              <span className="text-pink-400 font-bold text-xs">Character Analysis • 6s ago</span>
+                            </div>
+                            <p className="text-white text-sm">Isaiah: Leadership growth pattern identified (mentoring younger players)</p>
+                          </motion.div>
                         </div>
-                        <p className="text-white text-sm">Isaiah needs 15% more red zone reps to improve catch rate in tight spaces.</p>
                       </div>
-                      <div className="p-4 bg-green-500/10 rounded-xl border border-green-500/20">
-                        <div className="flex items-center gap-2 mb-2">
-                          <HeartHandshake className="w-4 h-4 text-green-400" />
-                          <span className="text-green-400 font-bold">Team Chemistry</span>
-                        </div>
-                        <p className="text-white text-sm">Marcus & David show 94% success rate on combo plays - increase usage by 20%.</p>
+                    </div>
+                    
+                    {/* SYSTEM STATISTICS */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-white/10">
+                      <div className="text-center">
+                        <div className="text-2xl font-black text-green-400 mb-1">2,847</div>
+                        <div className="text-white/60 text-xs">Data Points Harvested</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-black text-blue-400 mb-1">847</div>
+                        <div className="text-white/60 text-xs">Profiles Auto-Generated</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-black text-[#F59E0B] mb-1">94%</div>
+                        <div className="text-white/60 text-xs">Data Validation Rate</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-black text-purple-400 mb-1">0.3s</div>
+                        <div className="text-white/60 text-xs">Avg Processing Time</div>
                       </div>
                     </div>
                   </div>
@@ -740,7 +851,8 @@ export default function CoachDashboard() {
               </motion.div>
             )}
 
-            {/* AI FILM ROOM */}
+
+            {/* HUDL KILLER - REVOLUTIONARY AI VIDEO INTELLIGENCE */}
             {activeTab === 'filmroom' && (
               <motion.div
                 key="filmroom"
@@ -749,104 +861,592 @@ export default function CoachDashboard() {
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-6"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Video className="w-8 h-8 text-[#F59E0B]" />
-                    <h3 className="text-3xl font-black text-white">AI FILM ROOM</h3>
-                    <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm font-bold rounded-full">AI-POWERED</span>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <Video className="w-6 h-6 text-blue-400" />
+                      <div>
+                        <h3 className="text-xl font-semibold text-white">Video Intelligence</h3>
+                        <p className="text-sm text-white/70">Multi-source video aggregation and analysis</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                        <Camera className="w-4 h-4 inline-block mr-2" />
+                        Discover Film
+                      </button>
+                      <button className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors">
+                        <Brain className="w-4 h-4 inline-block mr-2" />
+                        Analyze
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex gap-3">
-                    <button className="px-4 py-2 bg-[#F59E0B] text-white rounded-xl hover:bg-[#F97316] transition-colors">
-                      <Upload className="w-4 h-4 inline-block mr-2" />
-                      Upload Film
-                    </button>
-                    <button className="px-4 py-2 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors">
-                      <Eye className="w-4 h-4 inline-block mr-2" />
-                      Live Analysis
-                    </button>
+
+                  {/* Video Source Monitoring */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">Hudl</span>
+                        <span className="text-xs text-green-400">Connected</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">24</div>
+                      <div className="text-xs text-white/50">videos found</div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">Social Media</span>
+                        <span className="text-xs text-blue-400">Scanning</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">7</div>
+                      <div className="text-xs text-white/50">highlights detected</div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">Parent Videos</span>
+                        <span className="text-xs text-yellow-400">Processing</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">12</div>
+                      <div className="text-xs text-white/50">submissions</div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">News Sources</span>
+                        <span className="text-xs text-green-400">Active</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">3</div>
+                      <div className="text-xs text-white/50">segments found</div>
+                    </div>
                   </div>
+
+                  {/* Video Processing Features */}
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    {/* Source Aggregation */}
+                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <Camera className="w-5 h-5" />
+                        Source Aggregation
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Game Film</span>
+                          <span className="text-green-400 text-xs">24 videos</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Social Highlights</span>
+                          <span className="text-blue-400 text-xs">7 clips</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Parent Uploads</span>
+                          <span className="text-yellow-400 text-xs">12 files</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Training Sessions</span>
+                          <span className="text-purple-400 text-xs">8 recordings</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Analysis Results */}
+                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <Brain className="w-5 h-5" />
+                        Analysis Results
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Technique Score</span>
+                          <span className="text-green-400 text-xs font-semibold">8.4/10</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Decision Making</span>
+                          <span className="text-blue-400 text-xs font-semibold">7.8/10</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Leadership Events</span>
+                          <span className="text-yellow-400 text-xs font-semibold">23 tagged</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Clutch Moments</span>
+                          <span className="text-purple-400 text-xs font-semibold">6 identified</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content Generation Queue */}
+                  <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                    <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                      <Video className="w-5 h-5" />
+                      Content Generation Queue
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-white/5 rounded border-l-4 border-green-500">
+                        <div>
+                          <div className="text-white font-medium">Marcus Johnson - Highlight Reel</div>
+                          <div className="text-sm text-white/60">Processing 12 clips from Friday's game</div>
+                        </div>
+                        <span className="text-green-400 text-sm">Completed</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-white/5 rounded border-l-4 border-blue-500">
+                        <div>
+                          <div className="text-white font-medium">Team Season Summary</div>
+                          <div className="text-sm text-white/60">Compiling 8 game highlights</div>
+                        </div>
+                        <span className="text-blue-400 text-sm">In Progress</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-white/5 rounded border-l-4 border-yellow-500">
+                        <div>
+                          <div className="text-white font-medium">David Smith - Recruiting Package</div>
+                          <div className="text-sm text-white/60">Adding stat overlays and analysis</div>
+                        </div>
+                        <span className="text-yellow-400 text-sm">Queued</span>
+                                          </div>
+                  </div>
+                                  </div>
                 </div>
 
-                {/* Film Sessions Grid */}
+                {/* MULTI-SOURCE VIDEO INTELLIGENCE GRID */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                   {MOCK_FILM_SESSIONS.map((session) => (
                     <div key={session.id} 
-                         className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 overflow-hidden hover:border-[#F59E0B]/50 transition-all cursor-pointer"
+                         className="relative overflow-hidden rounded-2xl border-2 border-[#F59E0B]/30 bg-black/90 backdrop-blur-xl hover:border-red-500/80 transition-all cursor-pointer transform hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30"
                          onClick={() => setSelectedFilm(session)}>
-                      <div className="relative h-48 bg-white/5">
-                        <img src={session.thumbnail} alt={session.title} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <Play className="w-16 h-16 text-white/80" />
-                        </div>
-                        <div className="absolute top-3 right-3">
-                          {session.aiAnalysisComplete ? (
-                            <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full border border-green-500/30">
-                              AI COMPLETE
-                            </span>
-                          ) : (
-                            <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full border border-yellow-500/30">
-                              PROCESSING...
-                            </span>
-                          )}
-                        </div>
-                        <div className="absolute bottom-3 left-3 text-white text-sm font-bold">
-                          {session.duration}
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <h4 className="text-white font-bold text-lg mb-2">{session.title}</h4>
-                        <p className="text-white/60 text-sm mb-3">vs. {session.opponent}</p>
-                        <div className="flex items-center justify-between text-sm">
-                          <div className="flex items-center gap-4">
-                            <span className="text-[#F59E0B]">{session.highlights} highlights</span>
-                            <span className="text-blue-400">{session.keyPlays} key plays</span>
+                      
+                      {/* NUCLEAR GLOW EFFECT */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-red-500 via-[#F59E0B] to-orange-500 rounded-2xl blur opacity-20 group-hover:opacity-100 transition-all duration-500" />
+                      
+                      <div className="relative z-10">
+                        <div className="relative h-48 bg-black/80">
+                          <img src={session.thumbnail} alt={session.title} className="w-full h-full object-cover opacity-90" />
+                          
+                          {/* AI OVERLAY EFFECTS */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-red-600/30 via-black/60 to-orange-600/30 flex items-center justify-center">
+                            <motion.div
+                              animate={{ 
+                                scale: [1, 1.3, 1],
+                                opacity: [0.8, 1, 0.8]
+                              }}
+                              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                              <Play className="w-20 h-20 text-white drop-shadow-2xl" />
+                            </motion.div>
                           </div>
-                          <span className="text-white/60">{formatTimeAgo(session.date)}</span>
+                          
+                          {/* HUDL KILLER STATUS */}
+                          <div className="absolute top-3 left-3">
+                            <span className="px-3 py-1 bg-red-500/90 text-white text-xs font-black rounded-full border-2 border-red-400 drop-shadow-lg">
+                              🔥 HUDL KILLER
+                            </span>
+                          </div>
+                          
+                          <div className="absolute top-3 right-3">
+                            {session.aiAnalysisComplete ? (
+                              <span className="px-3 py-1 bg-green-500/90 text-white text-xs font-black rounded-full border-2 border-green-400 drop-shadow-lg">
+                                🤖 AI SUPREME
+                              </span>
+                            ) : (
+                              <motion.span 
+                                animate={{ opacity: [0.5, 1, 0.5] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                                className="px-3 py-1 bg-[#F59E0B]/90 text-white text-xs font-black rounded-full border-2 border-orange-400 drop-shadow-lg">
+                                ⚡ AI ANALYZING
+                              </motion.span>
+                            )}
+                          </div>
+                          
+                          <div className="absolute bottom-3 left-3 text-white text-sm font-bold drop-shadow-lg">
+                            ⏱️ {session.duration}
+                          </div>
+                          
+                          {/* AI POWER INDICATORS */}
+                          <div className="absolute bottom-3 right-3 flex gap-1">
+                            <div className="w-2 h-6 bg-gradient-to-t from-red-600 to-red-400 rounded-full"></div>
+                            <div className="w-2 h-5 bg-gradient-to-t from-[#F59E0B] to-orange-400 rounded-full"></div>
+                            <div className="w-2 h-4 bg-gradient-to-t from-green-600 to-green-400 rounded-full"></div>
+                          </div>
                         </div>
-                        <div className="mt-3 flex flex-wrap gap-1">
-                          {session.playerFocus.slice(0, 2).map((player) => (
-                            <span key={player} className="px-2 py-1 bg-white/10 text-white/70 text-xs rounded-full">
-                              {player.split(' ')[0]}
-                            </span>
-                          ))}
-                          {session.playerFocus.length > 2 && (
-                            <span className="px-2 py-1 bg-white/10 text-white/70 text-xs rounded-full">
-                              +{session.playerFocus.length - 2} more
-                            </span>
-                          )}
+                        
+                        <div className="p-6 bg-gradient-to-br from-black/90 via-gray-900/90 to-black/90">
+                          <h4 className="text-white font-black text-lg mb-2 drop-shadow-lg">{session.title}</h4>
+                          <p className="text-white/80 text-sm mb-3 font-medium drop-shadow-lg">🏟️ vs. {session.opponent}</p>
+                          
+                          {/* ENHANCED STATS DISPLAY */}
+                          <div className="flex items-center justify-between text-sm mb-4">
+                            <div className="flex items-center gap-4">
+                              <span className="text-red-400 font-bold drop-shadow-lg">🎯 {session.highlights} highlights</span>
+                              <span className="text-blue-400 font-bold drop-shadow-lg">⚡ {session.keyPlays} key plays</span>
+                            </div>
+                            <span className="text-white/70 font-medium drop-shadow-lg">{formatTimeAgo(session.date)}</span>
+                          </div>
+                          
+                          {/* AI ANALYSIS TAGS */}
+                          <div className="mb-4">
+                            <div className="flex flex-wrap gap-2">
+                              <span className="px-2 py-1 bg-red-500/20 text-red-300 text-xs font-bold rounded-full border border-red-500/30">
+                                🔥 Clutch Moments
+                              </span>
+                              <span className="px-2 py-1 bg-[#F59E0B]/20 text-orange-300 text-xs font-bold rounded-full border border-orange-500/30">
+                                💡 Leadership
+                              </span>
+                              <span className="px-2 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full border border-green-500/30">
+                                📈 Improvement
+                              </span>
+                            </div>
+                          </div>
+                          
+                          {/* PLAYER FOCUS WITH ENHANCED STYLING */}
+                          <div className="flex flex-wrap gap-1">
+                            {session.playerFocus.slice(0, 2).map((player) => (
+                              <span key={player} className="px-3 py-1 bg-white/20 text-white font-bold text-xs rounded-full border border-white/30 drop-shadow-lg">
+                                ⭐ {player.split(' ')[0]}
+                              </span>
+                            ))}
+                            {session.playerFocus.length > 2 && (
+                              <span className="px-3 py-1 bg-[#F59E0B]/20 text-[#F59E0B] font-bold text-xs rounded-full border border-orange-500/30 drop-shadow-lg">
+                                +{session.playerFocus.length - 2} more stars
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                {/* AI Analysis Dashboard */}
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Brain className="w-6 h-6 text-[#F59E0B]" />
-                    <h4 className="text-white font-bold text-xl">AI Performance Analytics</h4>
+                {/* REVOLUTIONARY AI VIDEO INTELLIGENCE DASHBOARD */}
+                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-600/20 via-black/90 to-blue-600/20 p-8 border-2 border-purple-500/50">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-black/80 to-blue-600/10 backdrop-blur-sm" />
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-4 mb-8">
+                      <motion.div
+                        animate={{ 
+                          rotate: [0, 360],
+                          scale: [1, 1.3, 1]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <Brain className="w-12 h-12 text-purple-400 drop-shadow-2xl" />
+                      </motion.div>
+                      <div>
+                        <h4 className="text-4xl font-black text-white drop-shadow-2xl">AI VIDEO INTELLIGENCE</h4>
+                        <p className="text-lg font-bold text-purple-300 drop-shadow-lg">Multi-Source Analysis Engine</p>
+                      </div>
+                      <div className="flex gap-2 ml-auto">
+                        <span className="px-4 py-2 bg-purple-500/80 text-white text-sm font-black rounded-full border-2 border-purple-400 drop-shadow-lg">
+                          🧠 NEURAL SUPREME
+                        </span>
+                        <span className="px-4 py-2 bg-blue-500/80 text-white text-sm font-black rounded-full border-2 border-blue-400 drop-shadow-lg">
+                          👁️ VISION AI
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* ADVANCED ANALYTICS GRID */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                      <div className="text-center p-6 bg-gradient-to-br from-red-500/20 via-black/80 to-red-600/20 rounded-2xl border border-red-500/30">
+                        <motion.div
+                          animate={{ 
+                            scale: [1, 1.1, 1],
+                            rotate: [0, 5, -5, 0]
+                          }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                          className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        >
+                          <Target className="w-10 h-10 text-white drop-shadow-lg" />
+                        </motion.div>
+                        <h5 className="text-3xl font-black text-red-400 mb-2 drop-shadow-lg">94%</h5>
+                        <p className="text-white font-bold text-sm drop-shadow-lg">🎯 Clutch Success Rate</p>
+                        <p className="text-red-300 text-xs mt-1">+7% vs Hudl Analysis</p>
+                      </div>
+
+                      <div className="text-center p-6 bg-gradient-to-br from-[#F59E0B]/20 via-black/80 to-orange-600/20 rounded-2xl border border-orange-500/30">
+                        <motion.div
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            y: [0, -5, 0]
+                          }}
+                          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                          className="w-20 h-20 bg-gradient-to-br from-[#F59E0B] to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        >
+                          <Eye className="w-10 h-10 text-white drop-shadow-lg" />
+                        </motion.div>
+                        <h5 className="text-3xl font-black text-[#F59E0B] mb-2 drop-shadow-lg">2,847</h5>
+                        <p className="text-white font-bold text-sm drop-shadow-lg">👁️ Plays Auto-Analyzed</p>
+                        <p className="text-orange-300 text-xs mt-1">10x Hudl Detection</p>
+                      </div>
+
+                      <div className="text-center p-6 bg-gradient-to-br from-green-500/20 via-black/80 to-green-600/20 rounded-2xl border border-green-500/30">
+                        <motion.div
+                          animate={{ 
+                            rotate: [0, 360],
+                            scale: [1, 1.15, 1]
+                          }}
+                          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                          className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        >
+                          <TrendingUp className="w-10 h-10 text-white drop-shadow-lg" />
+                        </motion.div>
+                        <h5 className="text-3xl font-black text-green-400 mb-2 drop-shadow-lg">+87%</h5>
+                        <p className="text-white font-bold text-sm drop-shadow-lg">📈 Performance Boost</p>
+                        <p className="text-green-300 text-xs mt-1">Since AI Integration</p>
+                      </div>
+
+                      <div className="text-center p-6 bg-gradient-to-br from-purple-500/20 via-black/80 to-purple-600/20 rounded-2xl border border-purple-500/30">
+                        <motion.div
+                          animate={{ 
+                            scale: [1, 1.3, 1],
+                            opacity: [0.8, 1, 0.8]
+                          }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                          className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        >
+                          <Flame className="w-10 h-10 text-white drop-shadow-lg" />
+                        </motion.div>
+                        <h5 className="text-3xl font-black text-purple-400 mb-2 drop-shadow-lg">LIVE</h5>
+                        <p className="text-white font-bold text-sm drop-shadow-lg">🔥 Real-Time Intel</p>
+                        <p className="text-purple-300 text-xs mt-1">0.3s Processing</p>
+                      </div>
+                    </div>
+
+                    {/* MULTI-SOURCE INTELLIGENCE */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="space-y-4">
+                        <h5 className="text-2xl font-black text-white mb-4 drop-shadow-lg">🎯 AI DISCOVERIES</h5>
+                        <div className="space-y-3">
+                          <div className="p-4 bg-red-500/10 rounded-xl border border-red-500/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Target className="w-5 h-5 text-red-400" />
+                              <span className="text-red-400 font-bold">Leadership Moments Detected</span>
+                            </div>
+                            <p className="text-white text-sm drop-shadow-lg">Marcus shows 94% leadership correlation in clutch moments - compile into recruiting reel.</p>
+                          </div>
+                          <div className="p-4 bg-[#F59E0B]/10 rounded-xl border border-orange-500/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Brain className="w-5 h-5 text-[#F59E0B]" />
+                              <span className="text-[#F59E0B] font-bold">Decision Making Analysis</span>
+                            </div>
+                            <p className="text-white text-sm drop-shadow-lg">David's pre-snap reads improved 67% this season - create development timeline.</p>
+                          </div>
+                          <div className="p-4 bg-green-500/10 rounded-xl border border-green-500/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <TrendingUp className="w-5 h-5 text-green-400" />
+                              <span className="text-green-400 font-bold">Technique Evolution</span>
+                            </div>
+                            <p className="text-white text-sm drop-shadow-lg">Isaiah's route precision up 43% - auto-generate improvement showcase.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h5 className="text-2xl font-black text-white mb-4 drop-shadow-lg">🚀 AUTO-CONTENT CREATION</h5>
+                        <div className="space-y-3">
+                          <div className="p-4 bg-purple-500/10 rounded-xl border border-purple-500/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Video className="w-5 h-5 text-purple-400" />
+                              <span className="text-purple-400 font-bold">ESPN-Style Highlights</span>
+                            </div>
+                            <p className="text-white text-sm drop-shadow-lg">23 broadcast-quality highlight reels generated automatically.</p>
+                          </div>
+                          <div className="p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Eye className="w-5 h-5 text-blue-400" />
+                              <span className="text-blue-400 font-bold">Recruiting Packages</span>
+                            </div>
+                            <p className="text-white text-sm drop-shadow-lg">College-ready scouting videos for 12 players completed.</p>
+                          </div>
+                          <div className="p-4 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Share2 className="w-5 h-5 text-yellow-400" />
+                              <span className="text-yellow-400 font-bold">Family Shareables</span>
+                            </div>
+                            <p className="text-white text-sm drop-shadow-lg">47 pride-worthy family moments ready for social sharing.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-[#F59E0B]/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <Target className="w-10 h-10 text-[#F59E0B]" />
+                </div>
+              </motion.div>
+            )}
+
+            {/* MAXPREPS KILLER - STATISTICAL INTELLIGENCE */}
+            {activeTab === 'maxpreps' && (
+              <motion.div
+                key="maxpreps"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="space-y-6"
+              >
+                <div className="bg-white/5 border border-white/10 rounded-lg p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <TrendingUp className="w-6 h-6 text-green-400" />
+                      <div>
+                        <h3 className="text-xl font-semibold text-white">Statistical Intelligence</h3>
+                        <p className="text-sm text-white/70">Advanced analytics and performance metrics</p>
                       </div>
-                      <h5 className="text-white font-bold text-lg">87%</h5>
-                      <p className="text-white/60 text-sm">Play Success Rate</p>
                     </div>
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <Eye className="w-10 h-10 text-blue-400" />
-                      </div>
-                      <h5 className="text-white font-bold text-lg">342</h5>
-                      <p className="text-white/60 text-sm">Plays Analyzed</p>
+                    <div className="flex gap-2">
+                      <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
+                        <BarChart3 className="w-4 h-4 inline-block mr-2" />
+                        Analyze Stats
+                      </button>
+                      <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                        <Download className="w-4 h-4 inline-block mr-2" />
+                        Export Report
+                      </button>
                     </div>
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <TrendingUp className="w-10 h-10 text-green-400" />
+                  </div>
+
+                  {/* Statistical Sources */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">MaxPreps</span>
+                        <span className="text-xs text-green-400">Synced</span>
                       </div>
-                      <h5 className="text-white font-bold text-lg">+23%</h5>
-                      <p className="text-white/60 text-sm">Performance Improvement</p>
+                      <div className="text-lg font-semibold text-white">8</div>
+                      <div className="text-xs text-white/50">games tracked</div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">Athletic.net</span>
+                        <span className="text-xs text-blue-400">Active</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">24</div>
+                      <div className="text-xs text-white/50">events logged</div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">Team Stats</span>
+                        <span className="text-xs text-yellow-400">Updated</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">156</div>
+                      <div className="text-xs text-white/50">data points</div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 rounded p-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-white/70">Predictions</span>
+                        <span className="text-xs text-purple-400">Generated</span>
+                      </div>
+                      <div className="text-lg font-semibold text-white">12</div>
+                      <div className="text-xs text-white/50">forecasts ready</div>
+                    </div>
+                  </div>
+
+                  {/* Advanced Analytics */}
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <BarChart3 className="w-5 h-5" />
+                        Performance Metrics
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Team Efficiency</span>
+                          <span className="text-green-400 text-xs font-semibold">87.3%</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Win Probability</span>
+                          <span className="text-blue-400 text-xs font-semibold">73.2%</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Clutch Rating</span>
+                          <span className="text-yellow-400 text-xs font-semibold">8.4/10</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Momentum Score</span>
+                          <span className="text-purple-400 text-xs font-semibold">+24.7</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <Target className="w-5 h-5" />
+                        Predictive Analysis
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Next Game Projection</span>
+                          <span className="text-green-400 text-xs font-semibold">68% Win</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Season Outlook</span>
+                          <span className="text-blue-400 text-xs font-semibold">9-3 Record</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Playoff Odds</span>
+                          <span className="text-yellow-400 text-xs font-semibold">84.2%</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 bg-white/5 rounded">
+                          <span className="text-white text-sm">Championship Path</span>
+                          <span className="text-purple-400 text-xs font-semibold">22.1%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Player Performance Grid */}
+                  <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                    <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                      <Users className="w-5 h-5" />
+                      Player Statistical Leaders
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <h5 className="text-sm font-medium text-white/80">Offensive Leaders</h5>
+                        <div className="space-y-1">
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Marcus Johnson</span>
+                            <span className="text-green-400">2,847 yards</span>
+                          </div>
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">David Smith</span>
+                            <span className="text-blue-400">28 TDs</span>
+                          </div>
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Alex Williams</span>
+                            <span className="text-yellow-400">847 rec yards</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <h5 className="text-sm font-medium text-white/80">Defensive Leaders</h5>
+                        <div className="space-y-1">
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Kevin Brown</span>
+                            <span className="text-red-400">89 tackles</span>
+                          </div>
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Tyler Davis</span>
+                            <span className="text-orange-400">12 sacks</span>
+                          </div>
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Josh Miller</span>
+                            <span className="text-purple-400">7 INTs</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <h5 className="text-sm font-medium text-white/80">Efficiency Ratings</h5>
+                        <div className="space-y-1">
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Team QBR</span>
+                            <span className="text-green-400">87.4</span>
+                          </div>
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">Red Zone %</span>
+                            <span className="text-blue-400">78.9%</span>
+                          </div>
+                          <div className="flex justify-between p-2 bg-white/5 rounded text-sm">
+                            <span className="text-white">3rd Down %</span>
+                            <span className="text-yellow-400">67.2%</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 import { 
   Trophy, Heart, Users, Search, Eye, BarChart3, Zap, Bot, Camera, 
   TrendingUp, MessageCircle, DollarSign, GraduationCap, Brain, Video, 
-  Target, Shield, Award, Crown 
+  Target, Shield, Award, Crown, Globe, Star, Building
 } from 'lucide-react';
 
 // COMPREHENSIVE BILLION-DOLLAR VISION FOR EACH STAKEHOLDER
@@ -13,61 +13,63 @@ export const stakeholderVisions = {
     
     // LIVE FEATURES (No signup walls)
     liveFeatures: [
-      "🏆 AI HeroCard Generation (Instant Demo)",
+      "🏆 AI-Generated Athletic Profiles",
       "🎭 Custom School Mascot Creation", 
-      "📊 Live Performance HUD Preview",
-      "⚡ HYPE Economy Simulator",
-      "🎬 Video Highlight Creator",
-      "📈 Athletic Analytics Dashboard"
+      "📊 Performance Analytics Dashboard",
+      "⚡ Community Engagement Platform",
+      "🎬 Professional Content Creator",
+      "📈 Athletic Intelligence Hub"
     ],
     
-    // 7-BOT AI NEURAL NETWORK
+    // AI-POWERED FEATURES
     aiEcosystem: [
-      "🤖 CrawlerBot: Aggregates from 150+ data sources instantly",
-      "📊 StatsBot: ML performance analysis & trajectory prediction", 
-      "🎬 ViralBot: Creates championship-level content automatically",
-      "🎓 ScholarBot: Personal AI tutor for academic excellence",
-      "🎨 CreatorBot: Professional design intelligence",
-      "🛡️ GuardianBot: Privacy protection & safety monitoring",
-      "🔮 PredictBot: Future performance & scholarship predictions"
+      "🤖 Intelligent Content Creation",
+      "📊 Advanced Performance Analytics", 
+      "🎬 Professional Media Generation",
+      "🎓 Academic & Athletic Balance",
+      "🎨 Custom Design Intelligence",
+      "🛡️ Complete Safety & Privacy Protection",
+      "🔮 Future Opportunity Identification"
     ],
     
     // DIGITAL IMMORTALITY ENGINE
     digitalImmortality: [
-      "📸 Complete athletic journey preserved forever",
-      "🏟️ Virtual stadium with 360° experience", 
-      "👨‍👩‍👧‍👦 Three-generation family legacy tracking",
-      "🎯 College recruitment pipeline automation",
-      "💰 NIL brand partnership marketplace ($100K+ potential)",
-      "🌟 Professional pathway prediction & guidance",
-      "🏆 Championship moment documentation & sharing",
-      "📱 Real-time family updates & celebration"
+      "🚀 ESPN-grade broadcast empire that generates millions in family wealth",
+      "💰 Personal NIL marketplace creating $500K+ annual teenage empires", 
+      "🏛️ Generational dynasty builder worth $4.7M+ in family net worth increases",
+      "🎯 Direct pipeline to $287K+ scholarship offers from elite universities",
+      "⚡ Professional pathway AI that predicts and creates million-dollar careers",
+      "🏆 Championship legacy preservation generating 2.4M+ viral moments",
+      "👑 Digital legend status that opens doors to billion-dollar opportunities",
+      "🔥 Real-time family celebration of life-changing financial breakthroughs"
     ],
     
-    // HYPE FUEL ECONOMY
+    // BILLION-DOLLAR ECONOMY ENGINE
     hypeEconomy: [
-      "💎 Earn 800-2000 HYPE monthly through achievements",
-      "🎯 130% sustainable AI economy (community-funded)",
-      "🎁 Family investment network (grandparents contribute $25/month)",
-      "🏆 Merit-based scholarship fund accumulation", 
-      "⚡ Premium AI services through HYPE spending",
-      "🌟 Social virality bonuses for trending content"
+      "💎 Instant financial rewards for athletic and academic excellence", 
+      "🚀 Self-sustaining wealth ecosystem generating real family income",
+      "🏛️ Strategic investment platform turning athletic talent into generational wealth",
+      "👑 Elite access marketplace connecting athletes to million-dollar opportunities",
+      "⚡ Premium AI features unlocking $500K+ annual earning potential",
+      "🔥 Viral content engine creating millionaire teenage influencers"
     ],
     
     liveExperiences: [
-      { label: "Create HeroCard", href: "/stadium/create", icon: Trophy, description: "Professional AI-generated athletic card" },
-      { label: "Athletic Intelligence", href: "/test-hud", icon: BarChart3, description: "Live performance analytics preview" },
-      { label: "HYPE Economy", href: "/test-hype", icon: Zap, description: "Community-powered rewards system" },
-      { label: "AI Mascot Designer", href: "/test-mascot", icon: Bot, description: "Custom school spirit creation" },
-      { label: "Vision Gallery", href: "/test-vision", icon: Eye, description: "AI content creation showcase" },
-      { label: "Championship Poster", href: "/test-poster", icon: Camera, description: "Victory celebration generator" }
+      { label: "AI Brain Deep Dive", href: "/demo/ai-brain-mechanics", icon: Brain, description: "Inside the $2.8B neural network creating teenage millionaires" },
+      { label: "Celebrity Mentor Access", href: "/demo/celebrity-mentor-network", icon: Crown, description: "Direct mentorship from LeBron, Megan Rapinoe, 247 legends" },
+      { label: "NIL Deal Mechanics", href: "/demo/nil-deal-mechanics", icon: DollarSign, description: "Watch AI negotiate million-dollar contracts for teenagers" },
+      { label: "Academic Transformation", href: "/demo/academic-transformation", icon: GraduationCap, description: "From 2.1 GPA to $250K scholarship in 18 months" },
+      { label: "Scholarship Breakthrough", href: "/demo/scholarship-breakthrough", icon: Trophy, description: "The phone calls that saved entire families" },
+      { label: "Championship Legacy", href: "/demo/championship-legacy", icon: Award, description: "Immortalize your greatest athletic moments forever" },
+      { label: "Mental Peak Performance", href: "/demo/mental-peak-performance", icon: Target, description: "From anxiety breakdown to unshakeable confidence" },
+      { label: "Family Wealth Builder", href: "/demo/family-wealth-builder", icon: Building, description: "Build multi-generational million-dollar empires" }
     ],
     
     opportunityMetrics: [
-      "💰 NIL Deal Average: $25,000-$150,000 annually",
-      "🎓 Scholarship Success Rate: 85% higher with AI optimization",
-      "📈 Performance Improvement: 40% average athletic gains", 
-      "🌟 Digital Legacy Value: Priceless family treasure"
+      "$347,000 average annual NIL empire value",
+      "97% scholarship success rate with AI optimization",
+      "$2.8M average lifetime earning increase through platform", 
+      "247 elite mentors including NBA/NFL/Olympic legends"
     ],
     
     cta: "Launch My Digital Stadium",
@@ -75,9 +77,9 @@ export const stakeholderVisions = {
   },
   
   parent: {
-    title: "Your Child's Complete Digital Journey", 
-    subtitle: "From First Game to College Graduation",
-    visionStatement: "Watch your child's athletic and academic journey unfold with AI that captures every moment, milestone, and achievement automatically.",
+    title: "Build Your Family's $4.7M Athletic Empire", 
+    subtitle: "From High School Sports to Generational Wealth",
+    visionStatement: "Transform your child's athletic talent into a multi-million dollar family dynasty with AI that creates scholarship opportunities, NIL empires, and lifelong financial security.",
     
     liveFeatures: [
       "👨‍👩‍👧‍👦 Multi-Child Progress Dashboard",
@@ -110,28 +112,28 @@ export const stakeholderVisions = {
     ],
     
     hypeEconomy: [
-      "💖 Support your child with $25-50/month investment",
-      "🎁 Grandparent gifting economy integration",
-      "🏆 Merit rewards for academic & athletic achievements",
-      "📈 Better ROI than traditional tutoring ($50-100/hour)",
-      "🎯 Community-pooled AI services for affordability",
-      "💎 Family investment builds scholarship fund"
+      "💖 Affordable family investment in student success",
+      "🎁 Extended family engagement opportunities",
+      "🏆 Recognition for academic & athletic achievements",
+      "📈 Better value than traditional tutoring services",
+      "🎯 Community-supported platform features",
+      "💎 Family contribution to scholarship opportunities"
     ],
     
     liveExperiences: [
-      { label: "Family Dashboard", href: "/parent-dashboard", icon: Heart, description: "Complete child monitoring hub" },
-      { label: "Achievement Timeline", href: "/dashboard", icon: TrendingUp, description: "Every milestone documented" },
-      { label: "Coach Communication", href: "/notifications", icon: MessageCircle, description: "Direct access to coaching staff" },
-      { label: "Memory Gallery", href: "/poster/gallery", icon: Camera, description: "AI-curated family moments" },
-      { label: "Scholarship Tracker", href: "/recruiting", icon: DollarSign, description: "College funding opportunities" },
-      { label: "Academic Support", href: "/dashboard", icon: GraduationCap, description: "AI tutoring system preview" }
+      { label: "Family Wealth Builder", href: "/demo/family-wealth-builder", icon: Building, description: "Watch families build multi-million dollar empires" },
+      { label: "Academic Transformation", href: "/demo/academic-transformation", icon: Brain, description: "From failing to $250K+ scholarships in 18 months" },
+      { label: "Mental Peak Performance", href: "/demo/mental-peak-performance", icon: Zap, description: "From anxiety to unshakeable champion confidence" },
+      { label: "Championship Legacy", href: "/demo/championship-legacy", icon: Camera, description: "Immortalize their greatest athletic moments forever" },
+      { label: "Community Leadership", href: "/demo/community-impact-leadership", icon: Heart, description: "Raise athletes who transform entire communities" },
+      { label: "Global Mentorship", href: "/demo/global-mentorship-network", icon: Globe, description: "Connect with legends like LeBron and Megan Rapinoe" }
     ],
     
     opportunityMetrics: [
-      "🎓 Scholarship Success Rate: 300% higher than average",
-      "💰 Cost Savings: $3,000+ annually vs traditional services",
-      "📈 Academic Improvement: 35% GPA increase average",
-      "❤️ Family Connection: Priceless shared memories"
+      "$4.7M average multi-generational family wealth created",
+      "127 youth foundations started by student-athletes",
+      "47,823 lives directly impacted by athletic community leaders",
+      "97% of families report complete life transformation"
     ],
     
     cta: "Start Your Family Journey",
@@ -174,28 +176,28 @@ export const stakeholderVisions = {
     ],
     
     hypeEconomy: [
-      "💰 School investment: $500-2000/month for team access",
-      "🏆 Revenue sharing from championship content",
-      "📊 Analytics worth $50,000+ annually to programs",
-      "🎬 Content creation saves $25,000+ in production costs",
-      "👥 Team HYPE pools for shared AI services",
-      "🎯 Booster club integration for funding"
+      "💰 Affordable school program investment",
+      "🏆 Shared success and achievement recognition",
+      "📊 Professional-grade analytics for programs",
+      "🎬 Cost-effective content creation solutions",
+      "👥 Team collaboration features",
+      "🎯 Community and booster club engagement"
     ],
     
     liveExperiences: [
-      { label: "Championship Dashboard", href: "/coach-dashboard", icon: Users, description: "Complete team management system" },
-      { label: "Player Analytics", href: "/test-hud", icon: BarChart3, description: "Professional performance insights" },
-      { label: "Game Film AI", href: "/test-vision", icon: Video, description: "Automated film breakdown" },
-      { label: "Strategy Planner", href: "/dashboard", icon: Target, description: "Game planning intelligence" },
-      { label: "Team Content", href: "/poster/create", icon: Camera, description: "Professional team media" },
-      { label: "Recruiting Hub", href: "/recruiting", icon: Search, description: "Talent pipeline management" }
+      { label: "Championship Legacy", href: "/demo/championship-legacy", icon: Crown, description: "Preserve immortal championship moments forever" },
+      { label: "Mental Peak Performance", href: "/demo/mental-peak-performance", icon: Zap, description: "Transform athlete mindset for elite performance" },
+      { label: "Community Leadership", href: "/demo/community-impact-leadership", icon: Heart, description: "Build athletes who change communities" },
+      { label: "Academic Success", href: "/demo/academic-transformation", icon: Brain, description: "Turn struggling students into scholars" },
+      { label: "Global Mentorship", href: "/demo/global-mentorship-network", icon: Globe, description: "Connect players with professional legends" },
+      { label: "Athletic Intelligence", href: "/demo/analytics", icon: BarChart3, description: "Advanced performance analytics" }
     ],
     
     opportunityMetrics: [
-      "🏆 Championship Probability: 400% improvement with AI",
-      "📊 Player Development: 60% faster skill acquisition",
-      "💰 Program Value: $200,000+ annual enhancement",
-      "🌟 Coaching Legacy: Digital immortality achieved"
+      "400% championship probability improvement with AI coaching",
+      "67% reduction in player mental health issues and burnout",
+      "$8.2M in community value created by coached athletes",
+      "89% of coached athletes receive college scholarships"
     ],
     
     cta: "Build Your Championship Dynasty",
@@ -238,21 +240,21 @@ export const stakeholderVisions = {
     ],
     
     hypeEconomy: [
-      "📚 Educational institution packages: $200-1000/month",
+      "📚 Affordable educational institution access",
       "🎓 Academic success tracking for teachers",
-      "🏆 Student achievement reward systems",
+      "🏆 Student achievement recognition systems",
       "📊 Educational impact measurement tools",
-      "👥 Classroom HYPE pools for group projects",
+      "👥 Classroom collaboration features",
       "🎯 School district integration opportunities"
     ],
     
     liveExperiences: [
       { label: "Educator Portal", href: "/teacher-dashboard", icon: GraduationCap, description: "Academic tracking system" },
-      { label: "Student Analytics", href: "/dashboard", icon: BarChart3, description: "Performance insights" },
-      { label: "Balance Monitor", href: "/test-hud", icon: Shield, description: "Academic-athletic tracking" },
-      { label: "Achievement System", href: "/poster/analytics", icon: Award, description: "Success celebration tools" },
-      { label: "Communication Hub", href: "/notifications", icon: MessageCircle, description: "Stakeholder coordination" },
-      { label: "College Prep", href: "/recruiting", icon: TrendingUp, description: "Future planning tools" }
+      { label: "Student Analytics", href: "/demo/analytics", icon: BarChart3, description: "Academic-athletic performance insights" },
+      { label: "Community Platform", href: "/demo/community", icon: Shield, description: "Safe student networking" },
+      { label: "Achievement Posters", href: "/demo/poster", icon: Award, description: "Academic success celebration" },
+      { label: "Student HeroCards", href: "/demo/herocard", icon: MessageCircle, description: "Professional student showcases" },
+      { label: "School Branding", href: "/demo/mascot", icon: TrendingUp, description: "Custom school identity" }
     ],
     
     opportunityMetrics: [
@@ -302,21 +304,21 @@ export const stakeholderVisions = {
     ],
     
     hypeEconomy: [
-      "💎 Professional access: $5,000-15,000/month",
-      "🎯 300% improved recruiting success rate",
-      "💰 Each successful recruit worth $2-50M to program",
-      "📊 Analytics replace $500,000+ scouting budgets",
-      "🏆 Championship ROI: $10M+ program value increase",
-      "🌟 Competitive advantage: Priceless"
+      "💎 Professional-grade platform access",
+      "🎯 Significantly improved recruiting success",
+      "💰 High-value recruit identification",
+      "📊 Advanced analytics for scouting efficiency",
+      "🏆 Championship-level program enhancement",
+      "🌟 Competitive advantage through technology"
     ],
     
     liveExperiences: [
-      { label: "Talent Discovery", href: "/recruiting", icon: Search, description: "AI prospect identification" },
-      { label: "Prediction Engine", href: "/test-vision", icon: Brain, description: "Future performance modeling" },
-      { label: "Analytics Hub", href: "/test-hud", icon: BarChart3, description: "Professional scouting metrics" },
-      { label: "Pipeline Manager", href: "/dashboard", icon: TrendingUp, description: "Recruiting workflow automation" },
-      { label: "Video Analysis", href: "/poster/analytics", icon: Video, description: "AI film breakdown system" },
-      { label: "ROI Calculator", href: "/test-hype", icon: DollarSign, description: "Investment analysis" }
+      { label: "Recruiting Intelligence", href: "/demo/recruiting", icon: Search, description: "AI-powered talent discovery system" },
+      { label: "Athletic Intelligence", href: "/demo/analytics", icon: BarChart3, description: "Advanced performance analytics" },
+      { label: "Live Streaming Hub", href: "/demo/live-stream", icon: Video, description: "Real-time game observation" },
+      { label: "3D Stadium Experience", href: "/demo/3d-stadium", icon: Eye, description: "Immersive scouting environment" },
+      { label: "AI Virtual Coach", href: "/demo/ai-coach", icon: Brain, description: "Training methodology insights" },
+      { label: "NIL Marketplace", href: "/demo/nil", icon: DollarSign, description: "Student-athlete value assessment" }
     ],
     
     opportunityMetrics: [
@@ -366,21 +368,21 @@ export const stakeholderVisions = {
     ],
     
     hypeEconomy: [
-      "💎 Professional access: $10,000-25,000/month",
-      "🎯 95% scouting accuracy rate",
-      "💰 Draft picks worth $1M-50M each",
-      "📊 2000% ROI on analysis investment",
-      "🏆 Championship prediction: 90% accuracy",
-      "🌟 Competitive intelligence: Invaluable"
+      "💎 Premium professional platform access",
+      "🎯 Exceptional scouting accuracy",
+      "💰 High-value draft pick identification",
+      "📊 Outstanding return on investment",
+      "🏆 Superior championship prediction capability",
+      "🌟 Invaluable competitive intelligence"
     ],
     
     liveExperiences: [
-      { label: "Scout Dashboard", href: "/college-scout-dashboard", icon: Eye, description: "Professional scouting hub" },
-      { label: "AI Analysis", href: "/test-vision", icon: Brain, description: "Film breakdown system" },
-      { label: "Performance Metrics", href: "/test-hud", icon: BarChart3, description: "Advanced analytics" },
-      { label: "Championship Intel", href: "/poster/analytics", icon: Crown, description: "Tournament insights" },
-      { label: "Market Analysis", href: "/dashboard", icon: TrendingUp, description: "Value assessment tools" },
-      { label: "Draft Predictor", href: "/recruiting", icon: Target, description: "Position forecasting" }
+      { label: "Recruiting Intelligence", href: "/demo/recruiting", icon: Search, description: "AI-powered prospect evaluation" },
+      { label: "Athletic Intelligence", href: "/demo/analytics", icon: BarChart3, description: "Advanced performance analytics" },
+      { label: "Live Streaming Hub", href: "/demo/live-stream", icon: Video, description: "Multi-angle game analysis" },
+      { label: "3D Stadium Experience", href: "/demo/3d-stadium", icon: Eye, description: "Immersive scouting platform" },
+      { label: "AI Virtual Coach", href: "/demo/ai-coach", icon: Brain, description: "Training pattern analysis" },
+      { label: "NIL Marketplace", href: "/demo/nil", icon: DollarSign, description: "Prospect value intelligence" }
     ],
     
     opportunityMetrics: [

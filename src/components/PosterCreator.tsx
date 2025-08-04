@@ -336,7 +336,7 @@ export default function PosterCreator({
             {generating ? (
               <div className="text-center">
                 <div className="w-16 h-16 border-4 border-[#F59E0B] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-gray-400">Creating your ESPN-quality poster...</p>
+                <p className="text-gray-400">Creating your professional poster...</p>
                 <p className="text-sm text-gray-500 mt-2">This may take 10-15 seconds</p>
               </div>
             ) : generatedPoster ? (

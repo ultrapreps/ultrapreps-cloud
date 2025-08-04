@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Palette, MessageCircle, Image as ImageIcon, Zap, RefreshCw } from 'lucide-react';
+import { Sparkles, Palette, MessageCircle, Image as ImageIcon, Zap, RefreshCw, Trophy, Flame } from 'lucide-react';
 import type { MascotIdentity } from '@/lib/bots/MascotEngine';
 
 interface SampleDialogue {
@@ -336,7 +336,7 @@ export default function TestMascotPage() {
                                   <div className="text-4xl mb-2">
                                     {pose === 'standing' && '🚶'}
                                     {pose === 'action' && '🏃'}
-                                    {pose === 'victory' && '🏆'}
+                                    {pose === 'victory' && <Trophy className="w-6 h-6 text-dna-gold" />}
                                     {pose === 'thinking' && '🤔'}
                                     {pose === 'cheering' && '📣'}
                                   </div>
@@ -359,7 +359,7 @@ export default function TestMascotPage() {
                                     {sticker === 'highFive' && '✋'}
                                     {sticker === 'flex' && '💪'}
                                     {sticker === 'wink' && '😉'}
-                                    {sticker === 'fire' && '🔥'}
+                                    {sticker === 'fire' && <Flame className="w-6 h-6 text-dna-orange" />}
                                   </div>
                                 </div>
                                 <p className="text-sm capitalize">{sticker}</p>
@@ -390,7 +390,7 @@ export default function TestMascotPage() {
                           <div key={situation} className="bg-gray-800 rounded-lg p-4">
                             <h4 className="font-semibold mb-2 capitalize flex items-center gap-2">
                               {situation === 'welcome' && '👋'}
-                              {situation === 'victory' && '🏆'}
+                              {situation === 'victory' && <Trophy className="w-6 h-6 text-dna-gold" />}
                               {situation === 'encouragement' && '💪'}
                               {situation === 'achievement' && '⭐'}
                               {situation}

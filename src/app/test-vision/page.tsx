@@ -44,7 +44,7 @@ export default function TestVisionPage() {
         schoolName: 'Marble Falls High School',
         schoolColors: { primary: '#B91C1C', secondary: '#F59E0B' }
       },
-      description: 'ESPN-quality hero card with perfect branding'
+      description: 'Professional hero card with perfect branding'
     },
     {
       id: 'hero2',
@@ -368,7 +368,7 @@ export default function TestVisionPage() {
 
         {/* Footer */}
         <div className="mt-12 text-center text-gray-500">
-          <p>VisionQA v1.0 - Ensuring every asset meets ESPN/Nike quality standards</p>
+          <p>VisionQA v1.0 - Ensuring every asset meets professional quality standards</p>
           <p className="text-sm mt-2">No more cheesy AI-generated look!</p>
         </div>
       </div>

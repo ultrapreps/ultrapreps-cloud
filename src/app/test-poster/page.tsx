@@ -24,7 +24,7 @@ export default function TestPosterPage() {
                 AI Poster Studio
               </h1>
               <p className="text-gray-400 mt-1">
-                Create ESPN-quality posters with AI-powered design
+                Create professional posters with AI-powered design
               </p>
             </div>
             <div className="flex items-center gap-4">

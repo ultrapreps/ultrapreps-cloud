@@ -22,14 +22,14 @@ export default function GageWelcomePopup({ onClose }: GageWelcomePopupProps) {
       stats: "4.2M+ Students Powered"
     },
     {
-      title: "I'm Your Personal Mentor! 🧠",
+              title: "I'm Your Personal Mentor!",
       content: "24/7 access to recruiting secrets, performance tips, motivation, and platform guidance. I know EVERYTHING about building your digital legacy. Think of me as your success co-pilot!",
       icon: Zap,
       color: "from-[#1E3A8A] to-[#3B82F6]",
       stats: "98% Success Rate"
     },
     {
-      title: "The HYPE Economy Awaits! ⚡",
+              title: "The HYPE Economy Awaits!",
       content: "Earn HYPE for every achievement, level up your profile, unlock premium features, and watch recruiters take notice. This isn't just social media - this is your career launchpad!",
       icon: TrendingUp,
       color: "from-[#059669] to-[#10B981]",

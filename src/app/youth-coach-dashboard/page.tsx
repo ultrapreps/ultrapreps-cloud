@@ -260,9 +260,9 @@ export default function YouthCoachDashboard() {
           style={{
             backgroundImage: `url('/stadium-crowd-energy.jpg')`,
             backgroundAttachment: 'scroll',
-            backgroundPosition: 'center top',
+            backgroundPosition: 'center top', 
             backgroundSize: '120% auto',
-            filter: 'grayscale(100%) contrast(1.2) brightness(0.17) blur(2px)',
+            filter: 'grayscale(100%) contrast(1.2) brightness(0.17) blur(2px)'
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/85 via-[#111827]/80 to-black/92" />
@@ -451,7 +451,7 @@ export default function YouthCoachDashboard() {
                             <div className="mt-4 flex flex-wrap gap-1">
                               {athlete.achievements.slice(0, 2).map((achievement, idx) => (
                                 <span key={idx} className="px-2 py-1 bg-[#F59E0B]/20 text-[#F59E0B] text-xs rounded-full">
-                                  🏆 {achievement}
+                                  <Trophy className="w-4 h-4 inline text-dna-gold mr-1" /> {achievement}
                                 </span>
                               ))}
                             </div>

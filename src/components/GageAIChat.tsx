@@ -22,18 +22,18 @@ interface GageAIChatProps {
 // Gage's LEGENDARY knowledge base - The Ultimate Mentor
 const GAGE_RESPONSES = {
   greetings: [
-    "Hey there, champion! 🏆 I'm Gage Coleman, founder of UltraPreps and your first friend here! Ready to build something LEGENDARY?",
+    "Hey there, champion! I'm Gage Coleman, founder of UltraPreps and your first friend here! Ready to build something LEGENDARY?",
     "What's up, superstar! Welcome to your new digital home where dreams become reality! 🚀",
     "Welcome to the family! I'm here to help you dominate every aspect of your journey! 💪",
     "Hey future legend! Time to unlock your full potential - I've got the keys! ✨",
-    "Champion! You just stepped into the most powerful student platform ever created. Let's get started! ⚡"
+    "Champion! You just stepped into the most powerful student platform ever created. Let's get started!"
   ],
 
   // SPORTS KNOWLEDGE (Football)
   football_strategy: [
     "Football IQ is everything! Study film like Tom Brady - 3 hours of film for every 1 hour of practice. Break down opposing defenses and learn to read coverage pre-snap!",
     "Want to dominate at QB? Master the pocket presence first. Practice your footwork daily - 3-step, 5-step, 7-step drops until they're muscle memory!",
-    "Running backs: Vision beats speed every time. Study how Saquon Barkley sets up his cuts. Plant and go - no dancing in the backfield!",
+    "Running backs: Vision and speed work together. Study how elite players set up their cuts. Plant and go - keep it decisive in the backfield!",
     "Defense wins championships! Study Ray Lewis' film - see how he reads the offense's keys and communicates. Leadership on defense is game-changing!",
     "O-line dominance starts with footwork. Master your kick-step, punch technique, and hand placement. Protect your QB like your life depends on it!"
   ],
@@ -48,7 +48,7 @@ const GAGE_RESPONSES = {
 
   baseball_strategy: [
     "Baseball is a mental game! Study pitch sequences like Mookie Betts. Learn to read pitchers' tells and count tendencies. Every at-bat is a chess match!",
-    "Pitching dominance starts with command, not velocity! Study Greg Maddux - location beats gas every time. Paint the corners and change eye levels!",
+    "Pitching excellence starts with command, not velocity! Study Greg Maddux - location and gas work together. Paint the corners and change eye levels!",
     "Hit for average AND power! Study Vladimir Guerrero Jr.'s approach - short stride, quiet hands, and attack strikes early in counts!",
     "Defense saves games! Study Andrelton Simmons' footwork and glove work. Every play matters - make the routine plays look easy!",
     "Catchers are field generals! Study how Yadier Molina calls games. Know every pitcher's strengths and weaknesses inside out!"
@@ -74,7 +74,7 @@ const GAGE_RESPONSES = {
   ],
 
   motivation_legendary: [
-    "Champions are made in the off-season! When everyone else is relaxing, you're grinding. That's how legends separate themselves! 🔥",
+    "Champions are made in the off-season! When everyone else is relaxing, you're grinding. That's how legends separate themselves!",
     "Kobe's 4 AM workouts weren't about basketball - they were about the mindset! What are YOU willing to do that others won't?",
     "Every rep counts! Tom Brady doesn't skip workouts at 45 because he knows every detail matters. Your next rep could be the difference!",
     "Pressure creates diamonds! Michael Jordan was cut from his high school team. Use setbacks as setup for comebacks!",
@@ -105,7 +105,7 @@ const GAGE_RESPONSES = {
   academic_excellence: [
     "GPA is your foundation! Every grade matters - a 3.5 opens doors, a 3.8 opens MORE doors, a 4.0 opens ALL doors!",
     "Time management wins! Use the 50/10 rule - 50 minutes focused study, 10 minute break. Your brain needs rest to retain!",
-    "Active reading beats passive reading! Take notes, ask questions, and teach concepts to others. Engage with the material!",
+    "Active reading works better than passive reading! Take notes, ask questions, and teach concepts to others. Engage with the material!",
     "Find your learning style! Visual, auditory, or kinesthetic - once you know how you learn best, studying becomes easier!",
     "Seek help early! Don't wait until you're struggling. Teachers respect students who ask for help - it shows maturity!",
     "Connect academics to athletics! Math helps with stats analysis, science helps with nutrition and training. Everything connects!"
@@ -122,9 +122,9 @@ const GAGE_RESPONSES = {
   ],
 
   encouragement: [
-    "That's the UltraPreps spirit! Keep pushing forward! Every champion has moments of doubt - push through! 🔥",
+    "That's the UltraPreps spirit! Keep pushing forward! Every champion has moments of doubt - push through!",
     "I see that fire in you! You're not just participating, you're DOMINATING! Keep that energy!",
-    "Now THAT'S what I'm talking about! You're built different! Champions recognize champions! ⚡",
+    "Now THAT'S what I'm talking about! You're built different! Champions recognize champions!",
     "Every legend started exactly where you are. The difference? They never stopped believing! Keep grinding!",
     "Your potential is UNLIMITED! I've seen thousands of athletes reach the top - you have that same spark!",
     "Obstacles don't stop champions - they reveal champions! You're proving your strength right now!"
@@ -132,7 +132,7 @@ const GAGE_RESPONSES = {
 
   hype_celebration: [
     "BOOM! 🎉 You just earned some HYPE! That's championship energy right there!",
-    "Look at you stacking those HYPE points! The platform feels your momentum! Unstoppable! ⚡",
+    "Look at you stacking those HYPE points! The platform feels your momentum! Unstoppable!",
     "Your HYPE game is LEGENDARY! Every point represents your dedication and growth!",
     "That's how we build empires! HYPE by HYPE, rep by rep! The whole community sees your fire! 🚂",
     "HYPE EXPLOSION! 💥 You're not just earning points - you're inspiring others! That's leadership!",

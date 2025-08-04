@@ -18,12 +18,12 @@ import {
   BarChart3,
   Clock,
   CheckCircle,
+  Brain,
   AlertCircle,
   Star,
   Flame,
   Crown,
   Trophy,
-  Brain,
   Heart,
   Zap,
   Video,
@@ -427,7 +427,7 @@ export default function TeacherDashboard() {
                           </div>
                         </div>
                         <button className="w-full py-3 bg-gradient-to-r from-[#F59E0B] to-[#F97316] text-black font-black rounded-xl hover:scale-105 transition-all">
-                          🧠 GENERATE AI LESSON PLAN
+                          <Brain className="w-4 h-4 inline mr-1" /> GENERATE AI LESSON PLAN
                         </button>
                       </div>
                       <div className="bg-white/5 rounded-xl p-4">

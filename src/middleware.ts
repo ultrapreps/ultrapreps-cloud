@@ -36,6 +36,11 @@ export default withAuth(
     const path = req.nextUrl.pathname;
     const token = req.nextauth.token;
     
+    // Block test pages in production
+    if (process.env.NODE_ENV === 'production' && path.startsWith('/test-')) {
+      return NextResponse.redirect(new URL('/onboarding', req.url));
+    }
+    
     // Check if route requires specific role
     for (const [route, roles] of Object.entries(protectedRoutes)) {
       if (path.startsWith(route)) {

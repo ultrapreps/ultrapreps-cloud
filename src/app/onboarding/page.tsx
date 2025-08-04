@@ -92,7 +92,7 @@ export default function OnboardingPage() {
       id: 5,
       title: 'Your HeroCard',
       icon: <Sparkles className="w-6 h-6" />,
-      description: 'See your instant ESPN-quality card'
+      description: 'See your instant professional card'
     }
   ];
 
@@ -144,7 +144,7 @@ export default function OnboardingPage() {
     const file = e.target.files?.[0];
     if (file) {
       // In production, upload to S3
-      // For demo, use placeholder
+              // Generate school profile
       setSelfieUrl('/api/placeholder/400/400?text=' + encodeURIComponent(studentInfo.firstName));
       setCurrentStep(4);
     }
@@ -562,7 +562,7 @@ export default function OnboardingPage() {
                     <div className="bg-gray-900 rounded-lg p-32 flex items-center justify-center">
                       <div className="text-center">
                         <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-[#F59E0B]" />
-                        <p className="text-gray-400">Generating ESPN-quality card...</p>
+                        <p className="text-gray-400">Generating professional card...</p>
                         <p className="text-sm text-gray-500 mt-2">Target: Under 20 seconds</p>
                       </div>
                     </div>

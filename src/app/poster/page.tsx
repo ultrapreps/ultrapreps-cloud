@@ -59,7 +59,7 @@ export default function PosterHomePage() {
               AI Poster Studio
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Create ESPN-quality sports posters in seconds with AI-powered design. 
+              Create professional sports posters in seconds with AI-powered design. 
               Every moment deserves a professional poster.
             </p>
             <div className="flex items-center justify-center gap-4">
