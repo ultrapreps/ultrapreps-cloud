@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import GageAIChat from '../../components/GageAIChat';
 import HypeWidget from '../../components/HypeWidget';
+import ProfileBot from '../../components/bots/ProfileBot';
+import PredatorEngine from '../../components/bots/PredatorEngine';
 
 
 interface TeamPlayer {

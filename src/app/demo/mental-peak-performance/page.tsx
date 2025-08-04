@@ -8,6 +8,7 @@ import {
   Activity, Moon, Sun, Battery, Smile, Frown, AlertTriangle
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function MentalPeakPerformanceDemo() {
   const [selectedAthlete, setSelectedAthlete] = useState(0);
@@ -230,8 +231,12 @@ export default function MentalPeakPerformanceDemo() {
               transition={{ delay: 0.2 }}
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
-              Watch athletes transform from **anxiety and burnout** to **unshakeable mental dominance**. 
-              This isn't just therapy - it's **performance optimization** that creates champions.
+              <HighlightText>
+                **anxiety and burnout**
+              </HighlightText>
+              <HighlightText>
+                **performance optimization**
+              </HighlightText>
             </motion.p>
 
             {/* Live Mental Performance Stats */}

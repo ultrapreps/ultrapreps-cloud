@@ -8,6 +8,7 @@ import {
   Zap, CheckCircle, ArrowRight, Play, Pause, RotateCcw
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function ChampionshipLegacyDemo() {
   const [selectedLegacy, setSelectedLegacy] = useState(0);
@@ -206,7 +207,9 @@ export default function ChampionshipLegacyDemo() {
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
               These aren't just highlights - they're **legendary moments preserved forever** with AI precision. 
-              Watch families create **priceless treasures** that will inspire 5 generations.
+              <HighlightText>
+                **priceless treasures**
+              </HighlightText>
             </motion.p>
 
             {/* Live Legacy Stats */}

@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// Removed framer motion - no cheesy animations
 import { 
   Crown, Star, Globe, Users, Video, MessageCircle, Trophy,
   Target, Heart, Zap, CheckCircle, ArrowRight, Clock,
   Award, Flame, Shield, Eye, Phone, Calendar, BookOpen, TrendingUp
 } from 'lucide-react';
+import HighlightText from '../../../components/HighlightText';
 import Link from 'next/link';
 
 export default function GlobalMentorshipNetworkDemo() {
@@ -245,35 +246,23 @@ export default function GlobalMentorshipNetworkDemo() {
       <div className="ultra-content-wrapper">
         <div className="ultra-container">
           <div className="text-center ultra-section-spacing">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-center gap-4 mb-6"
-            >
+            <div className="flex items-center justify-center gap-4 mb-6">
               <Crown className="w-12 h-12 text-dna-gold" />
               <h1 className="ultra-hero-text">
                 LEGENDS CREATING LEGENDS
               </h1>
               <Globe className="w-12 h-12 text-dna-gold" />
-            </motion.div>
+            </div>
             
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
-            >
-              Watch young athletes get **personally mentored by LeBron, Megan Rapinoe, and Usain Bolt**. 
-              This isn't just inspiration - it's **direct access to greatness** that transforms careers.
-            </motion.p>
+            <p className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8">
+              <HighlightText>
+                Watch young athletes get **personally mentored by LeBron, Megan Rapinoe, and Usain Bolt**. 
+                This isn't just inspiration - it's **direct access to greatness** that transforms careers.
+              </HighlightText>
+            </p>
 
             {/* Live Mentorship Stats */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="ultra-card bg-gradient-to-r from-dna-gold/20 to-dna-orange/20 border-dna-gold/50 max-w-5xl mx-auto mb-16"
-            >
+            <div className="ultra-card bg-gradient-to-r from-dna-gold/20 to-dna-orange/20 border-dna-gold/50 max-w-5xl mx-auto mb-16">
               <h3 className="ultra-card-title mb-6 flex items-center justify-center gap-2">
                 <Flame className="w-6 h-6 text-dna-gold" />
                 LIVE GLOBAL MENTORSHIP NETWORK
@@ -296,7 +285,7 @@ export default function GlobalMentorshipNetworkDemo() {
                   <div className="text-sm text-white/70">Countries Connected</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Mentorship Selector */}
             <div className="flex justify-center gap-4 mb-12">
@@ -511,12 +500,7 @@ export default function GlobalMentorshipNetworkDemo() {
 
         {/* Call to Action */}
           <div className="text-center ultra-section-spacing">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 }}
-              className="space-y-6"
-            >
+            <div className="space-y-6">
               <h2 className="ultra-section-title">
                 CONNECT WITH GREATNESS
               </h2>
@@ -547,7 +531,7 @@ export default function GlobalMentorshipNetworkDemo() {
               <div className="pt-8 text-sm text-white/60">
                 <p>Join 12,847 athletes connected with 247 elite mentors from around the world</p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import {
   Award, Flame, Shield, Target, Users, Clock, Video
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function ScholarshipBreakthroughDemo() {
   const [selectedAthlete, setSelectedAthlete] = useState(0);
@@ -219,7 +220,9 @@ export default function ScholarshipBreakthroughDemo() {
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
               These aren't just scholarships - they're **family salvation moments**. 
-              Watch real families go from **poverty to prosperity** with one AI-powered phone call.
+              <HighlightText>
+                **poverty to prosperity**
+              </HighlightText>
             </motion.p>
 
             {/* Live Recruiting Stats */}

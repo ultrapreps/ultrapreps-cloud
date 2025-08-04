@@ -8,6 +8,7 @@ import {
   Award, Flame, Shield, Eye, Brain, Camera, FileText, AlertTriangle
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function AcademicTransformationDemo() {
   const [selectedStory, setSelectedStory] = useState(0);
@@ -148,7 +149,9 @@ export default function AcademicTransformationDemo() {
               transition={{ delay: 0.2 }}
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
-              Watch real families go from **academic struggle** to **$250,000+ scholarships** 
+              <HighlightText>
+                **academic struggle**
+              </HighlightText>
               in 18 months. This isn't tutoring - it's **destiny transformation**.
             </motion.p>
 

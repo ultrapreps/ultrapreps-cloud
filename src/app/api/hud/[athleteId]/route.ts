@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
 
-export interface HUDData {
+// HUD Data Interface from Bible
+interface HUDData {
   hype_score: number;
   recent_stats: {
-    [sport: string]: Record<string, any>;
+    [sport: string]: Record<string, string | number>;
   };
   achievements: string[];
   highlight_reels: Array<{
@@ -19,7 +17,7 @@ export interface HUDData {
   };
   recruiting: {
     contact: {
-      coach_email?: string;
+      coach_email: string;
     };
     test_scores: {
       sat?: number;
@@ -31,189 +29,211 @@ export interface HUDData {
     boost_hype: boolean;
     donate: boolean;
   };
-  // Role-specific data
-  role_data?: {
-    parent_view?: {
-      milestones: string[];
-      family_giving_enabled: boolean;
-    };
-    recruiter_view?: {
-      full_stats: boolean;
-      contact_enabled: boolean;
-      academic_details: boolean;
-    };
-    coach_view?: {
-      team_overview: boolean;
-      direct_messaging: boolean;
-    };
-  };
 }
 
+// Mock data - would be replaced with real database calls
+const MOCK_HUD_DATA: Record<string, HUDData> = {
+  'kolebecker': {
+    hype_score: 86,
+    recent_stats: {
+      football: { yards: 998, receptions: 48, tds: 12 },
+      track: { "100m": "11.2s" }
+    },
+    achievements: ["All-District 1st Team", "State Champion"],
+    highlight_reels: [
+      {
+        title: "2024 Season Highlights",
+        url: "https://cdn.ultrapreps.com/highlights/kolebecker2024.mp4"
+      }
+    ],
+    academics: {
+      gpa: 3.7,
+      honors: ["NHS", "Honor Roll"]
+    },
+    recruiting: {
+      contact: { coach_email: "coach@school.edu" },
+      test_scores: { sat: 1300, act: 28 }
+    },
+    share_actions: {
+      share_url: "https://ultrapreps.com/athlete/kolebecker",
+      boost_hype: true,
+      donate: true
+    }
+  },
+  'marcus-johnson': {
+    hype_score: 94,
+    recent_stats: {
+      football: { yards: 1247, receptions: 67, tds: 18 },
+      basketball: { points: 24.5, assists: 8.2, rebounds: 6.1 }
+    },
+    achievements: ["State Champion", "MVP", "All-Conference", "Team Captain"],
+    highlight_reels: [
+      {
+        title: "Championship Game Highlights",
+        url: "https://cdn.ultrapreps.com/highlights/marcus-championship.mp4"
+      },
+      {
+        title: "Season Best Moments",
+        url: "https://cdn.ultrapreps.com/highlights/marcus-season.mp4"
+      }
+    ],
+    academics: {
+      gpa: 3.87,
+      honors: ["National Honor Society", "AP Scholar", "Student Council"]
+    },
+    recruiting: {
+      contact: { coach_email: "recruiting@example.edu" },
+      test_scores: { sat: 1340, act: 29 }
+    },
+    share_actions: {
+      share_url: "https://ultrapreps.com/athlete/marcus-johnson",
+      boost_hype: true,
+      donate: true
+    }
+  }
+};
+
 export async function GET(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: { athleteId: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
-    const userRole = session?.user?.role || 'guest';
+    const athleteId = params.athleteId;
     
-    // Fetch athlete data with relations
-    const athlete = await prisma.user.findUnique({
-      where: { id: params.athleteId },
-      include: {
-        school: true,
-        heroCards: {
-          where: { isActive: true },
-          orderBy: { createdAt: 'desc' },
-          take: 1,
-        },
-        hypeBalance: true,
-        achievements: {
-          where: { isVerified: true },
-          orderBy: { date: 'desc' },
-          take: 5,
-        },
-        stadium: true,
-      },
-    });
-
-    if (!athlete) {
+    // Get role from query params for role-specific views
+    const role = request.nextUrl.searchParams.get('role') || 'public';
+    
+    // Get base HUD data
+    const hudData = MOCK_HUD_DATA[athleteId];
+    
+    if (!hudData) {
       return NextResponse.json(
         { error: 'Athlete not found' },
         { status: 404 }
       );
     }
 
-    // Get current HeroCard
-    const currentHeroCard = athlete.heroCards[0];
-    
-    // Calculate total HYPE (free + paid)
-    const totalHype = (athlete.hypeBalance?.freeHype || 0) + 
-                     (athlete.hypeBalance?.paidHype || 0);
+    // Customize data based on role
+    let responseData = { ...hudData };
 
-    // Build HUD data with role-based filtering
-    const hudData: HUDData = {
-      hype_score: totalHype,
-      recent_stats: currentHeroCard?.stats as any || {},
-      achievements: athlete.achievements.map(a => a.title),
-      highlight_reels: [], // TODO: Implement media fetching
-      academics: {
-        gpa: 3.7, // TODO: Fetch from academic records
-        honors: ['NHS', 'Honor Roll'], // TODO: Fetch from achievements
-      },
-      recruiting: {
-        contact: {
-          coach_email: userRole === 'COLLEGE_SCOUT' ? 'coach@school.edu' : undefined,
-        },
-        test_scores: {
-          sat: userRole === 'COLLEGE_SCOUT' ? 1300 : undefined,
-          act: userRole === 'COLLEGE_SCOUT' ? 28 : undefined,
-        },
-      },
-      share_actions: {
-        share_url: `${process.env.NEXTAUTH_URL}/athlete/${athlete.username}`,
-        boost_hype: true,
-        donate: athlete.school?.id ? true : false,
-      },
-    };
-
-    // Add role-specific data
-    switch (userRole) {
-      case 'PARENT':
-        hudData.role_data = {
-          parent_view: {
-            milestones: athlete.achievements.map(a => 
-              `${a.title} - ${new Date(a.date).toLocaleDateString()}`
-            ),
-            family_giving_enabled: true,
-          },
+    switch (role) {
+      case 'student':
+        // Students see motivational feedback and progress tracking
+        responseData = {
+          ...responseData,
+          motivational_message: "Keep pushing! Your HYPE is trending upward!",
+          progress_tracking: {
+            weekly_improvement: "+5.2%",
+            next_milestone: "100 HYPE Score",
+            achievement_progress: "2/3 State Records"
+          }
         };
         break;
-      
-      case 'COLLEGE_SCOUT':
-        hudData.role_data = {
-          recruiter_view: {
-            full_stats: true,
-            contact_enabled: true,
-            academic_details: true,
+
+      case 'parent':
+        // Parents see brag mode and family giving options
+        responseData = {
+          ...responseData,
+          brag_mode: {
+            milestones: ["First Touchdown", "Academic Honor Roll", "Team Captain"],
+            share_templates: [
+              "Proud of Marcus's championship win! 🏆",
+              "Honor roll again! Academic excellence! 📚"
+            ]
           },
+          family_giving: {
+            suggested_amount: "$25",
+            team_fund_goal: "$5000",
+            current_progress: "$3200"
+          }
         };
         break;
-      
-      case 'COACH':
-        hudData.role_data = {
-          coach_view: {
-            team_overview: true,
-            direct_messaging: true,
+
+      case 'recruiter':
+        // Recruiters see academic + athletic data with contact options
+        responseData = {
+          ...responseData,
+          recruiting_package: {
+            full_transcript: "Available upon request",
+            video_packages: [
+              "Senior Highlights (12 min)",
+              "Skills & Drills (8 min)",
+              "Game Film Collection (45 min)"
+            ],
+            coach_contact: "Coach Smith - coach@school.edu",
+            visit_availability: "Available weekends"
           },
+          comparative_metrics: {
+            peer_rank: "Top 5%",
+            state_rank: "Top 15%",
+            position_rank: "#3 QB in region"
+          }
+        };
+        break;
+
+      case 'coach':
+        // Coaches see team overview and messaging options
+        responseData = {
+          ...responseData,
+          team_context: {
+            team_role: "Starting QB, Team Captain",
+            leadership_score: 9.2,
+            attendance: "100%",
+            practice_performance: "Excellent"
+          },
+          coaching_tools: {
+            send_message: true,
+            schedule_meeting: true,
+            performance_notes: "Exceptional leadership in playoffs"
+          }
         };
         break;
     }
 
-    // Set cache headers for performance
-    return NextResponse.json(hudData, {
-      headers: {
-        'Cache-Control': 'public, s-maxage=10, stale-while-revalidate=59',
-      },
-    });
+    // Add real-time timestamp
+    responseData.last_updated = new Date().toISOString();
+
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('HUD API Error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch HUD data' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
 }
 
-// POST endpoint for updating HYPE
+// POST endpoint for boosting HYPE
 export async function POST(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: { athleteId: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    const athleteId = params.athleteId;
+    const body = await request.json();
+    const { action, amount = 1 } = body;
+
+    if (action === 'boost') {
+      // Simulate HYPE boost
+      const currentData = MOCK_HUD_DATA[athleteId];
+      if (currentData) {
+        currentData.hype_score += amount;
+        
+        return NextResponse.json({
+          success: true,
+          new_hype_score: currentData.hype_score,
+          message: `HYPE boosted by ${amount}!`
+        });
+      }
     }
 
-    const { action, amount } = await req.json();
-
-    if (action === 'boost_hype') {
-      // Create HYPE event
-      const hypeEvent = await prisma.hypeEvent.create({
-        data: {
-          fromUserId: session.user.id,
-          toUserId: params.athleteId,
-          type: 'GIFTED',
-          amount: amount || 10,
-          category: 'boost',
-          description: `Boosted by ${session.user.name}`,
-        },
-      });
-
-      // Update recipient's balance
-      await prisma.hypeBalance.upsert({
-        where: { userId: params.athleteId },
-        create: {
-          userId: params.athleteId,
-          freeHype: amount || 10,
-        },
-        update: {
-          freeHype: { increment: amount || 10 },
-          totalEarned: { increment: amount || 10 },
-        },
-      });
-
-      // Emit WebSocket event (this will be handled by the socket server)
-      // For now, just return success
+    if (action === 'share') {
+      // Track share action
       return NextResponse.json({
         success: true,
-        message: 'HYPE sent successfully',
-        amount: amount || 10,
+        share_url: MOCK_HUD_DATA[athleteId]?.share_actions?.share_url,
+        message: 'Share tracked successfully!'
       });
     }
 
@@ -225,7 +245,7 @@ export async function POST(
   } catch (error) {
     console.error('HUD POST Error:', error);
     return NextResponse.json(
-      { error: 'Failed to process action' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

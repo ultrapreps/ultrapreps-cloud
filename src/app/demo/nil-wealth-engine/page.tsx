@@ -8,6 +8,7 @@ import {
   Flame, Shield, Users, Clock, Building, Briefcase, Heart
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function NILWealthEngineDemo() {
   const [selectedAthlete, setSelectedAthlete] = useState(0);
@@ -223,8 +224,12 @@ export default function NILWealthEngineDemo() {
               transition={{ delay: 0.2 }}
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
-              Watch high school athletes build **$500K+ annual empires** through AI-optimized NIL deals. 
-              This isn't pocket money - it's **generational wealth creation** at 17.
+              <HighlightText>
+                **$500K+ annual empires**
+              </HighlightText>
+              <HighlightText>
+                **generational wealth creation**
+              </HighlightText>
             </motion.p>
 
             {/* Live NIL Stats */}

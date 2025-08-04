@@ -1,255 +1,374 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Trophy, TrendingUp, Share2, Eye, Users, Star } from 'lucide-react';
-// Temporarily disabled WebSocket import
-// import { useWebSocket } from '@/lib/websocket/client';
-import { HUDData } from '@/app/api/hud/[athleteId]/route';
+import { 
+  Trophy, Star, Eye, Share2, Heart, TrendingUp,
+  Video, Award, GraduationCap, Users, Zap,
+  Phone, Mail, Download, ExternalLink, Bell,
+  MessageCircle, Calendar, Target, Crown
+} from 'lucide-react';
+
+interface HUDData {
+  hype_score: number;
+  recent_stats: {
+    [sport: string]: Record<string, string | number>;
+  };
+  achievements: string[];
+  highlight_reels: Array<{
+    title: string;
+    url: string;
+  }>;
+  academics: {
+    gpa: number;
+    honors: string[];
+  };
+  recruiting: {
+    contact: {
+      coach_email: string;
+    };
+    test_scores: {
+      sat?: number;
+      act?: number;
+    };
+  };
+  share_actions: {
+    share_url: string;
+    boost_hype: boolean;
+    donate: boolean;
+  };
+  last_updated?: string;
+  // Role-specific additions
+  motivational_message?: string;
+  progress_tracking?: any;
+  brag_mode?: any;
+  family_giving?: any;
+  recruiting_package?: any;
+  comparative_metrics?: any;
+  team_context?: any;
+  coaching_tools?: any;
+}
 
 interface HeroCardHUDProps {
   athleteId: string;
-  initialData?: HUDData;
-  userRole?: string;
+  role?: 'student' | 'parent' | 'recruiter' | 'coach' | 'public';
+  isLive?: boolean;
+  className?: string;
 }
 
-export default function HeroCardHUD({ athleteId, initialData, userRole = 'guest' }: HeroCardHUDProps) {
-  const [hudData, setHudData] = useState<HUDData | null>(initialData || null);
-  const [loading, setLoading] = useState(!initialData);
-  const [hypeAnimation, setHypeAnimation] = useState(false);
-  
-  // Temporarily disabled WebSocket
-  // const { onHypeUpdate, onLiveActivity, sendHype } = useWebSocket();
+export default function HeroCardHUD({ 
+  athleteId, 
+  role = 'public', 
+  isLive = true,
+  className = '' 
+}: HeroCardHUDProps) {
+  const [hudData, setHudData] = useState<HUDData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [boostCount, setBoostCount] = useState(0);
 
-  // Fetch initial HUD data
+  // Fetch HUD data
   useEffect(() => {
-    if (!initialData) {
-      fetchHUDData();
-    }
-  }, [athleteId]);
-
-  // Subscribe to WebSocket updates - TEMPORARILY DISABLED
-  // useEffect(() => {
-  //   const unsubscribeHype = onHypeUpdate((data) => {
-  //     if (data.userId === athleteId) {
-  //       setHudData(prev => prev ? {
-  //         ...prev,
-  //         hype_score: prev.hype_score + data.amount
-  //       } : null);
+    const fetchHUDData = async () => {
+      try {
+        const response = await fetch(`/api/hud/${athleteId}?role=${role}`);
+        if (!response.ok) throw new Error('Failed to fetch HUD data');
         
-  //       // Trigger animation
-  //       setHypeAnimation(true);
-  //       setTimeout(() => setHypeAnimation(false), 1000);
-  //     }
-  //   });
-
-  //   const unsubscribeActivity = onLiveActivity((activity) => {
-  //     // Handle live updates for achievements, stats, etc.
-  //     if (activity.userId === athleteId && activity.type === 'achievement') {
-  //       setHudData(prev => prev ? {
-  //         ...prev,
-  //         achievements: [activity.message, ...prev.achievements].slice(0, 5)
-  //       } : null);
-  //     }
-  //   });
-
-  //   return () => {
-  //     unsubscribeHype();
-  //     unsubscribeActivity();
-  //   };
-  // }, [athleteId, onHypeUpdate, onLiveActivity]);
-
-  const fetchHUDData = async () => {
-    try {
-      const response = await fetch(`/api/hud/${athleteId}`);
-      if (response.ok) {
         const data = await response.json();
         setHudData(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Failed to fetch HUD data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchHUDData();
+  }, [athleteId, role]);
+
+  // Real-time updates via WebSocket (simplified simulation)
+  useEffect(() => {
+    if (!isLive || !hudData) return;
+
+    const interval = setInterval(() => {
+      // Simulate real-time HYPE updates
+      setHudData(prev => prev ? {
+        ...prev,
+        hype_score: prev.hype_score + Math.floor(Math.random() * 3) - 1, // -1 to +2
+        last_updated: new Date().toISOString()
+      } : null);
+    }, 10000); // Update every 10 seconds
+
+    return () => clearInterval(interval);
+  }, [isLive, hudData]);
 
   const handleBoostHype = async () => {
     try {
       const response = await fetch(`/api/hud/${athleteId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'boost_hype', amount: 10 }),
+        body: JSON.stringify({ action: 'boost', amount: 1 })
       });
-
+      
       if (response.ok) {
-        // Simulate real-time update without WebSocket
+        const result = await response.json();
+        setBoostCount(prev => prev + 1);
         setHudData(prev => prev ? {
           ...prev,
-          hype_score: prev.hype_score + 10
+          hype_score: result.new_hype_score
         } : null);
-        
-        // Trigger animation
-        setHypeAnimation(true);
-        setTimeout(() => setHypeAnimation(false), 1000);
       }
-    } catch (error) {
-      console.error('Failed to boost HYPE:', error);
+    } catch (err) {
+      console.error('Failed to boost HYPE:', err);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      await fetch(`/api/hud/${athleteId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'share' })
+      });
+      
+      if (hudData?.share_actions?.share_url) {
+        navigator.share?.({
+          title: `Check out this athlete on UltraPreps!`,
+          url: hudData.share_actions.share_url
+        }) || window.open(hudData.share_actions.share_url, '_blank');
+      }
+    } catch (err) {
+      console.error('Failed to share:', err);
     }
   };
 
   if (loading) {
     return (
-      <div className="animate-pulse bg-gray-800/50 rounded-lg p-6">
-        <div className="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
-        <div className="h-4 bg-gray-700 rounded w-1/2"></div>
+      <div className={`bg-black/90 border border-white/20 rounded-xl p-6 ${className}`}>
+        <div className="animate-pulse">
+          <div className="h-4 bg-white/20 rounded mb-4"></div>
+          <div className="h-8 bg-white/20 rounded mb-4"></div>
+          <div className="h-20 bg-white/20 rounded"></div>
+        </div>
       </div>
     );
   }
 
-  if (!hudData) return null;
+  if (error || !hudData) {
+    return (
+      <div className={`bg-red-500/10 border border-red-500/30 rounded-xl p-6 ${className}`}>
+        <p className="text-red-400">Failed to load HUD data: {error}</p>
+      </div>
+    );
+  }
+
+  const getHypeColor = (score: number) => {
+    if (score >= 90) return 'text-yellow-400 bg-yellow-500/20';
+    if (score >= 75) return 'text-green-400 bg-green-500/20';
+    if (score >= 50) return 'text-blue-400 bg-blue-500/20';
+    return 'text-gray-400 bg-gray-500/20';
+  };
 
   return (
-    <div className="relative bg-gradient-to-b from-gray-900/95 to-black/95 backdrop-blur-xl rounded-lg p-6 border border-gray-800">
-      {/* HYPE Score with Animation */}
-      <motion.div 
-        className="flex items-center justify-between mb-6"
-        animate={hypeAnimation ? { scale: [1, 1.1, 1] } : {}}
-      >
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Zap className="w-8 h-8 text-[#F59E0B]" />
-            {hypeAnimation && (
-              <motion.div
-                className="absolute inset-0"
-                initial={{ scale: 1, opacity: 1 }}
-                animate={{ scale: 2, opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Zap className="w-8 h-8 text-[#F59E0B]" />
-              </motion.div>
-            )}
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-white">{hudData.hype_score.toLocaleString()}</div>
-            <div className="text-xs text-gray-400">HYPE Points</div>
+    <div className={`bg-black/90 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden ${className}`}>
+      {/* Live Indicator */}
+      {isLive && (
+        <div className="bg-red-500/20 border-b border-red-500/30 px-4 py-2">
+          <div className="flex items-center gap-2 text-red-400 text-sm">
+            <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+            LIVE HUD • Last updated: {new Date(hudData.last_updated || Date.now()).toLocaleTimeString()}
           </div>
         </div>
-        
-        {hudData.share_actions.boost_hype && (
-          <button
-            onClick={handleBoostHype}
-            className="px-4 py-2 bg-[#F59E0B] hover:bg-[#F59E0B]/80 text-black font-semibold rounded-lg transition-all transform hover:scale-105"
-          >
-            +10 HYPE
-          </button>
-        )}
-      </motion.div>
+      )}
 
-      {/* Recent Stats */}
-      <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-400 mb-3">RECENT STATS</h3>
-        <div className="grid grid-cols-2 gap-3">
-          {Object.entries(hudData.recent_stats).map(([sport, stats]) => (
-            <div key={sport} className="bg-gray-800/50 rounded-lg p-3">
-              <div className="text-xs text-gray-400 uppercase mb-1">{sport}</div>
-              {Object.entries(stats).slice(0, 2).map(([key, value]) => (
-                <div key={key} className="flex justify-between items-center">
-                  <span className="text-xs text-gray-300">{key}:</span>
-                  <span className="text-sm font-semibold text-white">{value}</span>
+      <div className="p-6">
+        {/* HYPE Score Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center ${getHypeColor(hudData.hype_score)}`}>
+              <span className="text-2xl font-bold">{hudData.hype_score}</span>
+            </div>
+            <div>
+              <h3 className="text-white font-bold text-lg">HYPE SCORE</h3>
+              <p className="text-white/60 text-sm">
+                {hudData.hype_score >= 90 ? 'NUCLEAR' : 
+                 hudData.hype_score >= 75 ? 'HIGH' : 
+                 hudData.hype_score >= 50 ? 'RISING' : 'BUILDING'}
+              </p>
+            </div>
+          </div>
+          
+          {/* Quick Actions */}
+          <div className="flex gap-2">
+            {hudData.share_actions.boost_hype && (
+              <button
+                onClick={handleBoostHype}
+                className="px-3 py-2 bg-yellow-600 text-black font-bold rounded-lg hover:bg-yellow-700 transition-colors"
+              >
+                <Zap className="w-4 h-4 inline mr-1" />
+                Boost
+              </button>
+            )}
+            <button
+              onClick={handleShare}
+              className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Role-Specific Content */}
+        {role === 'student' && hudData.motivational_message && (
+          <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6">
+            <p className="text-green-400 font-medium">{hudData.motivational_message}</p>
+            {hudData.progress_tracking && (
+              <div className="mt-3 grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-white font-bold">{hudData.progress_tracking.weekly_improvement}</div>
+                  <div className="text-white/60 text-xs">Weekly Growth</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-white font-bold">{hudData.progress_tracking.next_milestone}</div>
+                  <div className="text-white/60 text-xs">Next Goal</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-white font-bold">{hudData.progress_tracking.achievement_progress}</div>
+                  <div className="text-white/60 text-xs">Progress</div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {role === 'parent' && hudData.brag_mode && (
+          <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 mb-6">
+            <h4 className="text-purple-400 font-bold mb-3 flex items-center gap-2">
+              <Crown className="w-4 h-4" />
+              Brag Mode
+            </h4>
+            <div className="grid grid-cols-2 gap-3">
+              {hudData.brag_mode.milestones.slice(0, 4).map((milestone: string, index: number) => (
+                <div key={index} className="bg-white/5 rounded p-2 text-sm text-white/80">
+                  {milestone}
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {role === 'recruiter' && hudData.recruiting_package && (
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-6">
+            <h4 className="text-blue-400 font-bold mb-3 flex items-center gap-2">
+              <Target className="w-4 h-4" />
+              Recruiting Package
+            </h4>
+            <div className="space-y-2">
+              <button className="w-full text-left p-2 bg-white/5 rounded hover:bg-white/10 transition-colors">
+                <Mail className="w-4 h-4 inline mr-2" />
+                Contact Coach: {hudData.recruiting.contact.coach_email}
+              </button>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="p-2 bg-white/5 rounded text-center">
+                  <div className="text-white font-bold">{hudData.recruiting.test_scores.sat}</div>
+                  <div className="text-white/60 text-xs">SAT</div>
+                </div>
+                <div className="p-2 bg-white/5 rounded text-center">
+                  <div className="text-white font-bold">{hudData.recruiting.test_scores.act}</div>
+                  <div className="text-white/60 text-xs">ACT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          {Object.entries(hudData.recent_stats).map(([sport, stats]) => (
+            <div key={sport} className="bg-white/5 rounded-lg p-4">
+              <h4 className="text-white font-semibold mb-2 capitalize">{sport}</h4>
+              <div className="space-y-1">
+                {Object.entries(stats).slice(0, 3).map(([stat, value]) => (
+                  <div key={stat} className="flex justify-between text-sm">
+                    <span className="text-white/60 capitalize">{stat}:</span>
+                    <span className="text-white font-medium">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
-      </div>
 
-      {/* Achievements */}
-      {hudData.achievements.length > 0 && (
+        {/* Achievements */}
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-400 mb-3 flex items-center gap-2">
-            <Trophy className="w-4 h-4" />
-            ACHIEVEMENTS
-          </h3>
-          <div className="space-y-2">
-            <AnimatePresence>
-              {hudData.achievements.map((achievement, index) => (
-                <motion.div
-                  key={achievement}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-sm text-gray-300 flex items-center gap-2"
-                >
-                  <Star className="w-3 h-3 text-[#F59E0B]" />
-                  {achievement}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </div>
-      )}
-
-      {/* Academic Info (Role-based) */}
-      {(userRole === 'PARENT' || userRole === 'COLLEGE_SCOUT') && hudData.academics && (
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-400 mb-3">ACADEMICS</h3>
-          <div className="bg-gray-800/50 rounded-lg p-3">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-gray-300">GPA:</span>
-              <span className="text-lg font-bold text-white">{hudData.academics.gpa}</span>
-            </div>
-            {hudData.academics.honors.map(honor => (
-              <div key={honor} className="text-xs text-[#F59E0B]">{honor}</div>
+          <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+            <Award className="w-4 h-4 text-yellow-400" />
+            Recent Achievements
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {hudData.achievements.slice(0, 4).map((achievement, index) => (
+              <span 
+                key={index}
+                className="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-full"
+              >
+                {achievement}
+              </span>
             ))}
           </div>
         </div>
-      )}
 
-      {/* Recruiter View */}
-      {userRole === 'COLLEGE_SCOUT' && hudData.recruiting && (
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-400 mb-3">RECRUITING INFO</h3>
-          <div className="bg-gray-800/50 rounded-lg p-3 space-y-2">
-            {hudData.recruiting.test_scores.sat && (
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-300">SAT:</span>
-                <span className="font-semibold text-white">{hudData.recruiting.test_scores.sat}</span>
+        {/* Highlight Reels */}
+        {hudData.highlight_reels.length > 0 && (
+          <div className="mb-6">
+            <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+              <Video className="w-4 h-4 text-blue-400" />
+              Highlight Reels
+            </h4>
+            <div className="space-y-2">
+              {hudData.highlight_reels.map((reel, index) => (
+                <button
+                  key={index}
+                  className="w-full text-left p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
+                  onClick={() => window.open(reel.url, '_blank')}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <Video className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div>
+                      <div className="text-white font-medium">{reel.title}</div>
+                      <div className="text-white/60 text-sm">Click to watch</div>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-white/40 ml-auto" />
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Academic Info */}
+        <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+          <h4 className="text-green-400 font-semibold mb-3 flex items-center gap-2">
+            <GraduationCap className="w-4 h-4" />
+            Academics
+          </h4>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">{hudData.academics.gpa}</div>
+              <div className="text-white/60 text-sm">GPA</div>
+            </div>
+            <div>
+              <div className="text-white/60 text-sm mb-1">Honors:</div>
+              <div className="flex flex-wrap gap-1">
+                {hudData.academics.honors.slice(0, 2).map((honor, index) => (
+                  <span key={index} className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">
+                    {honor}
+                  </span>
+                ))}
               </div>
-            )}
-            {hudData.recruiting.test_scores.act && (
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-300">ACT:</span>
-                <span className="font-semibold text-white">{hudData.recruiting.test_scores.act}</span>
-              </div>
-            )}
-            {hudData.recruiting.contact.coach_email && (
-              <button className="w-full mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all">
-                Contact Coach
-              </button>
-            )}
+            </div>
           </div>
         </div>
-      )}
-
-      {/* Share Actions */}
-      <div className="flex gap-3">
-        <button className="flex-1 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2">
-          <Share2 className="w-4 h-4" />
-          Share
-        </button>
-        {hudData.share_actions.donate && (
-          <button className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2">
-            <Users className="w-4 h-4" />
-            Support
-          </button>
-        )}
-      </div>
-
-      {/* Live Indicator */}
-      <div className="absolute top-4 right-4 flex items-center gap-2">
-        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-        <span className="text-xs text-green-500">LIVE</span>
       </div>
     </div>
   );

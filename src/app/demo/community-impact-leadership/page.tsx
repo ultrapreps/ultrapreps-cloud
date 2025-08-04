@@ -8,6 +8,7 @@ import {
   Home, School, Building, Gift, Handshake, Vote, Megaphone
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function CommunityImpactLeadershipDemo() {
   const [selectedLeader, setSelectedLeader] = useState(0);
@@ -301,8 +302,12 @@ export default function CommunityImpactLeadershipDemo() {
               transition={{ delay: 0.2 }}
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
-              Watch young athletes become **community transformation leaders** who create lasting change. 
-              This isn't just sports - it's **social impact** that builds legacies beyond trophies.
+              <HighlightText>
+                **community transformation leaders**
+              </HighlightText>
+              <HighlightText>
+                **social impact**
+              </HighlightText>
             </motion.p>
 
             {/* Live Community Impact Stats */}

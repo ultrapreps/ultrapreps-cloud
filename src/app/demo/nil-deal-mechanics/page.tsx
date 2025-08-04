@@ -10,6 +10,7 @@ import {
   Brain, ChevronRight, Play, Pause, Heart
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function NILDealMechanicsDemo() {
   const [selectedDeal, setSelectedDeal] = useState(0);
@@ -361,7 +362,9 @@ export default function NILDealMechanicsDemo() {
               transition={{ delay: 0.2 }}
               className="text-2xl text-white/80 max-w-5xl mx-auto leading-relaxed font-medium mb-8"
             >
-              Watch AI **negotiate million-dollar contracts** for teenage athletes. See the exact 
+              <HighlightText>
+                **negotiate million-dollar contracts**
+              </HighlightText>
               process that turns high school talent into **$500K+ annual empires**.
             </motion.p>
 
@@ -762,7 +765,9 @@ export default function NILDealMechanicsDemo() {
                 AI THAT NEGOTIATES LIKE A $2B AGENCY
               </h2>
               <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-                This is the **exact AI system** that turns high school athletes into **millionaire teenagers**. 
+                <HighlightText>
+                  **exact AI system**
+                </HighlightText>
                 Contract analysis, brand matching, and negotiation optimization that beats human agents.
               </p>
               

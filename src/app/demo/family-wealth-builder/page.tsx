@@ -9,6 +9,7 @@ import {
   PiggyBank, CreditCard, Calculator, Banknote
 } from 'lucide-react';
 import Link from 'next/link';
+import HighlightText from '../../../components/HighlightText';
 
 export default function FamilyWealthBuilderDemo() {
   const [selectedFamily, setSelectedFamily] = useState(0);
@@ -228,8 +229,12 @@ export default function FamilyWealthBuilderDemo() {
               transition={{ delay: 0.2 }}
               className="text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-medium mb-8"
             >
-              Watch real families build **multi-million dollar empires** through strategic sports optimization. 
-              This isn't just college funding - it's **generational wealth creation** for 5+ generations.
+              <HighlightText>
+                **multi-million dollar empires**
+              </HighlightText>
+              <HighlightText>
+                **generational wealth creation**
+              </HighlightText>
             </motion.p>
 
             {/* Live Wealth Creation Stats */}
